@@ -1,5 +1,13 @@
 # Fibre Doctor Kit
 
+Download a prebuilt executable from [v0.1.0 Releases](https://github.com/ttt-labs/fibre-doctor-kit/releases/tag/v0.1.0) and follow [Installation](#installation). Rust, Python and Docker are not required to run it.
+
+| Download | SHA256 checksum | Use |
+| --- | --- | --- |
+| [Linux x86_64 static binary](https://github.com/ttt-labs/fibre-doctor-kit/releases/download/v0.1.0/doctor-fibre-kit-linux-x86_64-musl) | [Linux checksum](https://github.com/ttt-labs/fibre-doctor-kit/releases/download/v0.1.0/doctor-fibre-kit-linux-x86_64-musl.sha256) | Live collection and offline analysis |
+| [Windows x86_64 executable](https://github.com/ttt-labs/fibre-doctor-kit/releases/download/v0.1.0/doctor-fibre-kit-windows-x86_64.exe) | [Windows checksum](https://github.com/ttt-labs/fibre-doctor-kit/releases/download/v0.1.0/doctor-fibre-kit-windows-x86_64.exe.sha256) | Offline analysis and reports |
+| [Complete release ZIP](https://github.com/ttt-labs/fibre-doctor-kit/releases/download/v0.1.0/doctor-fibre-kit-v0.1.0.zip) | [ZIP checksum](https://github.com/ttt-labs/fibre-doctor-kit/releases/download/v0.1.0/doctor-fibre-kit-v0.1.0.zip.sha256) | Both executables, documentation and example report |
+
 ## Overview
 
 Fibre Doctor Kit is a read-only CLI for Celestia Fibre operators. It collects bounded observations on a Linux host, analyzes snapshots offline, models receive-buffer capacity and compares captures in a standalone HTML report.
@@ -32,27 +40,53 @@ Download the HTML file and open it locally in your browser; GitHub displays its 
 
 ## Installation
 
-Cloning this repository gives you source code; prebuilt binaries are not stored in Git. Build from source as described below, or obtain a trusted binary bundle containing `SHA256SUMS` separately. The bundle commands in this section assume you have already obtained and extracted that bundle.
+Use the prebuilt files above for the quickest start. Cloning this repository or downloading GitHub's automatic **Source code (zip)** / **Source code (tar.gz)** archives gives you source code without executables. Those downloads require [building from source](#build-tests-and-packaging).
 
-**Linux:** confirm that `uname -m` reports `x86_64`, verify the bundle, and run its musl executable. The commands below run from the extracted release directory; no system-wide installation is required.
+**Linux:** check the architecture first. Continue with the Linux download only if the output is `x86_64`; this release does not include an ARM executable.
 
 ```sh
 uname -m
-sha256sum -c SHA256SUMS
-chmod +x ./doctor-fibre-kit-linux-x86_64-musl
+```
+
+Download the binary and its checksum into a working directory, verify it, then run it. These commands require `curl` and `sha256sum`; no system-wide installation is required.
+
+```sh
+release_url=https://github.com/ttt-labs/fibre-doctor-kit/releases/download/v0.1.0
+curl -fL "$release_url/doctor-fibre-kit-linux-x86_64-musl" -o doctor-fibre-kit-linux-x86_64-musl &&
+curl -fL "$release_url/doctor-fibre-kit-linux-x86_64-musl.sha256" -o doctor-fibre-kit-linux-x86_64-musl.sha256 &&
+sha256sum -c doctor-fibre-kit-linux-x86_64-musl.sha256 &&
+chmod +x ./doctor-fibre-kit-linux-x86_64-musl &&
 ./doctor-fibre-kit-linux-x86_64-musl --version
+```
+
+If verification reports `OK`, collect a snapshot under an account that already has the required read permissions:
+
+```sh
 ./doctor-fibre-kit-linux-x86_64-musl collect --out snapshot.json
 ```
 
-The Linux artifact is a static binary. Python, Rust and Docker are not required on the validator. Live reads use systemd and `ss` where available; missing commands or permissions reduce collection coverage. Run under an account that already has the required read permissions.
+The Linux artifact is a static binary. Live reads use systemd and `ss` where available; missing commands or permissions reduce collection coverage. Collection reads observations without restarting services or changing node configuration.
 
-**Windows PowerShell:** compare the executable's SHA256 with its entry in `SHA256SUMS`, then run offline analysis.
+**Windows x86_64, PowerShell:** download the executable and verify its SHA256 before running it. Windows supports offline analysis; live collection runs on Linux.
 
 ```powershell
-Get-FileHash .\doctor-fibre-kit-windows-x86_64.exe -Algorithm SHA256
+$ErrorActionPreference = 'Stop'
+$releaseUrl = 'https://github.com/ttt-labs/fibre-doctor-kit/releases/download/v0.1.0'
+Invoke-WebRequest "$releaseUrl/doctor-fibre-kit-windows-x86_64.exe" -OutFile .\doctor-fibre-kit-windows-x86_64.exe
+Invoke-WebRequest "$releaseUrl/doctor-fibre-kit-windows-x86_64.exe.sha256" -OutFile .\doctor-fibre-kit-windows-x86_64.exe.sha256
+$expectedChecksum = ((Get-Content -Raw .\doctor-fibre-kit-windows-x86_64.exe.sha256).Trim() -split '\s+')[0]
+$actualChecksum = (Get-FileHash .\doctor-fibre-kit-windows-x86_64.exe -Algorithm SHA256).Hash
+if ($actualChecksum -ne $expectedChecksum) { throw 'SHA256 mismatch; do not run this download.' }
 .\doctor-fibre-kit-windows-x86_64.exe --version
+```
+
+For a snapshot copied from your Linux host:
+
+```powershell
 .\doctor-fibre-kit-windows-x86_64.exe doctor --snapshot .\snapshot.json
 ```
+
+**Complete ZIP:** alternatively, download the release ZIP and its `.sha256` sidecar from the table. Verify the ZIP before extracting it, using `sha256sum -c doctor-fibre-kit-v0.1.0.zip.sha256` on Linux or the same `Get-FileHash` comparison on Windows with the ZIP filenames. The extracted bundle contains both executables, documentation, an offline example HTML report and an internal `SHA256SUMS` file. On Linux, `sha256sum -c SHA256SUMS` from the extracted directory verifies its contents. A separate [release SHA256SUMS](https://github.com/ttt-labs/fibre-doctor-kit/releases/download/v0.1.0/SHA256SUMS) lists the downloadable binaries and ZIP.
 
 In subsequent examples, `doctor-fibre-kit` means the executable on your PATH. Otherwise substitute `./doctor-fibre-kit-linux-x86_64-musl`, `./target/release/doctor-fibre-kit`, or the corresponding Windows `.exe` path. Shell blocks marked `sh` use POSIX syntax; keep commands on one line when adapting them to PowerShell.
 
