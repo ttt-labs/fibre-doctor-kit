@@ -1,8 +1,8 @@
-# Doctor Fibre Kit
+# Fibre Doctor Kit
 
 ## Overview
 
-Doctor Fibre Kit is a read-only CLI for Celestia Fibre operators. It collects bounded observations on a Linux host, analyzes snapshots offline, models receive-buffer capacity and compares captures in a standalone HTML report.
+Fibre Doctor Kit is a read-only CLI for Celestia Fibre operators. It collects bounded observations on a Linux host, analyzes snapshots offline, models receive-buffer capacity and compares captures in a standalone HTML report.
 
 Version 0.1 has a terminal interface and an interactive **report viewer** in English. Expand findings in the HTML to inspect evidence and verification steps. The viewer cannot start collection, connect to SSH or change configuration. There is no desktop control panel or background dashboard.
 
