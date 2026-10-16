@@ -52,4 +52,4 @@ The optional browser verification needs Python/Playwright on a development machi
 - Live signing freshness stays unverified unless independent activity evidence is provided. A recent scrape alone is insufficient.
 - Live OTel autodiscovery has parser/ownership validation and lab coverage of explicit endpoints; production OTel deployments have not been exercised end-to-end. Unsupported or ambiguous configurations remain unavailable.
 - No stress benchmark, restart/recovery, prune mutation or automatic tuning is included.
-- The CI workflow is supplied but has not been published or run on GitHub. Local commands above are the validation evidence.
+- GitHub Actions passed for source commit `7964e6d6a4f44aca2acb328859f77e8b93d68e62` on 2026-10-16: Windows and Ubuntu formatting, tests, Clippy and release builds, plus Linux musl tests and release build. See the [hosted validation run](https://github.com/ttt-labs/ttt-fibre/actions/runs/38860685067). This supplements the local evidence above; hosted CI does not exercise a production validator.
