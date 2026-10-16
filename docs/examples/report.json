@@ -1,0 +1,1157 @@
+{
+  "capacity": [
+    {
+      "connections": "16",
+      "evidence": [
+        "ancestor_limits_complete=false",
+        "buffer_per_stream_bytes=138412032",
+        "connections=16",
+        "fd_evidence_complete=false",
+        "host_available_bytes=51539607552",
+        "host_total_bytes=68719476736",
+        "memory_anon_bytes=234881024",
+        "memory_current_bytes=268435456",
+        "memory_file_bytes=29360128",
+        "profile_explicit_assumption=true",
+        "rss_bytes=234881024",
+        "streams=13"
+      ],
+      "limitations": [
+        "max_connections × max_concurrent_streams × 132 MiB. This is a version-specific receive buffer model, not measured RAM or a whole-process memory ceiling.",
+        "Increasing connections also increases modeled receive buffers. Current low RSS does not establish safe load capacity; FD and shared-host limits require separate evidence."
+      ],
+      "profile": "v10.4.0-mocha",
+      "profile_source": "DEFAULT_ASSUMED",
+      "receive_buffer_bytes": "28789702656",
+      "scenarios": [
+        {
+          "connections": "16",
+          "receive_buffer_bytes": "28789702656",
+          "streams": "13"
+        },
+        {
+          "connections": "24",
+          "receive_buffer_bytes": "43184553984",
+          "streams": "13"
+        },
+        {
+          "connections": "32",
+          "receive_buffer_bytes": "57579405312",
+          "streams": "13"
+        }
+      ],
+      "status": "WARN",
+      "streams": "13"
+    },
+    {
+      "connections": "16",
+      "evidence": [
+        "ancestor_limits_complete=false",
+        "buffer_per_stream_bytes=138412032",
+        "connections=16",
+        "fd_evidence_complete=false",
+        "host_available_bytes=51472498688",
+        "host_total_bytes=68719476736",
+        "memory_anon_bytes=234881024",
+        "memory_current_bytes=268431360",
+        "memory_file_bytes=29356032",
+        "profile_explicit_assumption=true",
+        "rss_bytes=234881024",
+        "streams=13"
+      ],
+      "limitations": [
+        "max_connections × max_concurrent_streams × 132 MiB. This is a version-specific receive buffer model, not measured RAM or a whole-process memory ceiling.",
+        "Increasing connections also increases modeled receive buffers. Current low RSS does not establish safe load capacity; FD and shared-host limits require separate evidence."
+      ],
+      "profile": "v10.4.0-mocha",
+      "profile_source": "DEFAULT_ASSUMED",
+      "receive_buffer_bytes": "28789702656",
+      "scenarios": [
+        {
+          "connections": "16",
+          "receive_buffer_bytes": "28789702656",
+          "streams": "13"
+        },
+        {
+          "connections": "24",
+          "receive_buffer_bytes": "43184553984",
+          "streams": "13"
+        },
+        {
+          "connections": "32",
+          "receive_buffer_bytes": "57579405312",
+          "streams": "13"
+        }
+      ],
+      "status": "WARN",
+      "streams": "13"
+    }
+  ],
+  "comparison": {
+    "clock_basis": "estimated_wall_clock",
+    "elapsed_seconds": "83.41201019999971",
+    "host_metrics": [
+      {
+        "after": "51472498688",
+        "before": "51539607552",
+        "delta": "-67108864",
+        "metric": "memory_available_bytes",
+        "rate_per_second": null,
+        "reason_code": "gauge_difference"
+      },
+      {
+        "after": "68719476736",
+        "before": "68719476736",
+        "delta": "0",
+        "metric": "memory_total_bytes",
+        "rate_per_second": null,
+        "reason_code": "gauge_difference"
+      },
+      {
+        "after": "824566611968",
+        "before": "824633720832",
+        "delta": "-67108864",
+        "metric": "root_available_bytes",
+        "rate_per_second": null,
+        "reason_code": "gauge_difference"
+      }
+    ],
+    "mode": "temporal",
+    "services": [
+      {
+        "identity_match": "HeuristicLegacy",
+        "metrics": [
+          {
+            "after": "2147483648",
+            "before": "2147483648",
+            "delta": "0",
+            "metric": "rss_bytes",
+            "rate_per_second": null,
+            "reason_code": "gauge_difference"
+          },
+          {
+            "after": "4362076160",
+            "before": "4294967296",
+            "delta": "67108864",
+            "metric": "memory_current_bytes",
+            "rate_per_second": null,
+            "reason_code": "gauge_difference"
+          },
+          {
+            "after": "5368709120",
+            "before": "5368709120",
+            "delta": "0",
+            "metric": "memory_peak_bytes",
+            "rate_per_second": null,
+            "reason_code": "gauge_difference"
+          },
+          {
+            "after": "2147483648",
+            "before": "2147483648",
+            "delta": "0",
+            "metric": "memory_anon_bytes",
+            "rate_per_second": null,
+            "reason_code": "gauge_difference"
+          },
+          {
+            "after": "1946157056",
+            "before": "1879048192",
+            "delta": "67108864",
+            "metric": "memory_file_bytes",
+            "rate_per_second": null,
+            "reason_code": "gauge_difference"
+          },
+          {
+            "after": "268435456",
+            "before": "268435456",
+            "delta": "0",
+            "metric": "memory_kernel_bytes",
+            "rate_per_second": null,
+            "reason_code": "gauge_difference"
+          },
+          {
+            "after": null,
+            "before": null,
+            "delta": null,
+            "metric": "fd_count",
+            "rate_per_second": null,
+            "reason_code": "gauge_unverified"
+          },
+          {
+            "after": "58000000000",
+            "before": "50000000000",
+            "delta": "8000000000",
+            "metric": "cpu_usage_ns",
+            "rate_per_second": "95909449.740129",
+            "reason_code": "estimated_wall_clock"
+          },
+          {
+            "after": "0",
+            "before": "0",
+            "delta": "0",
+            "metric": "memory_events.high",
+            "rate_per_second": "0",
+            "reason_code": "estimated_wall_clock"
+          },
+          {
+            "after": "0",
+            "before": "0",
+            "delta": "0",
+            "metric": "memory_events.low",
+            "rate_per_second": "0",
+            "reason_code": "estimated_wall_clock"
+          },
+          {
+            "after": "0",
+            "before": "0",
+            "delta": "0",
+            "metric": "memory_events.max",
+            "rate_per_second": "0",
+            "reason_code": "estimated_wall_clock"
+          },
+          {
+            "after": "0",
+            "before": "0",
+            "delta": "0",
+            "metric": "memory_events.oom",
+            "rate_per_second": "0",
+            "reason_code": "estimated_wall_clock"
+          },
+          {
+            "after": "0",
+            "before": "0",
+            "delta": "0",
+            "metric": "memory_events.oom_kill",
+            "rate_per_second": "0",
+            "reason_code": "estimated_wall_clock"
+          }
+        ],
+        "reason_codes": [
+          "legacy_match",
+          "legacy_unknown",
+          "legacy_accepted"
+        ],
+        "service": "app"
+      },
+      {
+        "identity_match": "HeuristicLegacy",
+        "metrics": [
+          {
+            "after": "234881024",
+            "before": "234881024",
+            "delta": "0",
+            "metric": "rss_bytes",
+            "rate_per_second": null,
+            "reason_code": "gauge_difference"
+          },
+          {
+            "after": "268431360",
+            "before": "268435456",
+            "delta": "-4096",
+            "metric": "memory_current_bytes",
+            "rate_per_second": null,
+            "reason_code": "gauge_difference"
+          },
+          {
+            "after": "536870912",
+            "before": "536870912",
+            "delta": "0",
+            "metric": "memory_peak_bytes",
+            "rate_per_second": null,
+            "reason_code": "gauge_difference"
+          },
+          {
+            "after": "234881024",
+            "before": "234881024",
+            "delta": "0",
+            "metric": "memory_anon_bytes",
+            "rate_per_second": null,
+            "reason_code": "gauge_difference"
+          },
+          {
+            "after": "29356032",
+            "before": "29360128",
+            "delta": "-4096",
+            "metric": "memory_file_bytes",
+            "rate_per_second": null,
+            "reason_code": "gauge_difference"
+          },
+          {
+            "after": "4194304",
+            "before": "4194304",
+            "delta": "0",
+            "metric": "memory_kernel_bytes",
+            "rate_per_second": null,
+            "reason_code": "gauge_difference"
+          },
+          {
+            "after": null,
+            "before": null,
+            "delta": null,
+            "metric": "fd_count",
+            "rate_per_second": null,
+            "reason_code": "gauge_unverified"
+          },
+          {
+            "after": "1040000000",
+            "before": "1000000000",
+            "delta": "40000000",
+            "metric": "cpu_usage_ns",
+            "rate_per_second": "479547.248700645",
+            "reason_code": "estimated_wall_clock"
+          },
+          {
+            "after": "0",
+            "before": "0",
+            "delta": "0",
+            "metric": "memory_events.high",
+            "rate_per_second": "0",
+            "reason_code": "estimated_wall_clock"
+          },
+          {
+            "after": "0",
+            "before": "0",
+            "delta": "0",
+            "metric": "memory_events.low",
+            "rate_per_second": "0",
+            "reason_code": "estimated_wall_clock"
+          },
+          {
+            "after": "0",
+            "before": "0",
+            "delta": "0",
+            "metric": "memory_events.max",
+            "rate_per_second": "0",
+            "reason_code": "estimated_wall_clock"
+          },
+          {
+            "after": "0",
+            "before": "0",
+            "delta": "0",
+            "metric": "memory_events.oom",
+            "rate_per_second": "0",
+            "reason_code": "estimated_wall_clock"
+          },
+          {
+            "after": "0",
+            "before": "0",
+            "delta": "0",
+            "metric": "memory_events.oom_kill",
+            "rate_per_second": "0",
+            "reason_code": "estimated_wall_clock"
+          }
+        ],
+        "reason_codes": [
+          "legacy_match",
+          "legacy_unknown",
+          "legacy_accepted"
+        ],
+        "service": "fibre"
+      }
+    ],
+    "warning_codes": [
+      "estimated_wall_clock"
+    ],
+    "warning_count": "1"
+  },
+  "findings": [
+    [
+      {
+        "evidence": [
+          "issue_count=2"
+        ],
+        "id": "collection_issues",
+        "impact": "Collection errors limit what this report can conclude; they do not by themselves prove a node fault.",
+        "recommendation": "Resolve missing inputs or access limitations before relying on affected checks.",
+        "status": "INCONCLUSIVE",
+        "title": "Collection coverage",
+        "verification": "Inspect collection statuses and repeat the bounded read-only capture."
+      },
+      {
+        "evidence": [
+          "available_bytes=51539607552",
+          "total_bytes=68719476736"
+        ],
+        "id": "host_memory",
+        "impact": "Available host memory is shared by all workloads and can change under load.",
+        "recommendation": "Evaluate the capacity model together with shared workloads and cgroup limits.",
+        "status": "PASS",
+        "title": "Host memory headroom",
+        "verification": "Read MemAvailable and the service and ancestor limits in this report."
+      },
+      {
+        "evidence": [
+          "service=app",
+          "status=active"
+        ],
+        "id": "service_state",
+        "impact": "An active service confirms process state only, not synchronization, reachability or historical uptime.",
+        "recommendation": "Review any inactive or unavailable service observation alongside application evidence.",
+        "status": "PASS",
+        "title": "Service state",
+        "verification": "Read systemd service state and compare with the captured application status."
+      },
+      {
+        "evidence": [
+          "service=app"
+        ],
+        "id": "process_stability",
+        "impact": "A process change during capture can mix observations from different lifetimes.",
+        "recommendation": "Use identity-stable captures for temporal comparisons.",
+        "status": "INCONCLUSIVE",
+        "title": "Process identity stability",
+        "verification": "Compare PID and start identity before and after capture without restarting services."
+      },
+      {
+        "evidence": [
+          "memory_anon_bytes=2147483648",
+          "memory_current_bytes=4294967296",
+          "memory_file_bytes=1879048192",
+          "rss_bytes=2147483648",
+          "service=app"
+        ],
+        "id": "service_memory",
+        "impact": "RSS and cgroup values describe different overlapping scopes; file cache is not anonymous heap.",
+        "recommendation": "Keep each memory component separate and compare like-for-like measurements.",
+        "status": "PASS",
+        "title": "Memory accounting",
+        "verification": "Inspect RSS, memory.current, anon, file and kernel values without summing overlaps."
+      },
+      {
+        "evidence": [
+          "ancestor_count=0",
+          "ancestor_limits_complete=false",
+          "service=app"
+        ],
+        "id": "cgroup_limits",
+        "impact": "Ancestor limits can constrain a service even when its own memory limit is unlimited.",
+        "recommendation": "Review finite limits across the hierarchy before increasing concurrency.",
+        "status": "INCONCLUSIVE",
+        "title": "Cgroup limits",
+        "verification": "Read memory.high and memory.max for the service and its ancestors."
+      },
+      {
+        "evidence": [
+          "high=0",
+          "max=0",
+          "oom=0",
+          "oom_kill=0",
+          "service=app"
+        ],
+        "id": "memory_events",
+        "impact": "OOM and limit events are counters for their cgroup lifetime, not proof of a current incident.",
+        "recommendation": "Investigate nonzero counters and use valid continuity evidence for new-event deltas.",
+        "status": "PASS",
+        "title": "Memory events",
+        "verification": "Read memory.events and compare only within a verified cgroup lifetime."
+      },
+      {
+        "evidence": [
+          "service=app"
+        ],
+        "id": "file_descriptors",
+        "impact": "Open descriptors must be compared with the effective process limit; FDSize is not an open-FD count.",
+        "recommendation": "Review descriptor headroom before changing connection counts.",
+        "status": "INCONCLUSIVE",
+        "title": "File descriptor capacity",
+        "verification": "Count the process FD entries and read its soft and hard limits."
+      },
+      {
+        "evidence": [
+          "service=app"
+        ],
+        "id": "data_filesystem",
+        "impact": "Filesystem free space and logical Fibre budget measure different things. Shared mounts share capacity.",
+        "recommendation": "Review free bytes and inodes on the actual data filesystem.",
+        "status": "INCONCLUSIVE",
+        "title": "Data filesystem headroom",
+        "verification": "Read data mount capacity; do not infer physical disk separation from device IDs alone."
+      },
+      {
+        "evidence": [
+          "service=fibre",
+          "status=active"
+        ],
+        "id": "service_state",
+        "impact": "An active service confirms process state only, not synchronization, reachability or historical uptime.",
+        "recommendation": "Review any inactive or unavailable service observation alongside application evidence.",
+        "status": "PASS",
+        "title": "Service state",
+        "verification": "Read systemd service state and compare with the captured application status."
+      },
+      {
+        "evidence": [
+          "service=fibre"
+        ],
+        "id": "process_stability",
+        "impact": "A process change during capture can mix observations from different lifetimes.",
+        "recommendation": "Use identity-stable captures for temporal comparisons.",
+        "status": "INCONCLUSIVE",
+        "title": "Process identity stability",
+        "verification": "Compare PID and start identity before and after capture without restarting services."
+      },
+      {
+        "evidence": [
+          "memory_anon_bytes=234881024",
+          "memory_current_bytes=268435456",
+          "memory_file_bytes=29360128",
+          "rss_bytes=234881024",
+          "service=fibre"
+        ],
+        "id": "service_memory",
+        "impact": "RSS and cgroup values describe different overlapping scopes; file cache is not anonymous heap.",
+        "recommendation": "Keep each memory component separate and compare like-for-like measurements.",
+        "status": "PASS",
+        "title": "Memory accounting",
+        "verification": "Inspect RSS, memory.current, anon, file and kernel values without summing overlaps."
+      },
+      {
+        "evidence": [
+          "ancestor_count=0",
+          "ancestor_limits_complete=false",
+          "service=fibre"
+        ],
+        "id": "cgroup_limits",
+        "impact": "Ancestor limits can constrain a service even when its own memory limit is unlimited.",
+        "recommendation": "Review finite limits across the hierarchy before increasing concurrency.",
+        "status": "INCONCLUSIVE",
+        "title": "Cgroup limits",
+        "verification": "Read memory.high and memory.max for the service and its ancestors."
+      },
+      {
+        "evidence": [
+          "high=0",
+          "max=0",
+          "oom=0",
+          "oom_kill=0",
+          "service=fibre"
+        ],
+        "id": "memory_events",
+        "impact": "OOM and limit events are counters for their cgroup lifetime, not proof of a current incident.",
+        "recommendation": "Investigate nonzero counters and use valid continuity evidence for new-event deltas.",
+        "status": "PASS",
+        "title": "Memory events",
+        "verification": "Read memory.events and compare only within a verified cgroup lifetime."
+      },
+      {
+        "evidence": [
+          "service=fibre"
+        ],
+        "id": "file_descriptors",
+        "impact": "Open descriptors must be compared with the effective process limit; FDSize is not an open-FD count.",
+        "recommendation": "Review descriptor headroom before changing connection counts.",
+        "status": "INCONCLUSIVE",
+        "title": "File descriptor capacity",
+        "verification": "Count the process FD entries and read its soft and hard limits."
+      },
+      {
+        "evidence": [
+          "service=fibre"
+        ],
+        "id": "data_filesystem",
+        "impact": "Filesystem free space and logical Fibre budget measure different things. Shared mounts share capacity.",
+        "recommendation": "Review free bytes and inodes on the actual data filesystem.",
+        "status": "INCONCLUSIVE",
+        "title": "Data filesystem headroom",
+        "verification": "Read data mount capacity; do not infer physical disk separation from device IDs alone."
+      },
+      {
+        "evidence": [],
+        "id": "storage_scan",
+        "impact": "A bounded scan may stop early. Observed apparent and allocated bytes are distinct and are not guaranteed reclaimable space.",
+        "recommendation": "Read completeness, stop conditions and counts before interpreting storage numbers.",
+        "status": "INCONCLUSIVE",
+        "title": "Storage scan completeness",
+        "verification": "Inspect worker checkpoints, scan duration and errors; keep files untouched."
+      },
+      {
+        "evidence": [],
+        "id": "app_sync",
+        "impact": "A captured synchronization flag is a point-in-time observation; missing RPC data is not proof of synchronization failure.",
+        "recommendation": "Check verified local status and block progression when synchronization evidence is incomplete.",
+        "status": "INCONCLUSIVE",
+        "title": "Consensus synchronization evidence",
+        "verification": "Read the configured loopback status endpoint without changing service state."
+      },
+      {
+        "evidence": [
+          "freshness_verified=false",
+          "sample_count=0",
+          "target_verified=false"
+        ],
+        "id": "metrics_evidence",
+        "impact": "OTLP export success or HTTP 200 alone does not prove current samples from this Fibre process.",
+        "recommendation": "Use a known exporter or metrics file and verify target identity and freshness.",
+        "status": "INCONCLUSIVE",
+        "title": "Metrics target and freshness",
+        "verification": "Inspect the configured metrics pipeline and timestamps without guessing ports."
+      },
+      {
+        "evidence": [
+          "core_version_observed=false"
+        ],
+        "id": "signing_latency",
+        "impact": "The supported median check requires the right core version, at least 50 successful samples and current target evidence. Fibre endorsement timing is a different measurement.",
+        "recommendation": "Treat warm-up, unknown versions and stale samples as insufficient evidence, not a pass.",
+        "status": "INCONCLUSIVE",
+        "title": "Signing latency evidence",
+        "verification": "Verify signing_latency_median_seconds, successful histogram counts, target and sample freshness; the supported threshold is 0.010 seconds."
+      },
+      {
+        "evidence": [
+          "budget_series_count=0",
+          "occupancy_series_count=0"
+        ],
+        "id": "storage_budget",
+        "impact": "Logical occupancy and budget are application accounting; neither equals filesystem usage or staging bytes.",
+        "recommendation": "Compare verified occupancy and budget metrics separately from measured directory and filesystem bytes.",
+        "status": "INCONCLUSIVE",
+        "title": "Logical occupancy and storage budget",
+        "verification": "Confirm the same Fibre target, metric freshness, budget mode and valid nonnegative values."
+      },
+      {
+        "evidence": [],
+        "id": "shared_data_filesystem",
+        "impact": "Services on the same filesystem compete for available space. Different device IDs alone do not prove separate physical disks.",
+        "recommendation": "Account for other services when evaluating storage headroom.",
+        "status": "INCONCLUSIVE",
+        "title": "Data filesystem sharing",
+        "verification": "Resolve service data directories to filesystem identities and verify topology separately."
+      }
+    ],
+    [
+      {
+        "evidence": [
+          "issue_count=2"
+        ],
+        "id": "collection_issues",
+        "impact": "Collection errors limit what this report can conclude; they do not by themselves prove a node fault.",
+        "recommendation": "Resolve missing inputs or access limitations before relying on affected checks.",
+        "status": "INCONCLUSIVE",
+        "title": "Collection coverage",
+        "verification": "Inspect collection statuses and repeat the bounded read-only capture."
+      },
+      {
+        "evidence": [
+          "available_bytes=51472498688",
+          "total_bytes=68719476736"
+        ],
+        "id": "host_memory",
+        "impact": "Available host memory is shared by all workloads and can change under load.",
+        "recommendation": "Evaluate the capacity model together with shared workloads and cgroup limits.",
+        "status": "PASS",
+        "title": "Host memory headroom",
+        "verification": "Read MemAvailable and the service and ancestor limits in this report."
+      },
+      {
+        "evidence": [
+          "service=app",
+          "status=active"
+        ],
+        "id": "service_state",
+        "impact": "An active service confirms process state only, not synchronization, reachability or historical uptime.",
+        "recommendation": "Review any inactive or unavailable service observation alongside application evidence.",
+        "status": "PASS",
+        "title": "Service state",
+        "verification": "Read systemd service state and compare with the captured application status."
+      },
+      {
+        "evidence": [
+          "service=app"
+        ],
+        "id": "process_stability",
+        "impact": "A process change during capture can mix observations from different lifetimes.",
+        "recommendation": "Use identity-stable captures for temporal comparisons.",
+        "status": "INCONCLUSIVE",
+        "title": "Process identity stability",
+        "verification": "Compare PID and start identity before and after capture without restarting services."
+      },
+      {
+        "evidence": [
+          "memory_anon_bytes=2147483648",
+          "memory_current_bytes=4362076160",
+          "memory_file_bytes=1946157056",
+          "rss_bytes=2147483648",
+          "service=app"
+        ],
+        "id": "service_memory",
+        "impact": "RSS and cgroup values describe different overlapping scopes; file cache is not anonymous heap.",
+        "recommendation": "Keep each memory component separate and compare like-for-like measurements.",
+        "status": "PASS",
+        "title": "Memory accounting",
+        "verification": "Inspect RSS, memory.current, anon, file and kernel values without summing overlaps."
+      },
+      {
+        "evidence": [
+          "ancestor_count=0",
+          "ancestor_limits_complete=false",
+          "service=app"
+        ],
+        "id": "cgroup_limits",
+        "impact": "Ancestor limits can constrain a service even when its own memory limit is unlimited.",
+        "recommendation": "Review finite limits across the hierarchy before increasing concurrency.",
+        "status": "INCONCLUSIVE",
+        "title": "Cgroup limits",
+        "verification": "Read memory.high and memory.max for the service and its ancestors."
+      },
+      {
+        "evidence": [
+          "high=0",
+          "max=0",
+          "oom=0",
+          "oom_kill=0",
+          "service=app"
+        ],
+        "id": "memory_events",
+        "impact": "OOM and limit events are counters for their cgroup lifetime, not proof of a current incident.",
+        "recommendation": "Investigate nonzero counters and use valid continuity evidence for new-event deltas.",
+        "status": "PASS",
+        "title": "Memory events",
+        "verification": "Read memory.events and compare only within a verified cgroup lifetime."
+      },
+      {
+        "evidence": [
+          "service=app"
+        ],
+        "id": "file_descriptors",
+        "impact": "Open descriptors must be compared with the effective process limit; FDSize is not an open-FD count.",
+        "recommendation": "Review descriptor headroom before changing connection counts.",
+        "status": "INCONCLUSIVE",
+        "title": "File descriptor capacity",
+        "verification": "Count the process FD entries and read its soft and hard limits."
+      },
+      {
+        "evidence": [
+          "service=app"
+        ],
+        "id": "data_filesystem",
+        "impact": "Filesystem free space and logical Fibre budget measure different things. Shared mounts share capacity.",
+        "recommendation": "Review free bytes and inodes on the actual data filesystem.",
+        "status": "INCONCLUSIVE",
+        "title": "Data filesystem headroom",
+        "verification": "Read data mount capacity; do not infer physical disk separation from device IDs alone."
+      },
+      {
+        "evidence": [
+          "service=fibre",
+          "status=active"
+        ],
+        "id": "service_state",
+        "impact": "An active service confirms process state only, not synchronization, reachability or historical uptime.",
+        "recommendation": "Review any inactive or unavailable service observation alongside application evidence.",
+        "status": "PASS",
+        "title": "Service state",
+        "verification": "Read systemd service state and compare with the captured application status."
+      },
+      {
+        "evidence": [
+          "service=fibre"
+        ],
+        "id": "process_stability",
+        "impact": "A process change during capture can mix observations from different lifetimes.",
+        "recommendation": "Use identity-stable captures for temporal comparisons.",
+        "status": "INCONCLUSIVE",
+        "title": "Process identity stability",
+        "verification": "Compare PID and start identity before and after capture without restarting services."
+      },
+      {
+        "evidence": [
+          "memory_anon_bytes=234881024",
+          "memory_current_bytes=268431360",
+          "memory_file_bytes=29356032",
+          "rss_bytes=234881024",
+          "service=fibre"
+        ],
+        "id": "service_memory",
+        "impact": "RSS and cgroup values describe different overlapping scopes; file cache is not anonymous heap.",
+        "recommendation": "Keep each memory component separate and compare like-for-like measurements.",
+        "status": "PASS",
+        "title": "Memory accounting",
+        "verification": "Inspect RSS, memory.current, anon, file and kernel values without summing overlaps."
+      },
+      {
+        "evidence": [
+          "ancestor_count=0",
+          "ancestor_limits_complete=false",
+          "service=fibre"
+        ],
+        "id": "cgroup_limits",
+        "impact": "Ancestor limits can constrain a service even when its own memory limit is unlimited.",
+        "recommendation": "Review finite limits across the hierarchy before increasing concurrency.",
+        "status": "INCONCLUSIVE",
+        "title": "Cgroup limits",
+        "verification": "Read memory.high and memory.max for the service and its ancestors."
+      },
+      {
+        "evidence": [
+          "high=0",
+          "max=0",
+          "oom=0",
+          "oom_kill=0",
+          "service=fibre"
+        ],
+        "id": "memory_events",
+        "impact": "OOM and limit events are counters for their cgroup lifetime, not proof of a current incident.",
+        "recommendation": "Investigate nonzero counters and use valid continuity evidence for new-event deltas.",
+        "status": "PASS",
+        "title": "Memory events",
+        "verification": "Read memory.events and compare only within a verified cgroup lifetime."
+      },
+      {
+        "evidence": [
+          "service=fibre"
+        ],
+        "id": "file_descriptors",
+        "impact": "Open descriptors must be compared with the effective process limit; FDSize is not an open-FD count.",
+        "recommendation": "Review descriptor headroom before changing connection counts.",
+        "status": "INCONCLUSIVE",
+        "title": "File descriptor capacity",
+        "verification": "Count the process FD entries and read its soft and hard limits."
+      },
+      {
+        "evidence": [
+          "service=fibre"
+        ],
+        "id": "data_filesystem",
+        "impact": "Filesystem free space and logical Fibre budget measure different things. Shared mounts share capacity.",
+        "recommendation": "Review free bytes and inodes on the actual data filesystem.",
+        "status": "INCONCLUSIVE",
+        "title": "Data filesystem headroom",
+        "verification": "Read data mount capacity; do not infer physical disk separation from device IDs alone."
+      },
+      {
+        "evidence": [],
+        "id": "storage_scan",
+        "impact": "A bounded scan may stop early. Observed apparent and allocated bytes are distinct and are not guaranteed reclaimable space.",
+        "recommendation": "Read completeness, stop conditions and counts before interpreting storage numbers.",
+        "status": "INCONCLUSIVE",
+        "title": "Storage scan completeness",
+        "verification": "Inspect worker checkpoints, scan duration and errors; keep files untouched."
+      },
+      {
+        "evidence": [],
+        "id": "app_sync",
+        "impact": "A captured synchronization flag is a point-in-time observation; missing RPC data is not proof of synchronization failure.",
+        "recommendation": "Check verified local status and block progression when synchronization evidence is incomplete.",
+        "status": "INCONCLUSIVE",
+        "title": "Consensus synchronization evidence",
+        "verification": "Read the configured loopback status endpoint without changing service state."
+      },
+      {
+        "evidence": [
+          "freshness_verified=false",
+          "sample_count=0",
+          "target_verified=false"
+        ],
+        "id": "metrics_evidence",
+        "impact": "OTLP export success or HTTP 200 alone does not prove current samples from this Fibre process.",
+        "recommendation": "Use a known exporter or metrics file and verify target identity and freshness.",
+        "status": "INCONCLUSIVE",
+        "title": "Metrics target and freshness",
+        "verification": "Inspect the configured metrics pipeline and timestamps without guessing ports."
+      },
+      {
+        "evidence": [
+          "core_version_observed=false"
+        ],
+        "id": "signing_latency",
+        "impact": "The supported median check requires the right core version, at least 50 successful samples and current target evidence. Fibre endorsement timing is a different measurement.",
+        "recommendation": "Treat warm-up, unknown versions and stale samples as insufficient evidence, not a pass.",
+        "status": "INCONCLUSIVE",
+        "title": "Signing latency evidence",
+        "verification": "Verify signing_latency_median_seconds, successful histogram counts, target and sample freshness; the supported threshold is 0.010 seconds."
+      },
+      {
+        "evidence": [
+          "budget_series_count=0",
+          "occupancy_series_count=0"
+        ],
+        "id": "storage_budget",
+        "impact": "Logical occupancy and budget are application accounting; neither equals filesystem usage or staging bytes.",
+        "recommendation": "Compare verified occupancy and budget metrics separately from measured directory and filesystem bytes.",
+        "status": "INCONCLUSIVE",
+        "title": "Logical occupancy and storage budget",
+        "verification": "Confirm the same Fibre target, metric freshness, budget mode and valid nonnegative values."
+      },
+      {
+        "evidence": [],
+        "id": "shared_data_filesystem",
+        "impact": "Services on the same filesystem compete for available space. Different device IDs alone do not prove separate physical disks.",
+        "recommendation": "Account for other services when evaluating storage headroom.",
+        "status": "INCONCLUSIVE",
+        "title": "Data filesystem sharing",
+        "verification": "Resolve service data directories to filesystem identities and verify topology separately."
+      }
+    ]
+  ],
+  "redaction": "allowlisted_public_projection",
+  "report_schema_version": 1,
+  "snapshots": [
+    {
+      "app_status": {
+        "block_height": null,
+        "catching_up": null,
+        "status": "error"
+      },
+      "capture": {
+        "finished_epoch_seconds": null,
+        "input_format": "legacy_v0",
+        "started_epoch_seconds": "10000"
+      },
+      "collection_issue_count": "2",
+      "collector_version": null,
+      "config": {
+        "root.max_concurrent_streams": {
+          "source": "CONFIG_FILE",
+          "value": "13"
+        },
+        "root.max_connections": {
+          "source": "CONFIG_FILE",
+          "value": "16"
+        },
+        "root.min_upload_size": {
+          "source": "CONFIG_FILE",
+          "value": "262144"
+        },
+        "root.unlimited_budget": {
+          "source": "CONFIG_FILE",
+          "value": false
+        },
+        "root.upload_verify_workers": {
+          "source": "CONFIG_FILE",
+          "value": "32"
+        }
+      },
+      "host": {
+        "cpu_count": null,
+        "memory_available_bytes": "51539607552",
+        "memory_total_bytes": "68719476736",
+        "root_filesystem": {
+          "available_bytes": "824633720832",
+          "available_inodes": null,
+          "total_bytes": "1099511627776",
+          "total_inodes": null
+        },
+        "swap_free_bytes": "8589934592",
+        "swap_total_bytes": "8589934592"
+      },
+      "metrics": {
+        "freshness_verified": false,
+        "samples": [],
+        "status": "unknown",
+        "target_verified": false
+      },
+      "scans": [],
+      "schema_version": 1,
+      "self_usage": null,
+      "services": [
+        {
+          "active_state": "active",
+          "ancestor_limits": [],
+          "ancestor_limits_complete": false,
+          "collection_status": "complete",
+          "cpu_usage_ns": "50000000000",
+          "data_filesystem": null,
+          "fd_count": null,
+          "fd_hard_limit": null,
+          "fd_inspection_complete": false,
+          "fd_soft_limit": null,
+          "memory_anon_bytes": "2147483648",
+          "memory_current_bytes": "4294967296",
+          "memory_events": {
+            "high": "0",
+            "low": "0",
+            "max": "0",
+            "oom": "0",
+            "oom_kill": "0"
+          },
+          "memory_file_bytes": "1879048192",
+          "memory_high": {
+            "kind": "unlimited"
+          },
+          "memory_kernel_bytes": "268435456",
+          "memory_max": {
+            "kind": "unlimited"
+          },
+          "memory_peak_bytes": "5368709120",
+          "restart_count": "0",
+          "role": "app",
+          "rss_bytes": "2147483648",
+          "stable_during_capture": null,
+          "version": null,
+          "version_source": null
+        },
+        {
+          "active_state": "active",
+          "ancestor_limits": [],
+          "ancestor_limits_complete": false,
+          "collection_status": "complete",
+          "cpu_usage_ns": "1000000000",
+          "data_filesystem": null,
+          "fd_count": null,
+          "fd_hard_limit": null,
+          "fd_inspection_complete": false,
+          "fd_soft_limit": null,
+          "memory_anon_bytes": "234881024",
+          "memory_current_bytes": "268435456",
+          "memory_events": {
+            "high": "0",
+            "low": "0",
+            "max": "0",
+            "oom": "0",
+            "oom_kill": "0"
+          },
+          "memory_file_bytes": "29360128",
+          "memory_high": {
+            "kind": "unlimited"
+          },
+          "memory_kernel_bytes": "4194304",
+          "memory_max": {
+            "kind": "unlimited"
+          },
+          "memory_peak_bytes": "536870912",
+          "restart_count": "0",
+          "role": "fibre",
+          "rss_bytes": "234881024",
+          "stable_during_capture": null,
+          "version": null,
+          "version_source": null
+        }
+      ],
+      "worker_usage": []
+    },
+    {
+      "app_status": {
+        "block_height": null,
+        "catching_up": null,
+        "status": "error"
+      },
+      "capture": {
+        "finished_epoch_seconds": null,
+        "input_format": "legacy_v0",
+        "started_epoch_seconds": "10083.4120102"
+      },
+      "collection_issue_count": "2",
+      "collector_version": null,
+      "config": {
+        "root.max_concurrent_streams": {
+          "source": "CONFIG_FILE",
+          "value": "13"
+        },
+        "root.max_connections": {
+          "source": "CONFIG_FILE",
+          "value": "16"
+        },
+        "root.min_upload_size": {
+          "source": "CONFIG_FILE",
+          "value": "262144"
+        },
+        "root.unlimited_budget": {
+          "source": "CONFIG_FILE",
+          "value": false
+        },
+        "root.upload_verify_workers": {
+          "source": "CONFIG_FILE",
+          "value": "32"
+        }
+      },
+      "host": {
+        "cpu_count": null,
+        "memory_available_bytes": "51472498688",
+        "memory_total_bytes": "68719476736",
+        "root_filesystem": {
+          "available_bytes": "824566611968",
+          "available_inodes": null,
+          "total_bytes": "1099511627776",
+          "total_inodes": null
+        },
+        "swap_free_bytes": "8589934592",
+        "swap_total_bytes": "8589934592"
+      },
+      "metrics": {
+        "freshness_verified": false,
+        "samples": [],
+        "status": "unknown",
+        "target_verified": false
+      },
+      "scans": [],
+      "schema_version": 1,
+      "self_usage": null,
+      "services": [
+        {
+          "active_state": "active",
+          "ancestor_limits": [],
+          "ancestor_limits_complete": false,
+          "collection_status": "complete",
+          "cpu_usage_ns": "58000000000",
+          "data_filesystem": null,
+          "fd_count": null,
+          "fd_hard_limit": null,
+          "fd_inspection_complete": false,
+          "fd_soft_limit": null,
+          "memory_anon_bytes": "2147483648",
+          "memory_current_bytes": "4362076160",
+          "memory_events": {
+            "high": "0",
+            "low": "0",
+            "max": "0",
+            "oom": "0",
+            "oom_kill": "0"
+          },
+          "memory_file_bytes": "1946157056",
+          "memory_high": {
+            "kind": "unlimited"
+          },
+          "memory_kernel_bytes": "268435456",
+          "memory_max": {
+            "kind": "unlimited"
+          },
+          "memory_peak_bytes": "5368709120",
+          "restart_count": "0",
+          "role": "app",
+          "rss_bytes": "2147483648",
+          "stable_during_capture": null,
+          "version": null,
+          "version_source": null
+        },
+        {
+          "active_state": "active",
+          "ancestor_limits": [],
+          "ancestor_limits_complete": false,
+          "collection_status": "complete",
+          "cpu_usage_ns": "1040000000",
+          "data_filesystem": null,
+          "fd_count": null,
+          "fd_hard_limit": null,
+          "fd_inspection_complete": false,
+          "fd_soft_limit": null,
+          "memory_anon_bytes": "234881024",
+          "memory_current_bytes": "268431360",
+          "memory_events": {
+            "high": "0",
+            "low": "0",
+            "max": "0",
+            "oom": "0",
+            "oom_kill": "0"
+          },
+          "memory_file_bytes": "29356032",
+          "memory_high": {
+            "kind": "unlimited"
+          },
+          "memory_kernel_bytes": "4194304",
+          "memory_max": {
+            "kind": "unlimited"
+          },
+          "memory_peak_bytes": "536870912",
+          "restart_count": "0",
+          "role": "fibre",
+          "rss_bytes": "234881024",
+          "stable_during_capture": null,
+          "version": null,
+          "version_source": null
+        }
+      ],
+      "worker_usage": []
+    }
+  ]
+}

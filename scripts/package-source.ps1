@@ -6,7 +6,7 @@ if (Test-Path -LiteralPath $Destination) { throw 'Source archive already exists;
 
 $sourceFiles = @('.gitattributes', '.gitignore', 'Cargo.toml', 'Cargo.lock', 'LICENSE', 'README.md', 'collect.sh')
 $sourceDirectories = @('.github', 'assets', 'docs', 'scripts', 'src', 'tests')
-$allowedExtensions = @('.yml', '.yaml', '.html', '.json', '.md', '.ps1', '.rs', '.py', '.toml', '.sh')
+$allowedExtensions = @('.yml', '.yaml', '.html', '.json', '.md', '.ps1', '.rs', '.py', '.toml', '.sh', '.png')
 $files = @($sourceFiles | ForEach-Object { Get-Item -LiteralPath (Join-Path $projectRoot $_) })
 foreach ($directory in $sourceDirectories) {
     $files += Get-ChildItem -LiteralPath (Join-Path $projectRoot $directory) -Recurse -File |

@@ -8,6 +8,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument('report', type=Path)
 parser.add_argument('--browser', required=True)
 parser.add_argument('--out', type=Path, required=True)
+parser.add_argument('--full-page', action='store_true', help='Also save the complete English report and capacity detail')
 args = parser.parse_args()
 args.out.mkdir(parents=True, exist_ok=True)
 with sync_playwright() as p:
@@ -38,6 +39,10 @@ with sync_playwright() as p:
         page.screenshot(path=str(args.out / f'report-{lang}.png'), full_page=False)
     assert len(set(titles.values())) == 4
     page.locator('[data-lang="en"]').click()
+    if args.full_page:
+        page.screenshot(path=str(args.out / 'report-full-en.png'), full_page=True)
+        capacity = page.locator('section').filter(has=page.get_by_role('heading', name=dictionary['capacity_title'][0], exact=True))
+        capacity.screenshot(path=str(args.out / 'report-capacity-en.png'))
     if page.locator('details.finding').count():
         page.locator('details.finding').first.locator('summary').click()
         assert page.locator('details.finding').first.get_attribute('open') is not None

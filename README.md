@@ -24,9 +24,23 @@ Live collection targets systemd services and cgroup v2. Default services are `ce
 
 The kit does not restart services, inject traffic, upload blobs, edit configuration or delete storage. Load benchmarks, recovery tests, automatic tuning and S3/R2 integration are outside v0.1.
 
+### Report preview
+
+![English offline report preview](docs/screenshots/report-en.png)
+
+This report was generated from the bundled [synthetic fixtures](tests/fixtures/legacy/), not measurements from a live validator. The HTML viewer supports all four languages.
+
+![Receive-buffer capacity detail in English](docs/screenshots/report-capacity-en.png)
+
+The 16/24/32 connection values are receive-buffer model scenarios, not measured RAM consumption.
+
+[Full report screenshot (English)](docs/screenshots/report-full-en.png) · [Capacity detail (English)](docs/screenshots/report-capacity-en.png) · [Offline HTML report](docs/examples/report.html) · [Public JSON report](docs/examples/report.json)
+
+Download the HTML file and open it locally in your browser; GitHub displays its source rather than running the report viewer.
+
 ### Installation
 
-Use a trusted release bundle containing `SHA256SUMS`, or build from source. This repository does not assume a particular GitHub organization or release URL.
+Cloning this repository gives you source code; prebuilt binaries are not stored in Git. Build from source as described below, or obtain a trusted binary bundle containing `SHA256SUMS` separately. The bundle commands in this section assume you have already obtained and extracted that bundle.
 
 **Linux:** confirm that `uname -m` reports `x86_64`, verify the bundle, and run its musl executable. The commands below run from the extracted release directory; no system-wide installation is required.
 
@@ -174,7 +188,11 @@ cargo clippy --locked --all-targets -- -D warnings
 cargo build --locked --release
 rustup target add x86_64-unknown-linux-musl
 cargo build --locked --release --target x86_64-unknown-linux-musl
+cp target/x86_64-unknown-linux-musl/release/ttt-fibre ./ttt-fibre-linux-x86_64-musl
+./ttt-fibre-linux-x86_64-musl --version
 ```
+
+Cargo names the Linux executable `ttt-fibre`; packaging gives it the filename `ttt-fibre-linux-x86_64-musl` used in the installation examples. The `cp` command above creates that filename in your checkout. Run these Linux build commands on a development or lab machine, then copy the finished binary to the validator. Windows users can use the cross-compilation helper below and run the resulting Linux binary on Linux.
 
 Windows helpers support native builds and musl cross-compilation without WSL:
 
@@ -237,9 +255,19 @@ TTT Fibre Operator Kit 是面向 Celestia Fibre 节点运维人员的只读 CLI 
 
 本工具不会重启服务、注入流量、上传 blob、编辑配置或删除存储数据。负载基准测试、恢复测试、自动调优和 S3/R2 集成不在 v0.1 的范围内。
 
+### 报告预览
+
+![中文离线报告预览](docs/screenshots/report-zh-CN.png)
+
+此报告由项目附带的[合成测试数据](tests/fixtures/legacy/)生成，并非来自正在运行的验证节点的实测数据。HTML 查看器支持全部四种语言。
+
+[完整报告截图（英文）](docs/screenshots/report-full-en.png) · [容量详情（英文）](docs/screenshots/report-capacity-en.png) · [离线 HTML 报告](docs/examples/report.html) · [公开版 JSON 报告](docs/examples/report.json)
+
+请下载 HTML 文件并在本地浏览器中打开；GitHub 会显示其源代码，不会运行报告查看器。
+
 ### 安装
 
-请使用包含 `SHA256SUMS` 的可信发布包，或从源码构建。本仓库不预设特定的 GitHub 组织或发布地址。
+克隆本仓库只会获得源代码；Git 中不包含预编译的二进制文件。请按照下文从源码构建，或另行获取包含 `SHA256SUMS` 的可信二进制包。本节中的发布包命令均假定你已获取并解压该包。
 
 **Linux：**确认 `uname -m` 输出 `x86_64`，校验发布包，然后运行其中的 musl 可执行文件。以下命令在解压后的发布目录中执行，无需全局安装。
 
@@ -387,7 +415,11 @@ cargo clippy --locked --all-targets -- -D warnings
 cargo build --locked --release
 rustup target add x86_64-unknown-linux-musl
 cargo build --locked --release --target x86_64-unknown-linux-musl
+cp target/x86_64-unknown-linux-musl/release/ttt-fibre ./ttt-fibre-linux-x86_64-musl
+./ttt-fibre-linux-x86_64-musl --version
 ```
+
+Cargo 生成的 Linux 可执行文件名为 `ttt-fibre`；打包时会使用安装示例中的文件名 `ttt-fibre-linux-x86_64-musl`。上面的 `cp` 命令会在仓库目录中创建该文件名的副本。请在开发机或实验环境中运行这些 Linux 构建命令，再将构建好的二进制文件复制到验证节点。Windows 用户可以使用下方的交叉编译辅助脚本，并在 Linux 上运行生成的 Linux 二进制文件。
 
 Windows 辅助脚本支持原生构建，也支持无需 WSL 的 musl 交叉编译：
 
@@ -450,9 +482,19 @@ TTT Fibre Operator Kit는 Celestia Fibre 운영자를 위한 읽기 전용 CLI�
 
 이 도구는 서비스를 재시작하거나, 트래픽을 주입하거나, 블롭을 업로드하거나, 설정을 편집하거나, 스토리지를 삭제하지 않습니다. 부하 벤치마크, 복구 테스트, 자동 튜닝 및 S3/R2 연동은 v0.1의 범위에 포함되지 않습니다.
 
+### 보고서 미리 보기
+
+![한국어 오프라인 보고서 미리 보기](docs/screenshots/report-ko.png)
+
+이 보고서는 프로젝트에 포함된 [합성 테스트 데이터](tests/fixtures/legacy/)로 생성했으며, 운영 중인 검증자 노드에서 측정한 결과가 아닙니다. HTML 뷰어는 네 가지 언어를 모두 지원합니다.
+
+[전체 보고서 스크린샷(영어)](docs/screenshots/report-full-en.png) · [용량 상세(영어)](docs/screenshots/report-capacity-en.png) · [오프라인 HTML 보고서](docs/examples/report.html) · [공개용 JSON 보고서](docs/examples/report.json)
+
+HTML 파일을 다운로드한 뒤 로컬 브라우저에서 여세요. GitHub에서는 보고서 뷰어가 실행되지 않고 소스 코드가 표시됩니다.
+
 ### 설치
 
-`SHA256SUMS`가 포함된 신뢰할 수 있는 릴리스 번들을 사용하거나 소스에서 빌드하세요. 이 저장소는 특정 GitHub 조직이나 릴리스 URL을 전제로 하지 않습니다.
+이 저장소를 클론하면 소스 코드만 내려받습니다. 미리 빌드된 바이너리는 Git에 저장되어 있지 않습니다. 아래 설명에 따라 소스에서 빌드하거나, `SHA256SUMS`가 포함된 신뢰할 수 있는 바이너리 번들을 별도로 받으세요. 이 절의 번들 실행 명령은 해당 번들을 이미 받아 압축을 푼 상태를 전제로 합니다.
 
 **Linux:** `uname -m`의 출력이 `x86_64`인지 확인하고 번들을 검증한 다음 musl 실행 파일을 실행하세요. 아래 명령은 압축을 푼 릴리스 디렉터리에서 실행하며, 시스템 전체에 설치할 필요가 없습니다.
 
@@ -600,7 +642,11 @@ cargo clippy --locked --all-targets -- -D warnings
 cargo build --locked --release
 rustup target add x86_64-unknown-linux-musl
 cargo build --locked --release --target x86_64-unknown-linux-musl
+cp target/x86_64-unknown-linux-musl/release/ttt-fibre ./ttt-fibre-linux-x86_64-musl
+./ttt-fibre-linux-x86_64-musl --version
 ```
+
+Cargo가 생성하는 Linux 실행 파일의 이름은 `ttt-fibre`이며, 패키징 과정에서 설치 예제의 `ttt-fibre-linux-x86_64-musl`이라는 이름이 붙습니다. 위의 `cp` 명령은 저장소 디렉터리에 해당 이름의 복사본을 만듭니다. 개발용 또는 실습용 컴퓨터에서 이 Linux 빌드 명령을 실행한 뒤 완성된 바이너리를 검증자 노드로 복사하세요. Windows에서는 아래 교차 컴파일 도우미를 사용하고, 생성된 Linux 바이너리는 Linux에서 실행하세요.
 
 Windows 도우미 스크립트는 WSL 없이 네이티브 빌드와 musl 교차 컴파일을 지원합니다.
 
@@ -663,9 +709,19 @@ TTT Fibre Operator Kit は、Celestia Fibre の運用者向けの読み取り専
 
 このキットは、サービスの再起動、トラフィックの注入、blob のアップロード、設定の編集、ストレージの削除を行いません。負荷ベンチマーク、復旧テスト、自動チューニング、S3/R2 連携は v0.1 の対象外です。
 
+### レポートのプレビュー
+
+![日本語のオフラインレポートのプレビュー](docs/screenshots/report-ja.png)
+
+このレポートは、同梱の[合成テストデータ](tests/fixtures/legacy/)から生成したものであり、稼働中のバリデーターの実測結果ではありません。HTML ビューアーは4言語すべてに対応しています。
+
+[レポート全体のスクリーンショット（英語）](docs/screenshots/report-full-en.png) · [容量の詳細（英語）](docs/screenshots/report-capacity-en.png) · [オフライン HTML レポート](docs/examples/report.html) · [公開用 JSON レポート](docs/examples/report.json)
+
+HTML ファイルをダウンロードし、ローカルのブラウザーで開いてください。GitHub ではソースコードが表示され、レポートビューアーは実行されません。
+
 ### インストール
 
-`SHA256SUMS` を含む信頼できるリリースバンドルを使用するか、ソースからビルドしてください。このリポジトリは、特定の GitHub 組織やリリース URL を前提としていません。
+このリポジトリをクローンすると、ソースコードが取得されます。ビルド済みのバイナリは Git に含まれていません。後述の手順でソースからビルドするか、`SHA256SUMS` を含む信頼できるバイナリバンドルを別途入手してください。この節のバンドル用コマンドは、そのバンドルを入手・展開済みであることを前提としています。
 
 **Linux:** `uname -m` が `x86_64` を返すことを確認し、バンドルを検証してから musl 実行ファイルを実行してください。以下のコマンドは、リリースを展開したディレクトリで実行します。システム全体へのインストールは不要です。
 
@@ -813,7 +869,11 @@ cargo clippy --locked --all-targets -- -D warnings
 cargo build --locked --release
 rustup target add x86_64-unknown-linux-musl
 cargo build --locked --release --target x86_64-unknown-linux-musl
+cp target/x86_64-unknown-linux-musl/release/ttt-fibre ./ttt-fibre-linux-x86_64-musl
+./ttt-fibre-linux-x86_64-musl --version
 ```
+
+Cargo が生成する Linux 実行ファイルの名前は `ttt-fibre` です。パッケージ化時に、インストール例で使う `ttt-fibre-linux-x86_64-musl` という名前になります。上記の `cp` コマンドは、リポジトリのディレクトリにその名前のコピーを作成します。これらの Linux ビルドコマンドは開発用または検証用のマシンで実行し、完成したバイナリをバリデーターにコピーしてください。Windows では下記のクロスコンパイル用補助スクリプトを使用し、生成された Linux バイナリは Linux 上で実行してください。
 
 Windows 用の補助スクリプトは、WSL を使用しないネイティブビルドと musl 向けクロスコンパイルに対応しています。
 
