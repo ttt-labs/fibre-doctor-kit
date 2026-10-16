@@ -6,7 +6,7 @@ use std::collections::{BTreeMap, BTreeSet};
 
 const TRANSLATIONS: &str = include_str!("../assets/translations.json");
 const TEMPLATE: &str = include_str!("../assets/report.html");
-pub const LANGUAGES: [&str; 4] = ["en", "zh-CN", "ko", "ja"];
+pub const LANGUAGES: [&str; 1] = ["en"];
 const FINDING_IDS: &[&str] = &[
     "collection_issues",
     "service_state",
@@ -33,7 +33,7 @@ fn language_index(lang: &str) -> Result<usize, String> {
     LANGUAGES
         .iter()
         .position(|l| *l == lang)
-        .ok_or_else(|| "Unsupported language; use en, zh-CN, ko, or ja".into())
+        .ok_or_else(|| "Unsupported language; use en".into())
 }
 pub fn translate(key: &str, lang: &str) -> Result<String, String> {
     let index = language_index(lang)?;
@@ -541,10 +541,10 @@ mod tests {
         }
     }
     #[test]
-    fn all_translation_keys_have_four_nonempty_values() {
+    fn all_report_copy_keys_have_one_nonempty_english_value() {
         let dict = dictionary();
         for (key, values) in &dict {
-            assert_eq!(values.len(), 4, "{key}");
+            assert_eq!(values.len(), 1, "{key}");
             assert!(values.iter().all(|v| !v.trim().is_empty()), "{key}");
         }
         for id in FINDING_IDS.iter().copied().chain(["unknown_finding"]) {
@@ -603,7 +603,7 @@ mod tests {
             &[],
             &capacity(),
             &capacity(),
-            "ko",
+            "en",
         )
         .unwrap();
         for forbidden in [
@@ -618,7 +618,10 @@ mod tests {
         ] {
             assert!(!report.contains(forbidden), "{forbidden}");
         }
-        assert!(report.contains("lang=\"ko\""));
+        assert!(report.contains("lang=\"en\""));
+        assert!(report.contains("DOCTOR FIBRE KIT"));
+        assert!(!report.contains("data-lang"));
+        assert!(!report.contains("TTT Fibre"));
     }
     #[test]
     fn evidence_is_allowlisted_and_never_echoes_freeform_credentials() {
@@ -633,7 +636,9 @@ mod tests {
     }
     #[test]
     fn invalid_language_is_rejected() {
-        assert!(render_doctor_text(&[], "<script>").is_err());
+        for lang in ["<script>", "zh-CN", "ko", "ja"] {
+            assert!(render_doctor_text(&[], lang).is_err());
+        }
     }
     #[test]
     fn actual_delta_names_and_integer_precision_survive_public_projection() {
@@ -704,7 +709,7 @@ mod tests {
         assert!(TEMPLATE.contains("snapshot.worker_usage"));
     }
     #[test]
-    fn all_reason_and_stop_codes_have_four_translations() {
+    fn all_reason_and_stop_codes_have_english_copy() {
         let dict = dictionary();
         for code in [
             "monotonic",

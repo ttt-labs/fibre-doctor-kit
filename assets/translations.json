@@ -1,1172 +1,587 @@
 {
   "title": [
-    "Fibre operator evidence",
-    "Fibre 运维证据",
-    "Fibre 운영 근거",
-    "Fibre 運用エビデンス"
+    "Fibre operator evidence"
   ],
   "subtitle": [
-    "Two captures, with observations, assumptions and missing evidence kept visible.",
-    "并列审阅两次采集，明确区分观测、假设与缺失证据。",
-    "두 수집 결과의 관측값, 가정, 누락된 근거를 구분해 검토합니다.",
-    "2回の取得結果を、観測値・仮定・不足する証拠を区別して確認します。"
+    "Two captures, with observations, assumptions and missing evidence kept visible."
   ],
   "offline": [
-    "Offline · Public report",
-    "离线 · 公开报告",
-    "오프라인 · 공개 보고서",
-    "オフライン · 公開レポート"
+    "Offline · Public report"
   ],
   "snapshot_a": [
-    "Snapshot A",
-    "快照 A (Snapshot A)",
-    "스냅샷 A (Snapshot A)",
-    "スナップショット A (Snapshot A)"
+    "Snapshot A"
   ],
   "snapshot_b": [
-    "Snapshot B",
-    "快照 B (Snapshot B)",
-    "스냅샷 B (Snapshot B)",
-    "スナップショット B (Snapshot B)"
+    "Snapshot B"
   ],
   "interval": [
-    "Capture interval",
-    "采集间隔 (Capture interval)",
-    "수집 간격 (Capture interval)",
-    "取得間隔 (Capture interval)"
+    "Capture interval"
   ],
   "mode": [
-    "Comparison mode",
-    "比较模式",
-    "비교 모드",
-    "比較モード"
+    "Comparison mode"
   ],
   "temporal": [
-    "Temporal comparison",
-    "时间序列比较 (Temporal)",
-    "시점 비교 (Temporal)",
-    "時系列比較 (Temporal)"
+    "Temporal comparison"
   ],
   "side_by_side": [
-    "Side by side",
-    "并列比较 (Side by side)",
-    "나란히 비교 (Side by side)",
-    "並列比較 (Side by side)"
+    "Side by side"
   ],
   "unavailable": [
-    "Not collected / not established",
-    "未采集 / 尚未确认",
-    "미수집 / 미확인",
-    "未取得 / 未確認"
+    "Not collected / not established"
   ],
   "unknown": [
-    "Unknown",
-    "未知 (Unknown)",
-    "알 수 없음 (Unknown)",
-    "不明 (Unknown)"
+    "Unknown"
   ],
   "yes": [
-    "Yes",
-    "是",
-    "예",
-    "はい"
+    "Yes"
   ],
   "no": [
-    "No",
-    "否",
-    "아니요",
-    "いいえ"
+    "No"
   ],
   "unlimited": [
-    "Unlimited at this scope",
-    "此范围无限制 (Unlimited)",
-    "이 범위에서 무제한 (Unlimited)",
-    "この範囲では無制限 (Unlimited)"
+    "Unlimited at this scope"
   ],
   "findings": [
-    "Findings",
-    "检查结果 (Findings)",
-    "점검 결과 (Findings)",
-    "確認結果 (Findings)"
+    "Findings"
   ],
   "doctor_title": [
-    "Fibre operator checks",
-    "Fibre 运维检查",
-    "Fibre 운영 점검",
-    "Fibre 運用チェック"
+    "Fibre operator checks"
   ],
   "evidence": [
-    "Evidence",
-    "证据 (Evidence)",
-    "근거 (Evidence)",
-    "証拠 (Evidence)"
+    "Evidence"
   ],
   "impact": [
-    "Interpretation",
-    "含义 (Interpretation)",
-    "해석 (Interpretation)",
-    "解釈 (Interpretation)"
+    "Interpretation"
   ],
   "recommendation": [
-    "Recommended next step",
-    "建议后续步骤",
-    "권장 다음 단계",
-    "推奨する次の手順"
+    "Recommended next step"
   ],
   "verification": [
-    "Read-only verification",
-    "只读验证",
-    "읽기 전용 확인",
-    "読み取り専用の検証"
+    "Read-only verification"
   ],
   "evidence_fallback": [
-    "Refer to the measured values and collection coverage below. Missing evidence is not a zero or a pass.",
-    "请参阅下方测量值和采集覆盖情况。缺失证据不等于零或通过。",
-    "아래 측정값과 수집 범위를 확인하세요. 누락된 근거는 0이나 통과가 아닙니다.",
-    "以下の測定値と取得範囲を参照してください。証拠の不足はゼロや合格を意味しません。"
+    "Refer to the measured values and collection coverage below. Missing evidence is not a zero or a pass."
   ],
   "PASS": [
-    "PASS · Check satisfied",
-    "PASS · 检查满足",
-    "PASS · 점검 충족",
-    "PASS · 条件を満たす"
+    "PASS · Check satisfied"
   ],
   "WARN": [
-    "WARN · Review evidence",
-    "WARN · 需要审阅",
-    "WARN · 근거 검토 필요",
-    "WARN · 確認が必要"
+    "WARN · Review evidence"
   ],
   "FAIL": [
-    "FAIL · Condition failed",
-    "FAIL · 条件不满足",
-    "FAIL · 조건 미충족",
-    "FAIL · 条件を満たさない"
+    "FAIL · Condition failed"
   ],
   "INCONCLUSIVE": [
-    "INCONCLUSIVE · Insufficient evidence",
-    "INCONCLUSIVE · 证据不足",
-    "INCONCLUSIVE · 근거 부족",
-    "INCONCLUSIVE · 証拠不足"
+    "INCONCLUSIVE · Insufficient evidence"
   ],
   "UNSUPPORTED": [
-    "UNSUPPORTED · Profile unavailable",
-    "UNSUPPORTED · 配置版本不支持",
-    "UNSUPPORTED · 프로필 미지원",
-    "UNSUPPORTED · プロファイル未対応"
+    "UNSUPPORTED · Profile unavailable"
   ],
   "complete": [
-    "Complete",
-    "完整",
-    "완료",
-    "完了"
+    "Complete"
   ],
   "partial": [
-    "Partial",
-    "部分结果",
-    "부분 결과",
-    "部分的"
+    "Partial"
   ],
   "timeout": [
-    "Timeout",
-    "超时",
-    "시간 초과",
-    "タイムアウト"
+    "Timeout"
   ],
   "missing": [
-    "Missing",
-    "缺失",
-    "누락",
-    "不足"
+    "Missing"
   ],
   "error": [
-    "Collection error",
-    "采集错误",
-    "수집 오류",
-    "取得エラー"
+    "Collection error"
   ],
   "unsupported": [
-    "Unsupported",
-    "不支持",
-    "미지원",
-    "未対応"
+    "Unsupported"
   ],
   "skipped": [
-    "Skipped",
-    "已跳过",
-    "건너뜀",
-    "スキップ"
+    "Skipped"
   ],
   "inventory": [
-    "Memory and service observations",
-    "内存与服务观测",
-    "메모리 및 서비스 관측",
-    "メモリとサービスの観測"
+    "Memory and service observations"
   ],
   "memory_note": [
-    "RSS, cgroup memory and file cache overlap. Do not add them together. An unlimited service limit does not prove unlimited ancestor capacity.",
-    "RSS、cgroup 内存与文件缓存存在重叠，不能相加。服务本身无限制，不代表父级 cgroup 也无限制。",
-    "RSS, cgroup 메모리, 파일 캐시는 겹칩니다. 합산하지 마세요. 서비스 제한이 없어도 상위 cgroup 제한은 있을 수 있습니다.",
-    "RSS、cgroup メモリ、ファイルキャッシュは重複します。合計しないでください。サービスの上限なしは親 cgroup の上限なしを意味しません。"
+    "RSS, cgroup memory and file cache overlap. Do not add them together. An unlimited service limit does not prove unlimited ancestor capacity."
   ],
   "metric": [
-    "Metric / field",
-    "指标 / 字段",
-    "메트릭 / 필드",
-    "メトリクス / フィールド"
+    "Metric / field"
   ],
   "host": [
-    "Host",
-    "主机 (Host)",
-    "호스트 (Host)",
-    "ホスト (Host)"
+    "Host"
   ],
   "app": [
-    "Consensus app",
-    "共识应用 (Consensus app)",
-    "합의 앱 (Consensus app)",
-    "コンセンサスアプリ (Consensus app)"
+    "Consensus app"
   ],
   "fibre": [
-    "Fibre",
-    "Fibre",
-    "Fibre",
     "Fibre"
   ],
   "service": [
-    "Service",
-    "服务 (Service)",
-    "서비스 (Service)",
-    "サービス (Service)"
+    "Service"
   ],
   "version": [
-    "Version evidence",
-    "版本证据 (Version)",
-    "버전 근거 (Version)",
-    "バージョンの証拠 (Version)"
+    "Version evidence"
   ],
   "source": [
-    "Evidence source",
-    "证据来源 (Source)",
-    "근거 출처 (Source)",
-    "証拠の出所 (Source)"
+    "Evidence source"
   ],
   "collection_status": [
-    "Collection status",
-    "采集状态",
-    "수집 상태",
-    "取得状態"
+    "Collection status"
   ],
   "CONFIG_FILE": [
-    "CONFIG_FILE · On disk",
-    "CONFIG_FILE · 磁盘配置",
-    "CONFIG_FILE · 디스크 설정",
-    "CONFIG_FILE · ディスク上の設定"
+    "CONFIG_FILE · On disk"
   ],
   "OBSERVED_RUNTIME": [
-    "OBSERVED_RUNTIME · Observed",
-    "OBSERVED_RUNTIME · 运行观测",
-    "OBSERVED_RUNTIME · 런타임 관측",
-    "OBSERVED_RUNTIME · 実行時の観測"
+    "OBSERVED_RUNTIME · Observed"
   ],
   "DEFAULT_ASSUMED": [
-    "DEFAULT_ASSUMED · Assumed",
-    "DEFAULT_ASSUMED · 假设默认值",
-    "DEFAULT_ASSUMED · 기본값 가정",
-    "DEFAULT_ASSUMED · 既定値を仮定"
+    "DEFAULT_ASSUMED · Assumed"
   ],
   "UNKNOWN": [
-    "UNKNOWN · Not established",
-    "UNKNOWN · 尚未确认",
-    "UNKNOWN · 미확인",
-    "UNKNOWN · 未確認"
+    "UNKNOWN · Not established"
   ],
   "capacity_title": [
-    "Receive buffer capacity model",
-    "接收缓冲容量模型 (Receive Buffer Model)",
-    "수신 버퍼 용량 모델 (Receive Buffer Model)",
-    "受信バッファ容量モデル (Receive Buffer Model)"
+    "Receive buffer capacity model"
   ],
   "capacity_note": [
-    "max_connections × max_concurrent_streams × 132 MiB. This is a version-specific receive buffer model, not measured RAM or a whole-process memory ceiling.",
-    "max_connections × max_concurrent_streams × 132 MiB。这是特定版本的接收缓冲模型，并非实测内存或进程内存总上限。",
-    "max_connections × max_concurrent_streams × 132 MiB. 특정 버전의 수신 버퍼 모델이며, 실측 RAM이나 전체 프로세스 메모리 상한이 아닙니다.",
-    "max_connections × max_concurrent_streams × 132 MiB。特定バージョンの受信バッファモデルであり、実測 RAM やプロセス全体の上限ではありません。"
+    "max_connections × max_concurrent_streams × 132 MiB. This is a version-specific receive buffer model, not measured RAM or a whole-process memory ceiling."
   ],
   "capacity_assumption": [
-    "Increasing connections also increases modeled receive buffers. Current low RSS does not establish safe load capacity; FD and shared-host limits require separate evidence.",
-    "增加连接数也会增加模型缓冲需求。当前 RSS 较低不证明高负载安全；FD 和共享主机限制需要单独验证。",
-    "연결 수를 늘리면 모델의 버퍼 요구량도 증가합니다. 낮은 현재 RSS는 부하 안전성을 보장하지 않습니다. FD와 공유 호스트 제한을 별도로 확인하세요.",
-    "接続数を増やすとモデル上のバッファ必要量も増えます。現在の RSS が低くても負荷時の安全性は確認できません。FD と共有ホストの制限は別途確認が必要です。"
+    "Increasing connections also increases modeled receive buffers. Current low RSS does not establish safe load capacity; FD and shared-host limits require separate evidence."
   ],
   "current_model": [
-    "Configured / assumed model",
-    "已配置 / 假设模型",
-    "설정 / 가정 모델",
-    "設定値 / 仮定値のモデル"
+    "Configured / assumed model"
   ],
   "what_if": [
-    "What-if scenarios",
-    "假设场景 (What-if)",
-    "가정 시나리오 (What-if)",
-    "仮定シナリオ (What-if)"
+    "What-if scenarios"
   ],
   "profile": [
-    "Version profile",
-    "版本配置 (Profile)",
-    "버전 프로필 (Profile)",
-    "バージョンプロファイル (Profile)"
+    "Version profile"
   ],
   "config": [
-    "Selected configuration",
-    "选定配置",
-    "선택된 설정",
-    "選択された設定"
+    "Selected configuration"
   ],
   "config_note": [
-    "Configuration on disk is evidence of file contents, not proof of every effective runtime setting.",
-    "磁盘配置反映文件内容，不证明所有运行时设置。",
-    "디스크 설정은 파일 내용의 근거이며 모든 실제 런타임 설정을 증명하지는 않습니다.",
-    "ディスク上の設定はファイル内容の証拠であり、すべての実効設定を証明するものではありません。"
+    "Configuration on disk is evidence of file contents, not proof of every effective runtime setting."
   ],
   "comparison_title": [
-    "Changes between captures",
-    "采集间变化",
-    "수집 사이 변화",
-    "取得間の変化"
+    "Changes between captures"
   ],
   "delta": [
-    "Change",
-    "变化量 (Delta)",
-    "변화량 (Delta)",
-    "変化量 (Delta)"
+    "Change"
   ],
   "rate": [
-    "Rate per second",
-    "每秒速率 (Rate)",
-    "초당 변화율 (Rate)",
-    "毎秒の変化率 (Rate)"
+    "Rate per second"
   ],
   "Verified": [
-    "Verified identity",
-    "身份已验证 (Verified)",
-    "신원 확인됨 (Verified)",
-    "同一性を検証済み (Verified)"
+    "Verified identity"
   ],
   "HeuristicLegacy": [
-    "Assumed same process · legacy heuristic",
-    "假设同一进程 · 旧格式推断 (HeuristicLegacy)",
-    "동일 프로세스 가정 · 레거시 추정 (HeuristicLegacy)",
-    "同一プロセスを仮定 · 旧形式の推定 (HeuristicLegacy)"
+    "Assumed same process · legacy heuristic"
   ],
   "Mismatch": [
-    "Identity mismatch · side by side only",
-    "身份不匹配 · 仅并列显示 (Mismatch)",
-    "신원 불일치 · 나란히 표시만 (Mismatch)",
-    "同一性不一致 · 並列表示のみ (Mismatch)"
+    "Identity mismatch · side by side only"
   ],
   "Unknown": [
-    "Identity not established",
-    "身份尚未确认 (Unknown)",
-    "신원 미확인 (Unknown)",
-    "同一性未確認 (Unknown)"
+    "Identity not established"
   ],
   "legacy_note": [
-    "Legacy snapshots lack host / boot identity. Heuristic changes assume the same host and service lifetime from matching PID, restart count and start evidence. This short interval does not establish a memory leak or long-term growth.",
-    "旧格式缺少主机 / 启动身份。推断变化根据匹配的 PID、重启次数及启动证据，假设主机和服务生命周期相同。短间隔不能证明内存泄漏或长期增长。",
-    "레거시 스냅샷에는 호스트 / 부팅 신원이 없습니다. PID, 재시작 횟수, 시작 근거가 일치하면 동일 호스트와 서비스 수명으로 가정합니다. 짧은 간격으로 메모리 누수나 장기 증가를 판단할 수 없습니다.",
-    "旧形式にはホスト / 起動の同一性情報がありません。PID、再起動回数、開始時刻の一致から同じホストとサービス寿命を仮定します。この短い間隔ではメモリリークや長期的な増加は判断できません。"
+    "Legacy snapshots lack host / boot identity. Heuristic changes assume the same host and service lifetime from matching PID, restart count and start evidence. This short interval does not establish a memory leak or long-term growth."
   ],
   "rate_note": [
-    "A missing change or rate means continuity, time, or a required value was not established. CPU nanoseconds per second are not whole-host CPU utilization.",
-    "变化量或速率缺失，表示连续性、时间或所需数值尚未确认。每秒 CPU 纳秒数不是整机 CPU 使用率。",
-    "변화량이나 변화율이 없으면 연속성, 시간 또는 필요한 값이 확인되지 않은 것입니다. 초당 CPU 나노초는 전체 호스트 CPU 사용률이 아닙니다.",
-    "変化量や変化率の欠如は、連続性、時間、必要値が未確認であることを示します。毎秒の CPU ナノ秒数はホスト全体の CPU 使用率ではありません。"
+    "A missing change or rate means continuity, time, or a required value was not established. CPU nanoseconds per second are not whole-host CPU utilization."
   ],
   "storage": [
-    "Storage observations",
-    "存储观测",
-    "스토리지 관측",
-    "ストレージの観測"
+    "Storage observations"
   ],
   "storage_note": [
-    "Observed bytes describe the traversed entries. Partial scans are not totals. Files may change during collection. A staging age above 900 seconds is an investigation signal, not proof of an orphan.",
-    "观测字节仅描述已遍历条目。部分扫描不是总量，采集时文件可能变化。staging 超过 900 秒只是调查信号，不证明是孤立文件。",
-    "관측 바이트는 탐색한 항목만 나타냅니다. 부분 스캔은 총량이 아니며 수집 중 파일이 바뀔 수 있습니다. staging 수명이 900초를 넘으면 조사 신호이며 고아 파일의 증거는 아닙니다.",
-    "観測バイト数は走査済み項目を表します。部分走査は合計ではなく、取得中にファイルが変わる場合もあります。staging の経過が900秒を超えても、孤立ファイルの証拠ではありません。"
+    "Observed bytes describe the traversed entries. Partial scans are not totals. Files may change during collection. A staging age above 900 seconds is an investigation signal, not proof of an orphan."
   ],
   "no_scans": [
-    "Storage directory measurements were not collected.",
-    "未采集存储目录测量值。",
-    "스토리지 디렉터리 측정값이 수집되지 않았습니다.",
-    "ストレージディレクトリの測定値は取得されていません。"
+    "Storage directory measurements were not collected."
   ],
   "fd_note": [
-    "has_open_fd describes observed open descriptors only. False requires a complete, stable inspection; unknown remains unknown.",
-    "has_open_fd 仅描述观测到的打开描述符。false 需要完整且稳定的检查，未知仍保持未知。",
-    "has_open_fd는 관측된 열린 디스크립터만 나타냅니다. false는 완전하고 안정적인 검사가 필요하며, unknown은 그대로 유지됩니다.",
-    "has_open_fd は観測されたオープン FD のみを示します。false には完全で安定した確認が必要で、不明は不明として扱います。"
+    "has_open_fd describes observed open descriptors only. False requires a complete, stable inspection; unknown remains unknown."
   ],
   "metrics": [
-    "Application metrics evidence",
-    "应用指标证据",
-    "애플리케이션 메트릭 근거",
-    "アプリケーションメトリクスの証拠"
+    "Application metrics evidence"
   ],
   "metrics_note": [
-    "Only selected metric names and values are public. Labels and endpoint addresses are omitted. Repeated names may represent different private label sets; do not sum them without identity evidence.",
-    "仅公开选定指标名称和值，省略标签与端点地址。同名指标可能对应不同的私有标签集，缺少身份依据时不能相加。",
-    "선택된 메트릭 이름과 값만 공개합니다. 라벨과 엔드포인트 주소는 제외됩니다. 반복된 이름은 서로 다른 비공개 라벨 집합일 수 있으므로 신원 근거 없이 합산하지 마세요.",
-    "選択されたメトリクス名と値のみ公開します。ラベルとエンドポイントは省略されます。同名の値が異なる非公開ラベルを持つ場合があるため、同一性の証拠なしに合算しないでください。"
+    "Only selected metric names and values are public. Labels and endpoint addresses are omitted. Repeated names may represent different private label sets; do not sum them without identity evidence."
   ],
   "target_verified": [
-    "Target verified",
-    "目标已验证 (Target verified)",
-    "대상 확인됨 (Target verified)",
-    "対象を検証済み (Target verified)"
+    "Target verified"
   ],
   "freshness_verified": [
-    "Freshness verified",
-    "时效已验证 (Freshness verified)",
-    "최신성 확인됨 (Freshness verified)",
-    "鮮度を検証済み (Freshness verified)"
+    "Freshness verified"
   ],
   "no_metrics": [
-    "No selected metric samples are available. An HTTP response alone does not establish current Fibre metrics.",
-    "无可用的选定指标样本。仅有 HTTP 响应不能证明 Fibre 指标是当前值。",
-    "선택된 메트릭 샘플이 없습니다. HTTP 응답만으로 현재 Fibre 메트릭을 확인할 수 없습니다.",
-    "選択されたメトリクスのサンプルはありません。HTTP 応答だけでは現在の Fibre メトリクスを確認できません。"
+    "No selected metric samples are available. An HTTP response alone does not establish current Fibre metrics."
   ],
   "cost": [
-    "Collector cost",
-    "采集器开销 (Collector cost)",
-    "수집기 비용 (Collector cost)",
-    "コレクターのコスト (Collector cost)"
+    "Collector cost"
   ],
   "parent": [
-    "Parent collector",
-    "父采集进程 (Parent)",
-    "부모 수집기 (Parent)",
-    "親コレクター (Parent)"
+    "Parent collector"
   ],
   "worker": [
-    "Scanner worker",
-    "扫描子进程 (Worker)",
-    "스캐너 작업자 (Worker)",
-    "スキャナーワーカー (Worker)"
+    "Scanner worker"
   ],
   "cost_note": [
-    "Measured before final serialization. Parent and worker costs are separate. Peaks are not additive; incomplete worker checkpoints do not represent total cost or SSH transfer overhead.",
-    "测量于最终序列化前。父进程和子进程开销分开显示，峰值不能相加。不完整子进程检查点不能代表总开销或 SSH 传输开销。",
-    "최종 직렬화 전에 측정합니다. 부모와 작업자 비용은 별도이며 최고치를 합산할 수 없습니다. 불완전한 작업자 체크포인트는 전체 비용이나 SSH 전송 비용을 나타내지 않습니다.",
-    "最終シリアライズ前に測定します。親とワーカーのコストは別であり、ピーク値は合算できません。不完全なワーカーチェックポイントは総コストや SSH 転送コストを示しません。"
+    "Measured before final serialization. Parent and worker costs are separate. Peaks are not additive; incomplete worker checkpoints do not represent total cost or SSH transfer overhead."
   ],
   "no_usage": [
-    "Collector self-measurement is unavailable in this capture.",
-    "此采集没有采集器自身测量数据。",
-    "이 수집에는 수집기 자체 측정값이 없습니다.",
-    "この取得にはコレクター自身の測定値がありません。"
+    "Collector self-measurement is unavailable in this capture."
   ],
   "coverage": [
-    "Coverage and interpretation",
-    "覆盖范围与解读",
-    "수집 범위 및 해석",
-    "取得範囲と解釈"
+    "Coverage and interpretation"
   ],
   "privacy_note": [
-    "Public projection: host names, IP addresses, paths, identities, raw labels and arbitrary log text are excluded. Keep original snapshots private. No overall readiness score is computed.",
-    "公开投影：排除主机名、IP 地址、路径、身份标识、原始标签和任意日志文本。原始快照应保密。不计算总体就绪评分。",
-    "공개용 요약에서 호스트명, IP, 경로, 신원, 원본 라벨, 임의 로그를 제외합니다. 원본 스냅샷은 비공개로 보관하세요. 전체 준비 상태 점수는 계산하지 않습니다.",
-    "公開用の要約ではホスト名、IP、パス、識別子、生のラベル、任意のログ文を除外します。元のスナップショットは非公開で保管してください。全体の準備状況スコアは算出しません。"
+    "Public projection: host names, IP addresses, paths, identities, raw labels and arbitrary log text are excluded. Keep original snapshots private. No overall readiness score is computed."
   ],
   "timestamp_note": [
-    "Capture times are shown in UTC. Values are observations at collection time, not continuous monitoring.",
-    "采集时间以 UTC 显示。数值为采集时观测，不是持续监控。",
-    "수집 시각은 UTC로 표시합니다. 값은 수집 시점의 관측이며 지속 모니터링이 아닙니다.",
-    "取得時刻は UTC で表示します。値は取得時の観測であり、継続監視ではありません。"
+    "Capture times are shown in UTC. Values are observations at collection time, not continuous monitoring."
   ],
   "no_findings": [
-    "No check findings were supplied.",
-    "未提供检查结果。",
-    "점검 결과가 제공되지 않았습니다.",
-    "チェック結果は提供されていません。"
+    "No check findings were supplied."
   ],
   "print": [
-    "Print / Save PDF",
-    "打印 / 保存 PDF",
-    "인쇄 / PDF 저장",
-    "印刷 / PDF 保存"
+    "Print / Save PDF"
   ],
   "finding.collection_issues.title": [
-    "Collection coverage",
-    "采集覆盖范围",
-    "수집 범위",
-    "取得範囲"
+    "Collection coverage"
   ],
   "finding.collection_issues.impact": [
-    "Collection errors limit what this report can conclude; they do not by themselves prove a node fault.",
-    "采集错误限制报告结论，本身不证明节点故障。",
-    "수집 오류는 보고서의 판단 범위를 제한하며 그 자체로 노드 장애를 증명하지 않습니다.",
-    "取得エラーは結論の範囲を制限しますが、それ自体でノード障害を証明しません。"
+    "Collection errors limit what this report can conclude; they do not by themselves prove a node fault."
   ],
   "finding.collection_issues.recommendation": [
-    "Resolve missing inputs or access limitations before relying on affected checks.",
-    "依赖受影响检查前，补齐输入或解决访问限制。",
-    "해당 점검을 신뢰하기 전에 입력 누락이나 접근 제한을 해결하세요.",
-    "影響するチェックを判断に使う前に、入力不足やアクセス制限を解消してください。"
+    "Resolve missing inputs or access limitations before relying on affected checks."
   ],
   "finding.collection_issues.verification": [
-    "Inspect collection statuses and repeat the bounded read-only capture.",
-    "检查采集状态，再次执行有界只读采集。",
-    "수집 상태를 확인하고 제한된 읽기 전용 수집을 반복하세요.",
-    "取得状態を確認し、制限付きの読み取り専用取得を再実行してください。"
+    "Inspect collection statuses and repeat the bounded read-only capture."
   ],
   "finding.service_state.title": [
-    "Service state",
-    "服务状态 (Service state)",
-    "서비스 상태 (Service state)",
-    "サービス状態 (Service state)"
+    "Service state"
   ],
   "finding.service_state.impact": [
-    "An active service confirms process state only, not synchronization, reachability or historical uptime.",
-    "active 只确认进程状态，不代表同步、可达性或历史在线率。",
-    "active 상태는 프로세스 상태만 확인하며 동기화, 접근성, 과거 가동 시간을 증명하지 않습니다.",
-    "active はプロセス状態のみを示し、同期、到達性、過去の稼働率を証明しません。"
+    "An active service confirms process state only, not synchronization, reachability or historical uptime."
   ],
   "finding.service_state.recommendation": [
-    "Review any inactive or unavailable service observation alongside application evidence.",
-    "结合应用证据审阅非活动或不可用服务观测。",
-    "비활성 또는 확인 불가 서비스는 애플리케이션 근거와 함께 검토하세요.",
-    "非アクティブまたは確認不能なサービス状態を、アプリケーションの証拠と照合してください。"
+    "Review any inactive or unavailable service observation alongside application evidence."
   ],
   "finding.service_state.verification": [
-    "Read systemd service state and compare with the captured application status.",
-    "只读检查 systemd 状态并对照已采集应用状态。",
-    "systemd 상태를 읽고 수집된 애플리케이션 상태와 비교하세요.",
-    "systemd 状態を読み取り、取得したアプリケーション状態と比較してください。"
+    "Read systemd service state and compare with the captured application status."
   ],
   "finding.process_stability.title": [
-    "Process identity stability",
-    "进程身份稳定性",
-    "프로세스 신원 안정성",
-    "プロセス同一性の安定性"
+    "Process identity stability"
   ],
   "finding.process_stability.impact": [
-    "A process change during capture can mix observations from different lifetimes.",
-    "采集中进程变化可能混合不同生命周期的观测。",
-    "수집 중 프로세스가 바뀌면 서로 다른 수명의 관측값이 섞일 수 있습니다.",
-    "取得中のプロセス変更により、異なる寿命の観測値が混在する場合があります。"
+    "A process change during capture can mix observations from different lifetimes."
   ],
   "finding.process_stability.recommendation": [
-    "Use identity-stable captures for temporal comparisons.",
-    "时间比较应使用身份稳定的采集结果。",
-    "시점 비교에는 신원이 안정적인 수집 결과를 사용하세요.",
-    "時系列比較には同一性が安定した取得結果を使用してください。"
+    "Use identity-stable captures for temporal comparisons."
   ],
   "finding.process_stability.verification": [
-    "Compare PID and start identity before and after capture without restarting services.",
-    "不重启服务，对照采集前后的 PID 与启动身份。",
-    "서비스 재시작 없이 수집 전후 PID와 시작 신원을 비교하세요.",
-    "サービスを再起動せず、取得前後の PID と開始識別情報を比較してください。"
+    "Compare PID and start identity before and after capture without restarting services."
   ],
   "finding.host_memory.title": [
-    "Host memory headroom",
-    "主机内存余量",
-    "호스트 메모리 여유",
-    "ホストメモリの余裕"
+    "Host memory headroom"
   ],
   "finding.host_memory.impact": [
-    "Available host memory is shared by all workloads and can change under load.",
-    "主机可用内存由所有工作负载共享，并会随负载变化。",
-    "호스트 가용 메모리는 모든 작업 부하가 공유하며 부하에 따라 바뀝니다.",
-    "ホストの利用可能メモリは全ワークロードで共有され、負荷で変化します。"
+    "Available host memory is shared by all workloads and can change under load."
   ],
   "finding.host_memory.recommendation": [
-    "Evaluate the capacity model together with shared workloads and cgroup limits.",
-    "结合共享负载和 cgroup 限制评估容量模型。",
-    "공유 작업 부하 및 cgroup 제한과 함께 용량 모델을 평가하세요.",
-    "共有ワークロードと cgroup 制限を併せて容量モデルを評価してください。"
+    "Evaluate the capacity model together with shared workloads and cgroup limits."
   ],
   "finding.host_memory.verification": [
-    "Read MemAvailable and the service and ancestor limits in this report.",
-    "查看报告中的 MemAvailable、服务及父级限制。",
-    "보고서의 MemAvailable, 서비스 및 상위 제한을 확인하세요.",
-    "レポートの MemAvailable、サービスおよび親の制限を確認してください。"
+    "Read MemAvailable and the service and ancestor limits in this report."
   ],
   "finding.service_memory.title": [
-    "Memory accounting",
-    "内存核算 (Memory accounting)",
-    "메모리 집계 (Memory accounting)",
-    "メモリ会計 (Memory accounting)"
+    "Memory accounting"
   ],
   "finding.service_memory.impact": [
-    "RSS and cgroup values describe different overlapping scopes; file cache is not anonymous heap.",
-    "RSS 与 cgroup 数值反映不同但重叠范围；文件缓存不是匿名堆。",
-    "RSS와 cgroup 값은 서로 겹치는 다른 범위를 나타내며 파일 캐시는 익명 힙이 아닙니다.",
-    "RSS と cgroup 値は重複する異なる範囲を示し、ファイルキャッシュは匿名ヒープではありません。"
+    "RSS and cgroup values describe different overlapping scopes; file cache is not anonymous heap."
   ],
   "finding.service_memory.recommendation": [
-    "Keep each memory component separate and compare like-for-like measurements.",
-    "保持各内存分量独立，并比较同类测量。",
-    "각 메모리 구성 요소를 분리하고 같은 유형끼리 비교하세요.",
-    "各メモリ成分を分け、同じ種類の測定値を比較してください。"
+    "Keep each memory component separate and compare like-for-like measurements."
   ],
   "finding.service_memory.verification": [
-    "Inspect RSS, memory.current, anon, file and kernel values without summing overlaps.",
-    "查看 RSS、memory.current、anon、file、kernel，避免重叠相加。",
-    "RSS, memory.current, anon, file, kernel을 확인하되 겹치는 값을 합산하지 마세요.",
-    "RSS、memory.current、anon、file、kernel を確認し、重複分を合算しないでください。"
+    "Inspect RSS, memory.current, anon, file and kernel values without summing overlaps."
   ],
   "finding.cgroup_limits.title": [
-    "Cgroup limits",
-    "Cgroup 限制",
-    "Cgroup 제한",
-    "Cgroup 制限"
+    "Cgroup limits"
   ],
   "finding.cgroup_limits.impact": [
-    "Ancestor limits can constrain a service even when its own memory limit is unlimited.",
-    "即使服务内存无限制，父级限制仍可能约束它。",
-    "서비스 자체 메모리 제한이 없어도 상위 제한이 적용될 수 있습니다.",
-    "サービス自身のメモリ上限がなくても、親の制限が適用される場合があります。"
+    "Ancestor limits can constrain a service even when its own memory limit is unlimited."
   ],
   "finding.cgroup_limits.recommendation": [
-    "Review finite limits across the hierarchy before increasing concurrency.",
-    "增加并发前检查整个层级的有限制项。",
-    "동시성을 늘리기 전에 계층 전체의 유한 제한을 검토하세요.",
-    "並行数を増やす前に階層全体の有限の制限を確認してください。"
+    "Review finite limits across the hierarchy before increasing concurrency."
   ],
   "finding.cgroup_limits.verification": [
-    "Read memory.high and memory.max for the service and its ancestors.",
-    "读取服务及父级的 memory.high 和 memory.max。",
-    "서비스와 상위의 memory.high 및 memory.max를 읽으세요.",
-    "サービスと親の memory.high、memory.max を読み取ってください。"
+    "Read memory.high and memory.max for the service and its ancestors."
   ],
   "finding.memory_events.title": [
-    "Memory events",
-    "内存事件 (Memory events)",
-    "메모리 이벤트 (Memory events)",
-    "メモリイベント (Memory events)"
+    "Memory events"
   ],
   "finding.memory_events.impact": [
-    "OOM and limit events are counters for their cgroup lifetime, not proof of a current incident.",
-    "OOM 与限制事件是 cgroup 生命周期计数，不证明当前仍在故障。",
-    "OOM 및 제한 이벤트는 cgroup 수명 동안의 카운터이며 현재 장애를 증명하지 않습니다.",
-    "OOM や制限イベントは cgroup 寿命中のカウンターであり、現在の障害を証明しません。"
+    "OOM and limit events are counters for their cgroup lifetime, not proof of a current incident."
   ],
   "finding.memory_events.recommendation": [
-    "Investigate nonzero counters and use valid continuity evidence for new-event deltas.",
-    "调查非零计数，并凭有效连续性证据计算新增事件。",
-    "0이 아닌 카운터를 조사하고 유효한 연속성 근거로 새 이벤트 변화를 계산하세요.",
-    "ゼロ以外のカウンターを調べ、有効な連続性の証拠で新規イベント差分を確認してください。"
+    "Investigate nonzero counters and use valid continuity evidence for new-event deltas."
   ],
   "finding.memory_events.verification": [
-    "Read memory.events and compare only within a verified cgroup lifetime.",
-    "读取 memory.events，仅在已验证的同一 cgroup 生命周期内比较。",
-    "memory.events를 읽고 검증된 동일 cgroup 수명 내에서만 비교하세요.",
-    "memory.events を読み取り、確認済みの同一 cgroup 寿命内でのみ比較してください。"
+    "Read memory.events and compare only within a verified cgroup lifetime."
   ],
   "finding.file_descriptors.title": [
-    "File descriptor capacity",
-    "文件描述符容量 (FD)",
-    "파일 디스크립터 용량 (FD)",
-    "ファイルディスクリプタ容量 (FD)"
+    "File descriptor capacity"
   ],
   "finding.file_descriptors.impact": [
-    "Open descriptors must be compared with the effective process limit; FDSize is not an open-FD count.",
-    "打开描述符须与进程实际限制比较；FDSize 不是打开 FD 数。",
-    "열린 디스크립터는 실제 프로세스 제한과 비교해야 합니다. FDSize는 열린 FD 수가 아닙니다.",
-    "オープン FD は実効プロセス上限と比較します。FDSize はオープン FD 数ではありません。"
+    "Open descriptors must be compared with the effective process limit; FDSize is not an open-FD count."
   ],
   "finding.file_descriptors.recommendation": [
-    "Review descriptor headroom before changing connection counts.",
-    "调整连接数前检查描述符余量。",
-    "연결 수를 바꾸기 전에 디스크립터 여유를 확인하세요.",
-    "接続数を変更する前に FD の余裕を確認してください。"
+    "Review descriptor headroom before changing connection counts."
   ],
   "finding.file_descriptors.verification": [
-    "Count the process FD entries and read its soft and hard limits.",
-    "统计进程 FD 条目并读取软、硬限制。",
-    "프로세스 FD 항목 수와 소프트/하드 제한을 읽으세요.",
-    "プロセスの FD 項目数とソフト / ハード上限を読み取ってください。"
+    "Count the process FD entries and read its soft and hard limits."
   ],
   "finding.data_filesystem.title": [
-    "Data filesystem headroom",
-    "数据文件系统余量",
-    "데이터 파일시스템 여유",
-    "データファイルシステムの余裕"
+    "Data filesystem headroom"
   ],
   "finding.data_filesystem.impact": [
-    "Filesystem free space and logical Fibre budget measure different things. Shared mounts share capacity.",
-    "文件系统空闲与 Fibre 逻辑预算不同，共享挂载共享容量。",
-    "파일시스템 여유 공간과 Fibre 논리 예산은 다릅니다. 공유 마운트는 용량을 공유합니다.",
-    "ファイルシステムの空き容量と Fibre の論理予算は異なります。共有マウントは容量を共有します。"
+    "Filesystem free space and logical Fibre budget measure different things. Shared mounts share capacity."
   ],
   "finding.data_filesystem.recommendation": [
-    "Review free bytes and inodes on the actual data filesystem.",
-    "检查实际数据文件系统的可用字节和 inode。",
-    "실제 데이터 파일시스템의 가용 바이트와 inode를 검토하세요.",
-    "実際のデータファイルシステムの空きバイトと inode を確認してください。"
+    "Review free bytes and inodes on the actual data filesystem."
   ],
   "finding.data_filesystem.verification": [
-    "Read data mount capacity; do not infer physical disk separation from device IDs alone.",
-    "只读检查数据挂载容量，不仅凭设备 ID 推断物理磁盘隔离。",
-    "데이터 마운트 용량을 읽고 장치 ID만으로 물리 디스크 분리를 판단하지 마세요.",
-    "データマウント容量を読み取り、デバイス ID だけで物理ディスク分離を判断しないでください。"
+    "Read data mount capacity; do not infer physical disk separation from device IDs alone."
   ],
   "finding.storage_scan.title": [
-    "Storage scan completeness",
-    "存储扫描完整性",
-    "스토리지 스캔 완전성",
-    "ストレージ走査の完全性"
+    "Storage scan completeness"
   ],
   "finding.storage_scan.impact": [
-    "A bounded scan may stop early. Observed apparent and allocated bytes are distinct and are not guaranteed reclaimable space.",
-    "有界扫描可能提前停止。观测的逻辑和分配字节不同，也不保证是可回收空间。",
-    "제한된 스캔은 조기에 멈출 수 있습니다. 관측된 논리 크기와 할당 크기는 다르며 회수 가능한 공간을 보장하지 않습니다.",
-    "制限付き走査は途中で停止する場合があります。観測した論理サイズと割当サイズは異なり、回収可能容量を保証しません。"
+    "A bounded scan may stop early. Observed apparent and allocated bytes are distinct and are not guaranteed reclaimable space."
   ],
   "finding.storage_scan.recommendation": [
-    "Read completeness, stop conditions and counts before interpreting storage numbers.",
-    "解读存储数值前检查完整性、停止条件与计数。",
-    "스토리지 수치를 해석하기 전에 완전성, 중단 조건, 개수를 확인하세요.",
-    "ストレージ値を解釈する前に完全性、停止条件、件数を確認してください。"
+    "Read completeness, stop conditions and counts before interpreting storage numbers."
   ],
   "finding.storage_scan.verification": [
-    "Inspect worker checkpoints, scan duration and errors; keep files untouched.",
-    "检查子进程检查点、扫描耗时和错误，不改动文件。",
-    "파일을 변경하지 않고 작업자 체크포인트, 스캔 시간, 오류를 확인하세요.",
-    "ファイルを変更せず、ワーカーチェックポイント、走査時間、エラーを確認してください。"
+    "Inspect worker checkpoints, scan duration and errors; keep files untouched."
   ],
   "finding.aged_files.title": [
-    "Aged staging observations",
-    "旧 staging 文件观测",
-    "오래된 staging 관측",
-    "古い staging ファイルの観測"
+    "Aged staging observations"
   ],
   "finding.aged_files.impact": [
-    "Age above 900 seconds is a diagnostic threshold. Open-FD evidence does not prove progress, abandonment or safe deletion.",
-    "900 秒是诊断阈值。打开 FD 证据不能证明进度、遗弃或可安全删除。",
-    "900초는 진단 임계값입니다. 열린 FD 근거는 진행, 방치, 안전한 삭제를 증명하지 않습니다.",
-    "900秒は診断用しきい値です。オープン FD の証拠は進行、放置、安全な削除を証明しません。"
+    "Age above 900 seconds is a diagnostic threshold. Open-FD evidence does not prove progress, abandonment or safe deletion."
   ],
   "finding.aged_files.recommendation": [
-    "Investigate repeated observations alongside upload activity; do not automatically remove files.",
-    "结合上传活动调查重复观测，不自动删除文件。",
-    "업로드 활동과 반복 관측을 함께 조사하고 파일을 자동 삭제하지 마세요.",
-    "アップロード活動と繰り返し観測を照合し、ファイルを自動削除しないでください。"
+    "Investigate repeated observations alongside upload activity; do not automatically remove files."
   ],
   "finding.aged_files.verification": [
-    "Compare mtime, bytes and has_open_fd with stable process identity.",
-    "在进程身份稳定时比较 mtime、字节数和 has_open_fd。",
-    "안정적인 프로세스 신원에서 mtime, 바이트, has_open_fd를 비교하세요.",
-    "安定したプロセス同一性のもとで mtime、バイト数、has_open_fd を比較してください。"
+    "Compare mtime, bytes and has_open_fd with stable process identity."
   ],
   "finding.app_sync.title": [
-    "Consensus synchronization evidence",
-    "共识同步证据",
-    "합의 동기화 근거",
-    "コンセンサス同期の証拠"
+    "Consensus synchronization evidence"
   ],
   "finding.app_sync.impact": [
-    "A captured synchronization flag is a point-in-time observation; missing RPC data is not proof of synchronization failure.",
-    "同步标志是时点观测；缺失 RPC 数据不证明同步失败。",
-    "수집한 동기화 플래그는 시점 관측이며 RPC 데이터 누락은 동기화 실패를 증명하지 않습니다.",
-    "取得した同期フラグはその時点の観測です。RPC データ不足は同期失敗を証明しません。"
+    "A captured synchronization flag is a point-in-time observation; missing RPC data is not proof of synchronization failure."
   ],
   "finding.app_sync.recommendation": [
-    "Check verified local status and block progression when synchronization evidence is incomplete.",
-    "同步证据不完整时检查已验证的本地状态与区块推进。",
-    "동기화 근거가 불완전하면 확인된 로컬 상태와 블록 진행을 확인하세요.",
-    "同期の証拠が不十分な場合、確認済みローカル状態とブロック進行を確認してください。"
+    "Check verified local status and block progression when synchronization evidence is incomplete."
   ],
   "finding.app_sync.verification": [
-    "Read the configured loopback status endpoint without changing service state.",
-    "不改变服务状态，只读访问配置的 loopback 状态端点。",
-    "서비스 상태를 바꾸지 않고 설정된 loopback 상태 엔드포인트를 읽으세요.",
-    "サービス状態を変えず、設定された loopback 状態エンドポイントを読み取ってください。"
+    "Read the configured loopback status endpoint without changing service state."
   ],
   "finding.metrics_evidence.title": [
-    "Metrics target and freshness",
-    "指标目标与时效",
-    "메트릭 대상 및 최신성",
-    "メトリクスの対象と鮮度"
+    "Metrics target and freshness"
   ],
   "finding.metrics_evidence.impact": [
-    "OTLP export success or HTTP 200 alone does not prove current samples from this Fibre process.",
-    "OTLP 导出成功或 HTTP 200 本身不证明样本来自当前 Fibre 进程。",
-    "OTLP 내보내기 성공이나 HTTP 200만으로 현재 Fibre 프로세스의 최신 샘플을 증명하지 않습니다.",
-    "OTLP の送信成功や HTTP 200 だけでは、現在の Fibre プロセスの最新サンプルを証明できません。"
+    "OTLP export success or HTTP 200 alone does not prove current samples from this Fibre process."
   ],
   "finding.metrics_evidence.recommendation": [
-    "Use a known exporter or metrics file and verify target identity and freshness.",
-    "使用已知 exporter 或指标文件，并验证目标身份与时效。",
-    "알려진 exporter 또는 메트릭 파일을 사용하고 대상 신원 및 최신성을 확인하세요.",
-    "既知の exporter またはメトリクスファイルを使用し、対象と鮮度を確認してください。"
+    "Use a known exporter or metrics file and verify target identity and freshness."
   ],
   "finding.metrics_evidence.verification": [
-    "Inspect the configured metrics pipeline and timestamps without guessing ports.",
-    "检查配置的指标 pipeline 与时间戳，不猜测端口。",
-    "포트를 추측하지 말고 설정된 메트릭 pipeline과 타임스탬프를 확인하세요.",
-    "ポートを推測せず、設定されたメトリクス pipeline とタイムスタンプを確認してください。"
+    "Inspect the configured metrics pipeline and timestamps without guessing ports."
   ],
   "finding.signing_latency.title": [
-    "Signing latency evidence",
-    "签名延迟证据",
-    "서명 지연 근거",
-    "署名遅延の証拠"
+    "Signing latency evidence"
   ],
   "finding.signing_latency.impact": [
-    "The supported median check requires the right core version, at least 50 successful samples and current target evidence. Fibre endorsement timing is a different measurement.",
-    "支持的中位数检查需要正确 core 版本、至少 50 个成功样本和当前目标证据。Fibre endorsement 耗时是不同测量。",
-    "지원되는 중앙값 점검에는 올바른 core 버전, 최소 50개 성공 샘플, 현재 대상 근거가 필요합니다. Fibre endorsement 시간은 다른 측정입니다.",
-    "対応する中央値チェックには正しい core バージョン、50件以上の成功サンプル、現在の対象の証拠が必要です。Fibre endorsement 時間は別の測定です。"
+    "The supported median check requires the right core version, at least 50 successful samples and current target evidence. Fibre endorsement timing is a different measurement."
   ],
   "finding.signing_latency.recommendation": [
-    "Treat warm-up, unknown versions and stale samples as insufficient evidence, not a pass.",
-    "预热、未知版本和过期样本应视为证据不足，而非通过。",
-    "준비 중, 알 수 없는 버전, 오래된 샘플은 통과가 아닌 근거 부족으로 처리하세요.",
-    "準備中、未知のバージョン、古いサンプルは合格ではなく証拠不足として扱ってください。"
+    "Treat warm-up, unknown versions and stale samples as insufficient evidence, not a pass."
   ],
   "finding.signing_latency.verification": [
-    "Verify signing_latency_median_seconds, successful histogram counts, target and sample freshness; the supported threshold is 0.010 seconds.",
-    "验证 signing_latency_median_seconds、成功 histogram 计数、目标与样本时效；支持的阈值为 0.010 秒。",
-    "signing_latency_median_seconds, 성공 histogram 개수, 대상, 샘플 최신성을 확인하세요. 지원 임계값은 0.010초입니다.",
-    "signing_latency_median_seconds、成功 histogram 件数、対象、サンプル鮮度を確認してください。対応するしきい値は0.010秒です。"
+    "Verify signing_latency_median_seconds, successful histogram counts, target and sample freshness; the supported threshold is 0.010 seconds."
   ],
   "finding.unknown_finding.title": [
-    "Additional check",
-    "附加检查",
-    "추가 점검",
-    "追加チェック"
+    "Additional check"
   ],
   "finding.unknown_finding.impact": [
-    "This report does not have a translated template for the supplied check.",
-    "报告没有此检查的翻译模板。",
-    "이 점검의 번역 템플릿이 없습니다.",
-    "このチェックの翻訳テンプレートがありません。"
+    "This report does not have a translated template for the supplied check."
   ],
   "finding.unknown_finding.recommendation": [
-    "Use a matching collector and report version.",
-    "使用匹配的采集器与报告版本。",
-    "일치하는 수집기와 보고서 버전을 사용하세요.",
-    "対応するコレクターとレポートのバージョンを使用してください。"
+    "Use a matching collector and report version."
   ],
   "finding.unknown_finding.verification": [
-    "Review the private source snapshot for additional evidence.",
-    "在私有原始快照中审阅附加证据。",
-    "비공개 원본 스냅샷에서 추가 근거를 검토하세요.",
-    "非公開の元スナップショットで追加の証拠を確認してください。"
+    "Review the private source snapshot for additional evidence."
   ],
   "app_sync": [
-    "Application synchronization",
-    "应用同步 (Application synchronization)",
-    "애플리케이션 동기화 (Application synchronization)",
-    "アプリケーション同期 (Application synchronization)"
+    "Application synchronization"
   ],
   "collection_issues": [
-    "Collection issues",
-    "采集问题 (Collection issues)",
-    "수집 문제 (Collection issues)",
-    "取得の問題 (Collection issues)"
+    "Collection issues"
   ],
   "reason.gauge_unverified": [
-    "Temporal continuity or a valid duration is missing; observations remain side by side.",
-    "缺少时间连续性或有效间隔；仅并列显示观测值 (Temporal continuity)。",
-    "시간 연속성이나 유효한 간격이 없어 관측값을 나란히 표시합니다 (Temporal continuity).",
-    "時系列の連続性または有効な間隔がなく、観測値を並列表示します (Temporal continuity)。"
+    "Temporal continuity or a valid duration is missing; observations remain side by side."
   ],
   "reason.monotonic": [
-    "Interval verified with a monotonic clock.",
-    "间隔由单调时钟验证 (Monotonic clock)。",
-    "단조 시계로 간격을 확인했습니다 (Monotonic clock).",
-    "単調クロックで間隔を検証済み (Monotonic clock)。"
+    "Interval verified with a monotonic clock."
   ],
   "reason.estimated_wall_clock": [
-    "Estimated from wall-clock capture starts; clock changes and sequential reads can affect the interval.",
-    "根据采集开始的墙上时钟估算；时钟变化和顺序读取会影响间隔 (Wall clock)。",
-    "수집 시작 시각으로 추정하며 시계 변경과 순차 읽기의 영향을 받습니다 (Wall clock).",
-    "取得開始時刻による推定です。時計の変更と順次読み取りの影響を受けます (Wall clock)。"
+    "Estimated from wall-clock capture starts; clock changes and sequential reads can affect the interval."
   ],
   "reason.missing_observation": [
-    "A required observation is missing.",
-    "缺少必要观测值 (Missing observation)。",
-    "필수 관측값이 없습니다 (Missing observation).",
-    "必要な観測値がありません (Missing observation)。"
+    "A required observation is missing."
   ],
   "reason.invalid_duration": [
-    "A positive compatible duration is unavailable; no temporal rate is established.",
-    "缺少有效正向时间间隔；无法确认时间变化率 (Invalid duration)。",
-    "유효한 양수 시간 간격이 없어 시간 변화율을 확인할 수 없습니다 (Invalid duration).",
-    "有効な正の時間間隔がなく、時系列の変化率は確認できません (Invalid duration)。"
+    "A positive compatible duration is unavailable; no temporal rate is established."
   ],
   "reason.counter_reset": [
-    "Counter decreased or reset; delta and rate are unavailable.",
-    "计数器下降或重置；变化量和速率不可用 (Counter reset)。",
-    "카운터가 감소하거나 초기화되어 변화량과 변화율을 계산할 수 없습니다 (Counter reset).",
-    "カウンターが減少またはリセットされ、差分と変化率は利用できません (Counter reset)。"
+    "Counter decreased or reset; delta and rate are unavailable."
   ],
   "reason.gauge_difference": [
-    "Difference between observed gauges; this does not prove continuous growth.",
-    "两次观测值之差；不证明持续增长 (Gauge difference)。",
-    "두 관측값의 차이이며 지속적인 증가를 증명하지 않습니다 (Gauge difference).",
-    "観測値の差であり、継続的な増加を証明しません (Gauge difference)。"
+    "Difference between observed gauges; this does not prove continuous growth."
   ],
   "reason.environment_difference": [
-    "Difference between environments, not a temporal change.",
-    "环境之间的差值，不是时间变化 (Environment difference)。",
-    "환경 사이의 차이이며 시간에 따른 변화가 아닙니다 (Environment difference).",
-    "環境間の差であり、時間的な変化ではありません (Environment difference)。"
+    "Difference between environments, not a temporal change."
   ],
   "reason.environment_counters": [
-    "Counters from different environments are not temporal deltas.",
-    "不同环境的计数器不能作为时间变化量 (Environment counters)。",
-    "다른 환경의 카운터로 시간 변화량을 계산하지 않습니다 (Environment counters).",
-    "異なる環境のカウンターを時系列の差分として扱いません (Environment counters)。"
+    "Counters from different environments are not temporal deltas."
   ],
   "reason.counter_unverified": [
-    "Counter continuity is neither verified nor explicitly assumed.",
-    "计数器连续性未验证，也未明确接受假设 (Counter continuity)。",
-    "카운터 연속성을 확인하거나 명시적으로 가정하지 않았습니다 (Counter continuity).",
-    "カウンターの連続性は未検証で、明示的な仮定もありません (Counter continuity)。"
+    "Counter continuity is neither verified nor explicitly assumed."
   ],
   "reason.identity_mismatch": [
-    "Host, boot, process or recorded service lifetime differs.",
-    "主机、启动、进程或记录的服务生命周期不同 (Identity mismatch)。",
-    "호스트, 부팅, 프로세스 또는 기록된 서비스 수명이 다릅니다 (Identity mismatch).",
-    "ホスト、起動、プロセスまたはサービス寿命が異なります (Identity mismatch)。"
+    "Host, boot, process or recorded service lifetime differs."
   ],
   "reason.capture_unstable": [
-    "Process identity changed during collection.",
-    "采集期间进程身份发生变化 (Unstable capture)。",
-    "수집 중 프로세스 신원이 변경되었습니다 (Unstable capture).",
-    "取得中にプロセスの同一性が変わりました (Unstable capture)。"
+    "Process identity changed during collection."
   ],
   "reason.identity_verified": [
-    "Host, boot, main PID and process start ticks match.",
-    "主机、启动、主 PID 和进程启动 ticks 一致 (Verified identity)。",
-    "호스트, 부팅, 주 PID와 프로세스 시작 ticks가 일치합니다 (Verified identity).",
-    "ホスト、起動、主 PID とプロセス開始 ticks が一致します (Verified identity)。"
+    "Host, boot, main PID and process start ticks match."
   ],
   "reason.legacy_match": [
-    "Legacy PID, service start time, restart count and cgroup path match.",
-    "旧格式 PID、服务启动时间、重启次数和 cgroup 路径一致 (Legacy heuristic)。",
-    "레거시 PID, 서비스 시작 시각, 재시작 횟수와 cgroup 경로가 일치합니다 (Legacy heuristic).",
-    "旧形式の PID、サービス開始時刻、再起動回数、cgroup パスが一致します (Legacy heuristic)。"
+    "Legacy PID, service start time, restart count and cgroup path match."
   ],
   "reason.legacy_unknown": [
-    "Host, boot and cgroup generation remain unverified in legacy input.",
-    "旧格式无法验证主机、启动和 cgroup 世代 (Legacy identity)。",
-    "레거시 입력에서 호스트, 부팅과 cgroup 세대는 확인되지 않았습니다 (Legacy identity).",
-    "旧形式ではホスト、起動、cgroup 世代は未検証です (Legacy identity)。"
+    "Host, boot and cgroup generation remain unverified in legacy input."
   ],
   "reason.identity_missing": [
-    "Required identity evidence is missing; this is not a confirmed mismatch.",
-    "缺少身份依据；这不代表已确认不匹配 (Identity missing)。",
-    "신원 근거가 없으며 불일치가 확인된 것은 아닙니다 (Identity missing).",
-    "同一性の証拠が不足しています。不一致が確認されたわけではありません (Identity missing)。"
+    "Required identity evidence is missing; this is not a confirmed mismatch."
   ],
   "reason.legacy_accepted": [
-    "The legacy continuity assumption was explicitly enabled.",
-    "已明确启用旧格式连续性假设 (Legacy assumption enabled)。",
-    "레거시 연속성 가정이 명시적으로 활성화되었습니다 (Legacy assumption enabled).",
-    "旧形式の連続性に関する仮定が明示的に有効です (Legacy assumption enabled)。"
+    "The legacy continuity assumption was explicitly enabled."
   ],
   "reason.legacy_not_accepted": [
-    "Legacy counter comparison requires explicit acceptance of the continuity assumption.",
-    "旧格式计数器比较需要明确接受连续性假设 (Legacy opt-in)。",
-    "레거시 카운터 비교에는 연속성 가정의 명시적 동의가 필요합니다 (Legacy opt-in).",
-    "旧形式のカウンター比較には連続性の仮定を明示的に受け入れる必要があります (Legacy opt-in)。"
+    "Legacy counter comparison requires explicit acceptance of the continuity assumption."
   ],
   "reason.cgroup_mismatch": [
-    "Cgroup scope differs; cgroup counters cannot be compared temporally.",
-    "cgroup 范围不同；计数器不能进行时间比较 (Cgroup mismatch)。",
-    "cgroup 범위가 달라 카운터를 시점 비교할 수 없습니다 (Cgroup mismatch).",
-    "cgroup の範囲が異なり、カウンターを時系列で比較できません (Cgroup mismatch)。"
+    "Cgroup scope differs; cgroup counters cannot be compared temporally."
   ],
   "reason.cgroup_unverified": [
-    "Cgroup lifetime continuity is unverified.",
-    "cgroup 生命周期连续性未验证 (Cgroup continuity)。",
-    "cgroup 수명 연속성이 확인되지 않았습니다 (Cgroup continuity).",
-    "cgroup 寿命の連続性は未検証です (Cgroup continuity)。"
+    "Cgroup lifetime continuity is unverified."
   ],
   "reason.unavailable": [
-    "No recognized explanation was established from the supplied evidence.",
-    "现有证据未提供可识别的原因 (Unavailable)。",
-    "제공된 근거에서 확인된 설명이 없습니다 (Unavailable).",
-    "与えられた証拠から既知の説明を確認できません (Unavailable)。"
+    "No recognized explanation was established from the supplied evidence."
   ],
   "monotonic": [
-    "Monotonic clock",
-    "单调时钟 (Monotonic clock)",
-    "단조 시계 (Monotonic clock)",
-    "単調クロック (Monotonic clock)"
+    "Monotonic clock"
   ],
   "estimated_wall_clock": [
-    "Estimated wall clock",
-    "估算墙上时钟 (Wall clock)",
-    "벽시계 추정 (Wall clock)",
-    "実時間クロックによる推定 (Wall clock)"
+    "Estimated wall clock"
   ],
   "stop.end_of_directory": [
-    "End of directory; review completeness and errors.",
-    "已到目录末尾；检查完整性和错误 (End of directory)。",
-    "디렉터리 끝에 도달했습니다. 완전성과 오류를 확인하세요 (End of directory).",
-    "ディレクトリ終端です。完全性とエラーを確認してください (End of directory)。"
+    "End of directory; review completeness and errors."
   ],
   "stop.time_budget": [
-    "Time budget reached; last checkpoint retained.",
-    "已达时间限制；保留最后检查点 (Time budget)。",
-    "시간 제한에 도달하여 마지막 체크포인트를 보존했습니다 (Time budget).",
-    "制限時間に達し、最後のチェックポイントを保持しました (Time budget)。"
+    "Time budget reached; last checkpoint retained."
   ],
   "stop.entry_budget": [
-    "Entry budget reached; partial observations retained.",
-    "已达条目限制；保留部分观测 (Entry budget)。",
-    "항목 제한에 도달하여 부분 관측값을 보존했습니다 (Entry budget).",
-    "項目数の上限に達し、部分的な観測を保持しました (Entry budget)。"
+    "Entry budget reached; partial observations retained."
   ],
   "stop.permission_denied": [
-    "Permission denied.",
-    "权限不足 (Permission denied)。",
-    "권한이 거부되었습니다 (Permission denied).",
-    "権限がありません (Permission denied)。"
+    "Permission denied."
   ],
   "stop.missing": [
-    "Directory was not found.",
-    "未找到目录 (Missing directory)。",
-    "디렉터리를 찾을 수 없습니다 (Missing directory).",
-    "ディレクトリがありません (Missing directory)。"
+    "Directory was not found."
   ],
   "stop.enumeration_error": [
-    "Directory enumeration failed.",
-    "目录枚举失败 (Enumeration error)。",
-    "디렉터리 열거에 실패했습니다 (Enumeration error).",
-    "ディレクトリの列挙に失敗しました (Enumeration error)。"
+    "Directory enumeration failed."
   ],
   "stop.worker_incomplete": [
-    "Worker did not provide a valid complete result.",
-    "子进程未提供有效完整结果 (Worker incomplete)。",
-    "작업자가 유효한 전체 결과를 제공하지 못했습니다 (Worker incomplete).",
-    "ワーカーから有効な完全結果を取得できませんでした (Worker incomplete)。"
+    "Worker did not provide a valid complete result."
   ],
   "stop.store_path_unresolved": [
-    "Store directory could not be established.",
-    "无法确定存储目录 (Store path unresolved)。",
-    "저장 디렉터리를 확인할 수 없습니다 (Store path unresolved).",
-    "ストアディレクトリを特定できません (Store path unresolved)。"
+    "Store directory could not be established."
   ],
   "stop.in_progress": [
-    "Checkpoint from an unfinished scan.",
-    "尚未完成扫描的检查点 (In progress)。",
-    "미완료 스캔의 체크포인트입니다 (In progress).",
-    "未完了の走査のチェックポイントです (In progress)。"
+    "Checkpoint from an unfinished scan."
   ],
   "stop.scanner_unavailable": [
-    "Scanner could not be started or observed.",
-    "无法启动或观测扫描器 (Scanner unavailable)。",
-    "스캐너를 시작하거나 관측할 수 없습니다 (Scanner unavailable).",
-    "スキャナーを開始または観測できません (Scanner unavailable)。"
+    "Scanner could not be started or observed."
   ],
   "stop.unknown": [
-    "Stop reason not established.",
-    "停止原因未确认 (Unknown)。",
-    "중단 이유가 확인되지 않았습니다 (Unknown).",
-    "停止理由は未確認です (Unknown)。"
+    "Stop reason not established."
   ],
   "scope.supervisor": [
-    "Supervisor process only; excludes collection worker and scanners.",
-    "仅监督进程；不含采集和扫描子进程 (Supervisor only)。",
-    "감독 프로세스만 포함하며 수집 작업자와 스캐너는 제외합니다 (Supervisor only).",
-    "監督プロセスのみ。収集ワーカーとスキャナーは含みません (Supervisor only)。"
+    "Supervisor process only; excludes collection worker and scanners."
   ],
   "scope.collector_worker": [
-    "Collection worker only; excludes scanners and helper commands.",
-    "仅采集子进程；不含扫描器和辅助命令 (Collection worker only)。",
-    "수집 작업자만 포함하며 스캐너와 보조 명령은 제외합니다 (Collection worker only).",
-    "収集ワーカーのみ。スキャナーと補助コマンドは含みません (Collection worker only)。"
+    "Collection worker only; excludes scanners and helper commands."
   ],
   "scope.storage_scanner": [
-    "Storage scanner process only.",
-    "仅存储扫描进程 (Storage scanner only)。",
-    "스토리지 스캐너 프로세스만 포함합니다 (Storage scanner only).",
-    "ストレージ走査プロセスのみです (Storage scanner only)。"
+    "Storage scanner process only."
   ],
   "scope.unknown": [
-    "Process accounting scope was not established.",
-    "进程计量范围未确认 (Scope unknown)。",
-    "프로세스 측정 범위가 확인되지 않았습니다 (Scope unknown).",
-    "プロセス計測の範囲は未確認です (Scope unknown)。"
+    "Process accounting scope was not established."
   ],
   "collector_worker": [
-    "Collection worker",
-    "采集子进程 (Collection worker)",
-    "수집 작업자 (Collection worker)",
-    "収集ワーカー (Collection worker)"
+    "Collection worker"
   ],
   "usage_partial": [
-    "Incomplete checkpoint: measured cost covers only work observed so far.",
-    "不完整检查点：仅包含已观测工作的开销 (Incomplete checkpoint)。",
-    "불완전한 체크포인트: 지금까지 관측한 작업 비용만 포함합니다 (Incomplete checkpoint).",
-    "不完全なチェックポイント：観測済み作業のコストのみを含みます (Incomplete checkpoint)。"
+    "Incomplete checkpoint: measured cost covers only work observed so far."
   ],
   "cleanup_pending_note": [
-    "Kill was requested; worker exit was not observed within the cleanup grace.",
-    "已请求终止，但宽限期内未观测到子进程退出 (Cleanup pending)。",
-    "종료를 요청했으나 정리 유예 시간 안에 작업자 종료를 관측하지 못했습니다 (Cleanup pending).",
-    "終了を要求しましたが、猶予時間内にワーカーの終了を確認できませんでした (Cleanup pending)。"
+    "Kill was requested; worker exit was not observed within the cleanup grace."
   ],
   "footer": [
-    "TTT Fibre Operator Kit v0.1 · Evidence before conclusions",
-    "TTT Fibre Operator Kit v0.1 · 依据证据得出结论",
-    "TTT Fibre Operator Kit v0.1 · 근거에 따른 결론",
-    "TTT Fibre Operator Kit v0.1 · 証拠に基づく判断"
+    "Doctor Fibre Kit v0.1 · Evidence before conclusions"
   ],
   "finding.storage_budget.title": [
-    "Logical occupancy and storage budget",
-    "逻辑占用与存储预算 (Occupancy / budget)",
-    "논리 사용량과 스토리지 예산 (Occupancy / budget)",
-    "論理使用量とストレージ予算 (Occupancy / budget)"
+    "Logical occupancy and storage budget"
   ],
   "finding.storage_budget.impact": [
-    "Logical occupancy and budget are application accounting; neither equals filesystem usage or staging bytes.",
-    "逻辑占用和预算是应用计量，不等于文件系统或 staging 占用。",
-    "논리 사용량과 예산은 앱의 집계이며 파일시스템 또는 staging 사용량과 다릅니다.",
-    "論理使用量と予算はアプリの集計であり、ファイルシステムや staging 使用量とは異なります。"
+    "Logical occupancy and budget are application accounting; neither equals filesystem usage or staging bytes."
   ],
   "finding.storage_budget.recommendation": [
-    "Compare verified occupancy and budget metrics separately from measured directory and filesystem bytes.",
-    "将已验证的 occupancy 和 budget 指标与目录及文件系统实测值分别比较。",
-    "확인된 occupancy 및 budget 메트릭을 디렉터리와 파일시스템 측정값과 구분해 비교하세요.",
-    "検証済みの occupancy と budget を、ディレクトリやファイルシステムの実測値と区別して比較してください。"
+    "Compare verified occupancy and budget metrics separately from measured directory and filesystem bytes."
   ],
   "finding.storage_budget.verification": [
-    "Confirm the same Fibre target, metric freshness, budget mode and valid nonnegative values.",
-    "确认相同 Fibre 目标、指标时效、预算模式及非负有效值。",
-    "동일 Fibre 대상, 메트릭 최신성, 예산 모드, 유효한 음이 아닌 값을 확인하세요.",
-    "同じ Fibre 対象、メトリクスの鮮度、予算モード、有効な非負値を確認してください。"
+    "Confirm the same Fibre target, metric freshness, budget mode and valid nonnegative values."
   ],
   "finding.shared_data_filesystem.title": [
-    "Data filesystem sharing",
-    "数据文件系统共享 (Shared filesystem)",
-    "데이터 파일시스템 공유 (Shared filesystem)",
-    "データファイルシステムの共有 (Shared filesystem)"
+    "Data filesystem sharing"
   ],
   "finding.shared_data_filesystem.impact": [
-    "Services on the same filesystem compete for available space. Different device IDs alone do not prove separate physical disks.",
-    "同一文件系统上的服务共享剩余空间。设备 ID 不同不能单独证明物理磁盘独立。",
-    "같은 파일시스템의 서비스는 가용 공간을 공유합니다. 장치 ID가 다르다고 물리 디스크 분리가 증명되지는 않습니다.",
-    "同じファイルシステムのサービスは空き容量を共有します。デバイス ID の違いだけでは物理ディスクの分離を証明できません。"
+    "Services on the same filesystem compete for available space. Different device IDs alone do not prove separate physical disks."
   ],
   "finding.shared_data_filesystem.recommendation": [
-    "Account for other services when evaluating storage headroom.",
-    "评估存储余量时考虑其他服务。",
-    "스토리지 여유 공간을 평가할 때 다른 서비스를 고려하세요.",
-    "ストレージ余裕を評価する際は他のサービスを考慮してください。"
+    "Account for other services when evaluating storage headroom."
   ],
   "finding.shared_data_filesystem.verification": [
-    "Resolve service data directories to filesystem identities and verify topology separately.",
-    "解析服务数据目录的文件系统身份，并单独验证拓扑。",
-    "서비스 데이터 디렉터리의 파일시스템 신원을 확인하고 토폴로지를 별도로 검증하세요.",
-    "サービスのデータディレクトリのファイルシステムを特定し、構成は別途検証してください。"
+    "Resolve service data directories to filesystem identities and verify topology separately."
   ]
 }

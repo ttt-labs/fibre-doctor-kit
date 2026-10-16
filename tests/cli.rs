@@ -1,12 +1,14 @@
+use doctor_fibre_kit::model::*;
 use std::{
     fs,
     io::Write,
     process::{Command, Stdio},
 };
-use ttt_fibre::model::*;
 fn tool() -> Command {
     Command::new(
-        std::env::var_os("TTT_FIBRE_BIN").unwrap_or_else(|| env!("CARGO_BIN_EXE_ttt-fibre").into()),
+        std::env::var_os("DOCTOR_FIBRE_KIT_BIN")
+            .or_else(|| std::env::var_os("TTT_FIBRE_BIN"))
+            .unwrap_or_else(|| env!("CARGO_BIN_EXE_doctor-fibre-kit").into()),
     )
 }
 
@@ -84,7 +86,7 @@ fn offline_report_pair_is_private_by_projection_and_does_not_overwrite() {
         "--out",
         html.to_str().unwrap(),
         "--lang",
-        "ko",
+        "en",
     ];
     let out = tool().args(args).output().unwrap();
     assert!(
@@ -95,7 +97,9 @@ fn offline_report_pair_is_private_by_projection_and_does_not_overwrite() {
     let text = fs::read_to_string(&html).unwrap();
     assert!(!text.contains("SECRET_HOST_MARKER"));
     assert!(!text.contains("TOKEN_SECRET_MARKER"));
-    assert!(text.contains("zh-CN"));
+    assert!(text.contains("DOCTOR FIBRE KIT"));
+    assert!(text.contains("lang=\"en\""));
+    assert!(!text.contains("data-lang"));
     let report: serde_json::Value =
         serde_json::from_slice(&fs::read(html.with_extension("json")).unwrap()).unwrap();
     assert_eq!(report["report_schema_version"], 1);
@@ -105,6 +109,15 @@ fn offline_report_pair_is_private_by_projection_and_does_not_overwrite() {
 
 #[test]
 fn invalid_capacity_and_legacy_mode_arguments_fail_early() {
+    for lang in ["zh-CN", "ko", "ja"] {
+        let output = tool()
+            .args(["doctor", "--snapshot", "missing", "--lang", lang])
+            .output()
+            .unwrap();
+        assert!(!output.status.success());
+        assert!(output.stdout.is_empty());
+        assert!(String::from_utf8_lossy(&output.stderr).contains("invalid value"));
+    }
     assert!(!tool()
         .args([
             "capacity",

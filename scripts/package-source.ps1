@@ -1,7 +1,7 @@
 param([string]$Destination)
 $ErrorActionPreference = 'Stop'
 $projectRoot = Split-Path -Parent $PSScriptRoot
-if (!$Destination) { $Destination = Join-Path $projectRoot 'dist\ttt-fibre-source.zip' }
+if (!$Destination) { $Destination = Join-Path $projectRoot 'dist\doctor-fibre-kit-source.zip' }
 if (Test-Path -LiteralPath $Destination) { throw 'Source archive already exists; choose an unused path.' }
 
 $sourceFiles = @('.gitattributes', '.gitignore', 'Cargo.toml', 'Cargo.lock', 'LICENSE', 'README.md', 'collect.sh')
@@ -20,7 +20,7 @@ $zip = [IO.Compression.ZipFile]::Open($destinationPath, [IO.Compression.ZipArchi
 try {
     foreach ($file in ($files | Sort-Object FullName -Unique)) {
         $relative = $file.FullName.Substring($projectRoot.Length + 1).Replace('\', '/')
-        [IO.Compression.ZipFileExtensions]::CreateEntryFromFile($zip, $file.FullName, 'ttt-fibre/' + $relative, [IO.Compression.CompressionLevel]::Optimal) | Out-Null
+        [IO.Compression.ZipFileExtensions]::CreateEntryFromFile($zip, $file.FullName, 'doctor-fibre-kit/' + $relative, [IO.Compression.CompressionLevel]::Optimal) | Out-Null
     }
 } finally { $zip.Dispose() }
 $hash = (Get-FileHash -LiteralPath $destinationPath -Algorithm SHA256).Hash.ToLowerInvariant()

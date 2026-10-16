@@ -27,4 +27,4 @@ jobs:
       - run: sudo apt-get update && sudo apt-get install -y musl-tools
       - run: cargo test --locked --target x86_64-unknown-linux-musl
       - run: cargo build --locked --release --target x86_64-unknown-linux-musl
-      - run: file target/x86_64-unknown-linux-musl/release/ttt-fibre
+      - run: file target/x86_64-unknown-linux-musl/release/doctor-fibre-kit

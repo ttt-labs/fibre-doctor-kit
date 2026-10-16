@@ -23,22 +23,22 @@ with sync_playwright() as p:
     report = json.loads(page.locator('#report-data').text_content())
     dictionary = json.loads(page.locator('#translations').text_content())
     interval = report['comparison']['elapsed_seconds']
-    titles = {}
-    for index, lang in enumerate(('en', 'zh-CN', 'ko', 'ja')):
-        page.locator(f'button[data-lang="{lang}"]').click()
-        assert page.locator('html').get_attribute('lang') == lang
-        assert page.locator(f'button[data-lang="{lang}"]').get_attribute('aria-pressed') == 'true'
-        titles[lang] = page.locator('h1').inner_text()
-        body = page.locator('body').inner_text()
-        if interval is not None:
-            assert f'{float(interval):.3f} s' in body
-        for service in report['comparison']['services']:
-            assert dictionary[service['identity_match']][index] in body
-        assert 'undefined' not in body and 'NaN' not in body
-        assert not page.evaluate("() => [...document.querySelectorAll('.reason')].some(n => n.textContent.startsWith('reason.'))")
-        page.screenshot(path=str(args.out / f'report-{lang}.png'), full_page=False)
-    assert len(set(titles.values())) == 4
-    page.locator('[data-lang="en"]').click()
+    assert page.locator('html').get_attribute('lang') == 'en'
+    assert page.locator('[data-lang]').count() == 0
+    assert page.locator('.brand').inner_text() == 'DOCTOR FIBRE KIT'
+    assert page.title().startswith('Doctor Fibre Kit')
+    assert all(len(values) == 1 for values in dictionary.values())
+    title = page.locator('h1').inner_text()
+    assert title == dictionary['title'][0]
+    body = page.locator('body').inner_text()
+    if interval is not None:
+        assert f'{float(interval):.3f} s' in body
+    for service in report['comparison']['services']:
+        assert dictionary[service['identity_match']][0] in body
+    assert 'undefined' not in body and 'NaN' not in body
+    assert not page.evaluate("() => [...document.querySelectorAll('.reason')].some(n => n.textContent.startsWith('reason.'))")
+    assert dictionary['fd_note'][0] in body
+    page.screenshot(path=str(args.out / 'report-en.png'), full_page=False)
     if args.full_page:
         page.screenshot(path=str(args.out / 'report-full-en.png'), full_page=True)
         capacity = page.locator('section').filter(has=page.get_by_role('heading', name=dictionary['capacity_title'][0], exact=True))
@@ -51,7 +51,7 @@ with sync_playwright() as p:
     page.screenshot(path=str(args.out / 'report-mobile.png'), full_page=False)
     assert not errors, errors
     assert not external, external
-    result = {'passed': True, 'languages': titles, 'page_errors': errors, 'network_requests': external, 'offline': True, 'mobile_width': 390}
+    result = {'passed': True, 'language': 'en', 'title': title, 'page_errors': errors, 'network_requests': external, 'offline': True, 'mobile_width': 390}
     (args.out / 'browser-results.json').write_text(json.dumps(result, ensure_ascii=False, indent=2), encoding='utf-8')
     print(json.dumps(result, ensure_ascii=True, indent=2))
     browser.close()

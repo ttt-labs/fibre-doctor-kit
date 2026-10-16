@@ -1,24 +1,25 @@
 use clap::{Args, Parser, Subcommand, ValueEnum};
-use std::{
-    fs::File,
-    io::{self, Write},
-    path::{Path, PathBuf},
-};
-use ttt_fibre::{
+use doctor_fibre_kit::{
     analyzer::{self, DoctorOptions},
     collector::{self, CollectOptions},
     model::*,
     parser, report,
 };
+use std::{
+    fs::File,
+    io::{self, Write},
+    path::{Path, PathBuf},
+};
 
 #[derive(Parser)]
 #[command(
-    name = "ttt-fibre",
+    name = "doctor-fibre-kit",
     version,
     about = "Read-only Celestia Fibre diagnostics and offline reports"
 )]
 struct Cli {
-    #[arg(long, global=true, default_value="en", value_parser=["en","zh-CN","ko","ja"])]
+    /// Report language. English is currently supported.
+    #[arg(long, global=true, default_value="en", value_parser=["en"])]
     lang: String,
     /// Explicit version assumption; never recorded as observed binary version.
     #[arg(long, global = true)]
@@ -245,7 +246,7 @@ fn run() -> Result<(), String> {
 }
 fn main() {
     if let Err(error) = run() {
-        eprintln!("ttt-fibre: {error}");
+        eprintln!("doctor-fibre-kit: {error}");
         std::process::exit(2);
     }
 }

@@ -1,6 +1,15 @@
 # v0.1 validation record
 
-Verified on 2026-10-16 using Windows and a disposable Linux VM. These results cover local builds, tests and lab integration; they do not establish production-validator compatibility or performance.
+## Doctor Fibre Kit English edition
+
+Checked on 2026-10-16 after the package, CLI and repository rename:
+
+- Windows: 58 library tests and 5 CLI tests passed; Clippy passed and the release binary built.
+- Linux musl: Clippy passed, the release binary built and Linux test executables compiled. Runtime coverage for this revision is reported by its GitHub Actions run; compilation alone is not a Linux test pass.
+- Offline report: English content and branding, finding expansion and a 390px mobile layout passed in Edge/Chromium, with no JavaScript errors or HTTP(S) requests. The generated example and all three published screenshots use bundled synthetic fixtures.
+- Snapshot schema and calculation rules are unchanged. `--lang en` remains accepted; retired language choices are rejected. The fixture path and older binary override variable remain compatibility inputs.
+
+Recorded on 2026-10-16 using Windows and a disposable Linux VM, before the Doctor Fibre Kit rename and English-only report update. These results cover that revision's local builds, tests and lab integration; they do not establish production-validator compatibility, performance or validation of later changes.
 
 ## Build and tests
 
@@ -12,7 +21,7 @@ Verified on 2026-10-16 using Windows and a disposable Linux VM. These results co
 | Clippy, Windows and Linux targets, all targets, warnings denied | Passed |
 | Linux ELF | ELF64, x86-64, static PIE; no PT_INTERP and no DT_NEEDED |
 | Windows PE imports | Windows system DLLs only; no separate GNU runtime DLL needed |
-| Offline HTML, Edge/Chromium via Playwright | Four language switches, finding expansion, 390px layout passed; zero page errors or HTTP(S) requests |
+| Offline HTML, Edge/Chromium via Playwright | The previous four-language viewer passed language switches, finding expansion and 390px layout checks; zero page errors or HTTP(S) requests |
 
 The recorded Linux run includes two legacy-input cases that did not execute assertions. Legacy regressions now use bundled synthetic fixtures and require no external operational data.
 
@@ -42,7 +51,7 @@ Resource measurements finish before final JSON serialization and SSH transfer. T
 
 ## Reproduction
 
-Use the build scripts in the README. Copy the resulting Linux executable and compiled Linux test executables to a disposable Linux lab; set `TTT_FIBRE_BIN` to the Linux executable when running cross-compiled CLI tests. Run the Alpine harness only with `TTT_DISPOSABLE_LAB=1` in a disposable root VM where `/usr/bin/systemctl` does not exist. It creates and removes its own mock discovery and test processes.
+Use the build scripts in the README. Copy the resulting Linux executable and compiled Linux test executables to a disposable Linux lab; set `DOCTOR_FIBRE_KIT_BIN` to the Linux executable when running cross-compiled CLI tests. The older `TTT_FIBRE_BIN` name remains a compatibility fallback. Run the Alpine harness only with `TTT_DISPOSABLE_LAB=1` in a disposable root VM where `/usr/bin/systemctl` does not exist. It creates and removes its own mock discovery and test processes.
 
 The optional browser verification needs Python/Playwright on a development machine and an installed Chromium browser. Pass a generated comparison HTML, `--browser` executable path and `--out` screenshot directory to `scripts/verify-report.py`. Neither dependency is required on validators.
 
@@ -52,4 +61,4 @@ The optional browser verification needs Python/Playwright on a development machi
 - Live signing freshness stays unverified unless independent activity evidence is provided. A recent scrape alone is insufficient.
 - Live OTel autodiscovery has parser/ownership validation and lab coverage of explicit endpoints; production OTel deployments have not been exercised end-to-end. Unsupported or ambiguous configurations remain unavailable.
 - No stress benchmark, restart/recovery, prune mutation or automatic tuning is included.
-- GitHub Actions passed for source commit `7964e6d6a4f44aca2acb328859f77e8b93d68e62` on 2026-10-16: Windows and Ubuntu formatting, tests, Clippy and release builds, plus Linux musl tests and release build. See the [hosted validation run](https://github.com/ttt-labs/ttt-fibre/actions/runs/38860685067). This supplements the local evidence above; hosted CI does not exercise a production validator.
+- GitHub Actions passed for source commit `7964e6d6a4f44aca2acb328859f77e8b93d68e62` on 2026-10-16: Windows and Ubuntu formatting, tests, Clippy and release builds, plus Linux musl tests and release build. See the [hosted validation run](https://github.com/ttt-labs/doctor-fibre-kit/actions/runs/38860685067). This supplements the local evidence above; hosted CI does not exercise a production validator.

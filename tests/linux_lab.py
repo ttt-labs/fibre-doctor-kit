@@ -2,7 +2,7 @@
 
 Creates a fake systemctl in a VM without systemd, real processes/FDs, real
 cgroup v2 groups where available, and loopback HTTP fixtures. Python is a lab
-dependency only. Run: TTT_DISPOSABLE_LAB=1 python3 linux_lab.py /lab/ttt-fibre
+dependency only. Run: TTT_DISPOSABLE_LAB=1 python3 linux_lab.py /lab/doctor-fibre-kit
 """
 import http.server
 import json

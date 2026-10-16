@@ -1,5 +1,5 @@
 [package]
-name = "ttt-fibre"
+name = "doctor-fibre-kit"
 version = "0.1.0"
 edition = "2021"
 rust-version = "1.85"

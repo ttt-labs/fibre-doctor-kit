@@ -14,7 +14,7 @@ The collector does not install services or modify node configuration. Do not add
 Example **template**, not a command to paste unchanged. Replace the public key and expiry with operator-approved values; retain existing access and a private backup. Never paste a private key into this tool.
 
 ```text
-restrict,expiry-time="YYYYMMDDHHMMSSZ",command="/usr/local/bin/ttt-fibre collect --stdout" ssh-ed25519 PUBLIC_KEY collector-only
+restrict,expiry-time="YYYYMMDDHHMMSSZ",command="/usr/local/bin/doctor-fibre-kit collect --stdout" ssh-ed25519 PUBLIC_KEY collector-only
 ```
 
 Use a dedicated account with only the read permissions required by the deployment where feasible. Missing permissions produce missing/unknown evidence rather than a reason to grant arbitrary command access. If existing service homes require root, the fixed collector still needs full input validation and must not accept `SSH_ORIGINAL_COMMAND` as executable instructions.
@@ -27,7 +27,7 @@ Client example:
 ssh -n -T -o BatchMode=yes -o StrictHostKeyChecking=yes \
   -o IdentitiesOnly=yes -o ForwardAgent=no -o ClearAllForwardings=yes \
   -i /path/to/dedicated_key operator@host snapshot > private-snapshot.json
-ttt-fibre doctor --snapshot private-snapshot.json
+doctor-fibre-kit doctor --snapshot private-snapshot.json
 ```
 
 Verify the server host fingerprint through an existing trusted channel. Keep the original snapshot private; share the HTML and JSON emitted by `report compare` instead.
