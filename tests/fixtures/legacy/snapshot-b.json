@@ -1,0 +1,51 @@
+{
+  "_fixture": "Synthetic legacy probe capture; no production data.",
+  "timestamp_epoch": 10083.4120102,
+  "services": {
+    "celestia-appd.service": {
+      "ActiveState": "active",
+      "SubState": "running",
+      "MainPID": "42",
+      "NRestarts": "0",
+      "ExecMainStartTimestampMonotonic": "1000000",
+      "ControlGroup": "/system.slice/celestia-appd.service",
+      "MemoryCurrent": "4362076160",
+      "MemoryPeak": "5368709120",
+      "MemoryHigh": "infinity",
+      "MemoryMax": "infinity",
+      "CPUUsageNSec": "58000000000",
+      "cgroup": {
+        "memory.stat": {"anon": 2147483648, "file": 1946157056, "kernel": 268435456},
+        "memory.events": {"low": 0, "high": 0, "max": 0, "oom": 0, "oom_kill": 0}
+      }
+    },
+    "fibre.service": {
+      "ActiveState": "active",
+      "SubState": "running",
+      "MainPID": "84",
+      "NRestarts": "0",
+      "ExecMainStartTimestampMonotonic": "2000000",
+      "ControlGroup": "/system.slice/fibre.service",
+      "MemoryCurrent": "268431360",
+      "MemoryPeak": "536870912",
+      "MemoryHigh": "infinity",
+      "MemoryMax": "infinity",
+      "CPUUsageNSec": "1040000000",
+      "cgroup": {
+        "memory.stat": {"anon": 234881024, "file": 29356032, "kernel": 4194304},
+        "memory.events": {"low": 0, "high": 0, "max": 0, "oom": 0, "oom_kill": 0}
+      }
+    }
+  },
+  "top_rss": [{"pid": 42, "rss_kib": 2097152}, {"pid": 84, "rss_kib": 229376}],
+  "meminfo_kib": {"MemTotal": 67108864, "MemAvailable": 50266112, "SwapTotal": 8388608, "SwapFree": 8388608},
+  "root_fs_bytes": {"total": 1099511627776, "available": 824566611968},
+  "fibre_config_on_disk": {
+    "root.max_connections": {"value": 16, "source": "file"},
+    "root.max_concurrent_streams": {"value": 13, "source": "file"},
+    "root.unlimited_budget": {"value": false, "source": "file"},
+    "root.min_upload_size": {"value": 262144, "source": "file"},
+    "root.upload_verify_workers": {"value": 32, "source": "file"}
+  },
+  "app_status": {"error": "LookupError"}
+}
