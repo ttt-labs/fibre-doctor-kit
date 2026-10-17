@@ -2,7 +2,7 @@
 
 Creates a fake systemctl in a VM without systemd, real processes/FDs, real
 cgroup v2 groups where available, and loopback HTTP fixtures. Python is a lab
-dependency only. Run: TTT_DISPOSABLE_LAB=1 python3 linux_lab.py /lab/doctor-fibre-kit
+dependency only. Run: TTT_DISPOSABLE_LAB=1 python3 linux_lab.py /lab/fibre-doctor-kit
 """
 import http.server
 import json
@@ -153,21 +153,21 @@ def main(binary):
             assert any(i['code'] == 'METRICS_READ_FAILED' for i in too_large['issues'])
             for public_name in ('first.json', 'second.json', 'report.html', 'report.json'):
                 (Path('/lab') / ('integration-' + public_name)).write_bytes((root / public_name).read_bytes())
-            # Deliberately blocked regular-open attempt stays in collection worker;
-            # outer deadline returns its previous complete checkpoint.
+            # A named pipe is not a supported metrics file. Reject it without
+            # waiting for a writer or consuming the outer collection deadline.
             fifo = root / 'blocked-metrics'
             os.mkfifo(fifo)
-            timed, duration = collect(['--fibre-metrics-file', str(fifo)])
-            assert 19.5 <= duration < 22, duration
-            assert any(i['code'] == 'COLLECTION_TIMEOUT' for i in timed['issues'])
-            assert timed['scans'] and all(not u['complete'] for u in timed['worker_usage'])
-            assert all(s['identity']['stable_during_capture'] is not True for s in timed['services'].values())
-            assert timed['app_status']['status'] != 'complete'
-            assert all(f['has_open_fd'] is None for s in timed['scans'] for f in s['aged_files'])
+            rejected, duration = collect(['--fibre-metrics-file', str(fifo)])
+            assert duration < 5, duration
+            assert any(i['code'] == 'METRICS_FILE_UNAVAILABLE' for i in rejected['issues'])
+            assert not any(i['code'] == 'COLLECTION_TIMEOUT' for i in rejected['issues'])
+            assert rejected['metrics']['samples'] == []
+            assert rejected['scans'] and all(u['complete'] for u in rejected['worker_usage'])
+            assert all(s['identity']['stable_during_capture'] is True for s in rejected['services'].values())
             result = {'passed': True, 'environment': 'Disposable Alpine/QEMU TCG, mock systemd, real proc/cgroup/FD/filesystem/HTTP',
                 'measurements': measurements, 'checks': ['live process and cgroup', 'profile/config provenance',
                     'sparse/hardlink/symlink scan', 'aged FD true/false/unknown', 'large Prometheus integer',
-                    'unprivileged permission error', 'HTTP response cap', 'temporal HTML/JSON', '20-second checkpoint timeout']}
+                    'unprivileged permission error', 'HTTP response cap', 'temporal HTML/JSON', 'nonblocking FIFO metrics rejection']}
             Path('/lab/integration-results.json').write_text(json.dumps(result, indent=2))
             print(json.dumps(result, indent=2))
         finally:

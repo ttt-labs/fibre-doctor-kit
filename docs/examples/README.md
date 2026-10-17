@@ -1,6 +1,6 @@
 # Offline report example
 
-[Open the HTML file](report.html), download it from GitHub, and open the downloaded file in a browser. The Doctor Fibre Kit report works offline and uses English. [report.json](report.json) contains the same public comparison data; it is a report, not a raw collection snapshot.
+[Open the HTML file](report.html), download it from GitHub, and open the downloaded file in a browser. The Fibre Doctor Kit report works offline and uses English. [report.json](report.json) contains the same public comparison data; it is a report, not a raw collection snapshot.
 
 The example uses the bundled [synthetic legacy fixtures](../../tests/fixtures/legacy/). Its timestamps in January 1970 are intentional fixture values. The numbers, findings and modeled capacity do not describe a live validator. Missing evidence remains visible, and temporal comparison explicitly assumes legacy same-host continuity.
 

@@ -619,7 +619,7 @@ mod tests {
             assert!(!report.contains(forbidden), "{forbidden}");
         }
         assert!(report.contains("lang=\"en\""));
-        assert!(report.contains("DOCTOR FIBRE KIT"));
+        assert!(report.contains("FIBRE DOCTOR KIT"));
         assert!(!report.contains("data-lang"));
         assert!(!report.contains("TTT Fibre"));
     }

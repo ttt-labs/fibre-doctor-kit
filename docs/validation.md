@@ -1,5 +1,19 @@
 # Validation record
 
+## v0.2.1 security review and consistent naming
+
+Local checks on 2026-10-17 after the parser, dependency and naming changes:
+
+- Windows: **81 library + 8 CLI tests passed**, with formatting, Clippy and the release build passing.
+- Disposable Alpine 3.24.2 / Linux 6.18.52 QEMU lab: **105 library + 10 CLI tests passed** using the current musl build. The live integration harness passed with mock systemd and real `/proc`, cgroup, filesystem, FD and loopback HTTP behavior. FIFO metrics inputs are now rejected promptly instead of consuming the collection deadline.
+- Real Linux PTY checks passed navigation, resizing, Q/Ctrl+C/SIGTERM/SIGHUP and terminal restoration. Windows ConPTY checks passed all four views, resizing and Q/Ctrl+C restoration after the Ratatui upgrade.
+- Offline HTML passed desktop/mobile rendering, finding expansion and browser-error checks; HTML and TUI captures made no HTTP(S) requests and use synthetic fixtures.
+- Linux artifact: ELF64 x86-64 with no `PT_INTERP` or `DT_NEEDED` entries. Linux Clippy and release/test compilation passed separately.
+- A second disposable-lab integration run under `strace -f` passed. Its six invocations connected only to the two configured loopback fixture ports. Write opens were `/dev/null` and the requested report HTML/JSON (`O_EXCL`, mode `0600`); executed programs were the kit, `/usr/bin/ss` and the mock `/usr/bin/systemctl`. This observation covers these exercised paths, not every possible host/configuration.
+- The updated 134-package lockfile had no OSV advisory matches. See the [security review](security-review.md) for initial findings, fixes, dependency audit limits and residual risks. The pinned CI workflow additionally runs RustSec `cargo audit --deny warnings`.
+
+The executable, package, download names and documentation now consistently use `fibre-doctor-kit`. Old environment-variable aliases and the fixture directory remain compatibility inputs. Production-validator validation and an independent security audit remain pending.
+
 ## v0.2.0 terminal UI
 
 Local checks on 2026-10-17:
@@ -11,7 +25,7 @@ Local checks on 2026-10-17:
 
 The new TUI reads one capture and then renders without background collection. Existing collector bounds, snapshot schema and analyzer rules are retained. No production validator was accessed for the TUI implementation or screenshots. The historical collector lab results below apply to their recorded revisions.
 
-## Doctor Fibre Kit English edition
+## v0.1.0 English edition
 
 Checked on 2026-10-16 after the package, CLI and repository rename:
 
@@ -20,7 +34,7 @@ Checked on 2026-10-16 after the package, CLI and repository rename:
 - Offline report: English content and branding, finding expansion and a 390px mobile layout passed in Edge/Chromium, with no JavaScript errors or HTTP(S) requests. The generated example and all three published screenshots use bundled synthetic fixtures.
 - Snapshot schema and calculation rules are unchanged. `--lang en` remains accepted; retired language choices are rejected. The fixture path and older binary override variable remain compatibility inputs.
 
-Recorded on 2026-10-16 using Windows and a disposable Linux VM, before the Doctor Fibre Kit rename and English-only report update. These results cover that revision's local builds, tests and lab integration; they do not establish production-validator compatibility, performance or validation of later changes.
+Recorded on 2026-10-16 using Windows and a disposable Linux VM, before the v0.1.0 package rename and English-only report update. These results cover that revision's local builds, tests and lab integration; they do not establish production-validator compatibility, performance or validation of later changes.
 
 ## Build and tests
 
@@ -62,7 +76,7 @@ Resource measurements finish before final JSON serialization and SSH transfer. T
 
 ## Reproduction
 
-Use the build scripts in the README. Copy the resulting Linux executable and compiled Linux test executables to a disposable Linux lab; set `DOCTOR_FIBRE_KIT_BIN` to the Linux executable when running cross-compiled CLI tests. The older `TTT_FIBRE_BIN` name remains a compatibility fallback. Run the Alpine harness only with `TTT_DISPOSABLE_LAB=1` in a disposable root VM where `/usr/bin/systemctl` does not exist. It creates and removes its own mock discovery and test processes.
+Use the [build scripts](development.md#build-tests-and-packaging). Copy the resulting Linux executable and compiled Linux test executables to a disposable Linux lab; set `FIBRE_DOCTOR_KIT_BIN` to the Linux executable when running cross-compiled CLI tests. See the development guide for compatibility aliases. Run the Alpine harness only with `TTT_DISPOSABLE_LAB=1` in a disposable root VM where `/usr/bin/systemctl` does not exist. It creates and removes its own mock discovery and test processes.
 
 The optional browser verification needs Python/Playwright on a development machine and an installed Chromium browser. Pass a generated comparison HTML, `--browser` executable path and `--out` screenshot directory to `scripts/verify-report.py`. Neither dependency is required on validators.
 
@@ -72,4 +86,4 @@ The optional browser verification needs Python/Playwright on a development machi
 - Live signing freshness stays unverified unless independent activity evidence is provided. A recent scrape alone is insufficient.
 - Live OTel autodiscovery has parser/ownership validation and lab coverage of explicit endpoints; production OTel deployments have not been exercised end-to-end. Unsupported or ambiguous configurations remain unavailable.
 - No stress benchmark, restart/recovery, prune mutation or automatic tuning is included.
-- GitHub Actions passed for source commit `7964e6d6a4f44aca2acb328859f77e8b93d68e62` on 2026-10-16: Windows and Ubuntu formatting, tests, Clippy and release builds, plus Linux musl tests and release build. See the [hosted validation run](https://github.com/ttt-labs/doctor-fibre-kit/actions/runs/38860685067). This supplements the local evidence above; hosted CI does not exercise a production validator.
+- GitHub Actions passed for source commit `7964e6d6a4f44aca2acb328859f77e8b93d68e62` on 2026-10-16: Windows and Ubuntu formatting, tests, Clippy and release builds, plus Linux musl tests and release build. See the [hosted validation run](https://github.com/ttt-labs/fibre-doctor-kit/actions/runs/38860685067). This supplements the local evidence above; hosted CI does not exercise a production validator.

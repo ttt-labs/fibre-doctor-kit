@@ -37,7 +37,20 @@ impl Reader {
     }
 }
 pub(super) fn read_bounded(path: &Path, cap: usize) -> Result<Vec<u8>, String> {
-    let f = File::open(path).map_err(|e| format!("read failed: {:?}", e.kind()))?;
+    // Opening a FIFO read-only can block before the metadata check. Nonblocking
+    // open lets us reject special files using the opened descriptor; regular
+    // files (including procfs/sysfs evidence) keep their usual read semantics.
+    #[cfg(unix)]
+    let opened = {
+        use std::os::unix::fs::OpenOptionsExt;
+        File::options()
+            .read(true)
+            .custom_flags(libc::O_NONBLOCK | libc::O_CLOEXEC)
+            .open(path)
+    };
+    #[cfg(not(unix))]
+    let opened = File::open(path);
+    let f = opened.map_err(|e| format!("read failed: {:?}", e.kind()))?;
     if !f.metadata().map_err(|_| "metadata failed")?.is_file() {
         return Err("not a regular evidence file".into());
     }
@@ -386,6 +399,37 @@ pub(super) fn read_host(reader: &Reader, out: &mut SnapshotV1) {
 #[cfg(test)]
 mod tests {
     use super::*;
+    #[test]
+    fn bounded_regular_file_keeps_bytes_and_rejects_oversize() {
+        let root = tempfile::tempdir().unwrap();
+        let path = root.path().join("evidence");
+        std::fs::write(&path, b"sample").unwrap();
+        assert_eq!(read_bounded(&path, 6).unwrap(), b"sample");
+        assert_eq!(
+            read_bounded(&path, 5).unwrap_err(),
+            "evidence size limit exceeded"
+        );
+    }
+    #[cfg(unix)]
+    #[test]
+    fn evidence_fifo_without_writer_is_rejected_without_blocking() {
+        use std::{ffi::CString, os::unix::ffi::OsStrExt, sync::mpsc, time::Duration};
+        let root = tempfile::tempdir().unwrap();
+        let path = root.path().join("evidence.fifo");
+        let name = CString::new(path.as_os_str().as_bytes()).unwrap();
+        // SAFETY: name is a valid NUL-terminated path retained for this call.
+        assert_eq!(unsafe { libc::mkfifo(name.as_ptr(), 0o600) }, 0);
+        let (sender, receiver) = mpsc::channel();
+        std::thread::spawn(move || {
+            let _ = sender.send(read_bounded(&path, 65536));
+        });
+        // Keep the regression bounded even if a future change restores a
+        // blocking open: the test process does not join the stuck reader.
+        let result = receiver
+            .recv_timeout(Duration::from_secs(1))
+            .expect("reading FIFO evidence blocked waiting for a writer");
+        assert_eq!(result.unwrap_err(), "not a regular evidence file");
+    }
     #[test]
     fn fixture_clock_and_metrics_are_deterministic_supplied_evidence() {
         let root = tempfile::tempdir().unwrap();

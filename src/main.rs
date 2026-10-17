@@ -1,5 +1,5 @@
 use clap::{Args, Parser, Subcommand, ValueEnum};
-use doctor_fibre_kit::{
+use fibre_doctor_kit::{
     analyzer::{self, DoctorOptions},
     collector::{self, CollectOptions},
     model::*,
@@ -13,7 +13,7 @@ use std::{
 
 #[derive(Parser)]
 #[command(
-    name = "doctor-fibre-kit",
+    name = "fibre-doctor-kit",
     version,
     about = "Read-only Celestia Fibre diagnostics and offline reports"
 )]
@@ -141,8 +141,31 @@ fn read_input(path: &str) -> Result<SnapshotV1, String> {
     if path == "-" {
         parser::read_snapshot(io::stdin().lock())
     } else {
-        parser::read_snapshot(File::open(path).map_err(|e| format!("cannot open snapshot: {e}"))?)
+        parser::read_snapshot(open_snapshot(Path::new(path))?)
     }
+}
+
+fn open_snapshot(path: &Path) -> Result<File, String> {
+    let mut options = std::fs::OpenOptions::new();
+    options.read(true);
+    #[cfg(unix)]
+    {
+        use std::os::unix::fs::OpenOptionsExt;
+        // Opening a FIFO must not wait for a writer before the file-type check.
+        // A supplied terminal device must not become our controlling terminal.
+        options.custom_flags(libc::O_NONBLOCK | libc::O_NOCTTY);
+    }
+    let file = options
+        .open(path)
+        .map_err(|e| format!("cannot open snapshot: {e}"))?;
+    if !file
+        .metadata()
+        .map_err(|e| format!("cannot inspect snapshot: {e}"))?
+        .is_file()
+    {
+        return Err("snapshot path must refer to a regular file".into());
+    }
+    Ok(file)
 }
 fn json_bytes(value: &impl serde::Serialize) -> Result<Vec<u8>, String> {
     let mut bytes = serde_json::to_vec_pretty(value).map_err(|e| e.to_string())?;
@@ -194,9 +217,7 @@ fn run() -> Result<(), String> {
             }
             tui::require_terminal()?;
             let first = if let Some(path) = a.snapshot {
-                parser::read_snapshot(
-                    File::open(path).map_err(|e| format!("cannot open snapshot: {e}"))?,
-                )?
+                parser::read_snapshot(open_snapshot(&path)?)?
             } else {
                 if !cfg!(target_os = "linux") {
                     return Err("Live TUI collection requires Linux. On Windows use tui --snapshot FILE, optionally --compare FILE --mode temporal.".into());
@@ -217,12 +238,7 @@ fn run() -> Result<(), String> {
             };
             let second = a
                 .compare
-                .map(|path| {
-                    parser::read_snapshot(
-                        File::open(path)
-                            .map_err(|e| format!("cannot open comparison snapshot: {e}"))?,
-                    )
-                })
+                .map(|path| parser::read_snapshot(open_snapshot(&path)?))
                 .transpose()?;
             let (current, before) = match second.as_ref() {
                 Some(current) => (current, Some(&first)),
@@ -312,8 +328,8 @@ fn run() -> Result<(), String> {
             if out.exists() || sidecar.exists() {
                 return Err("report output already exists; choose an unused .html path".into());
             }
-            let a = parser::read_snapshot(File::open(snapshot_a).map_err(|e| e.to_string())?)?;
-            let b = parser::read_snapshot(File::open(snapshot_b).map_err(|e| e.to_string())?)?;
+            let a = parser::read_snapshot(open_snapshot(&snapshot_a)?)?;
+            let b = parser::read_snapshot(open_snapshot(&snapshot_b)?)?;
             let comparison =
                 analyzer::compare(&a, &b, mode == CompareMode::Temporal, allow_legacy_identity);
             let options = DoctorOptions {
@@ -337,7 +353,15 @@ fn run() -> Result<(), String> {
 }
 fn main() {
     if let Err(error) = run() {
-        eprintln!("doctor-fibre-kit: {error}");
+        // File names and OS/parser errors must not control the operator's terminal.
+        let message: String = error.chars().take(2048).map(|c| {
+            if c.is_control() || matches!(c, '\u{00ad}' | '\u{061c}' | '\u{200b}'..='\u{200f}' | '\u{2028}'..='\u{202e}' | '\u{2060}'..='\u{206f}' | '\u{feff}') {
+                '?'
+            } else {
+                c
+            }
+        }).collect();
+        eprintln!("fibre-doctor-kit: {message}");
         std::process::exit(2);
     }
 }

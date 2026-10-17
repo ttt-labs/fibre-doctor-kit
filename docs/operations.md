@@ -14,23 +14,29 @@ The collector does not install services or modify node configuration. Do not add
 Example **template**, not a command to paste unchanged. Replace the public key and expiry with operator-approved values; retain existing access and a private backup. Never paste a private key into this tool.
 
 ```text
-restrict,expiry-time="YYYYMMDDHHMMSSZ",command="/usr/local/bin/doctor-fibre-kit collect --stdout" ssh-ed25519 PUBLIC_KEY collector-only
+restrict,expiry-time="YYYYMMDDHHMMSSZ",command="/usr/local/bin/fibre-doctor-kit collect --stdout" ssh-ed25519 PUBLIC_KEY collector-only
 ```
 
 Use a dedicated account with only the read permissions required by the deployment where feasible. Missing permissions produce missing/unknown evidence rather than a reason to grant arbitrary command access. If existing service homes require root, the fixed collector still needs full input validation and must not accept `SSH_ORIGINAL_COMMAND` as executable instructions.
 
 `restrict` disables port/agent/X11 forwarding, PTY allocation and user rc execution. The fixed command ignores client-supplied shell commands. Check sshd configuration and binary ownership for the actual deployment. Expiry disables authentication; it does not remove the public-key line or backup.
 
-Client example:
+Client example for a POSIX shell, using a new output filename:
 
 ```sh
-ssh -n -T -o BatchMode=yes -o StrictHostKeyChecking=yes \
-  -o IdentitiesOnly=yes -o ForwardAgent=no -o ClearAllForwardings=yes \
-  -i /path/to/dedicated_key operator@host snapshot > private-snapshot.json
-doctor-fibre-kit doctor --snapshot private-snapshot.json
+(
+  umask 077
+  set -C
+  ssh -n -T -o BatchMode=yes -o StrictHostKeyChecking=yes \
+    -o IdentitiesOnly=yes -o ForwardAgent=no -o ClearAllForwardings=yes \
+    -i /path/to/dedicated_key operator@host snapshot > private-snapshot.json &&
+    fibre-doctor-kit doctor --snapshot private-snapshot.json
+)
 ```
 
-Verify the server host fingerprint through an existing trusted channel. Keep the original snapshot private; share the HTML and JSON emitted by `report compare` instead.
+`umask 077` removes group/other permissions when the client creates the file; `set -C` refuses to overwrite an existing regular file. Use an administrator-controlled directory without untrusted symlinks or special files. The subshell leaves the caller's shell settings unchanged. SSH redirection creates the file on the client: it does not inherit the collector's server-side output permissions. A failed transfer may leave a partial private file; inspect it and choose a new filename before retrying. On Windows, use a private directory whose ACL permits only the intended account; POSIX mode bits do not apply.
+
+Verify the server host fingerprint through an existing trusted channel. Raw snapshots contain operational identifiers and configuration evidence; keep them private. Review the public HTML and JSON emitted by `report compare` before sharing them; public reports still disclose capacity and diagnostic results.
 
 A forced-command key can run only its configured command. Install and update the binary through a separate administrative channel; keep collection access restricted.
 

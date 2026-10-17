@@ -320,22 +320,18 @@ pub(super) fn otel_exporter_for_receiver(
     text: &str,
     receiver: Option<std::net::SocketAddr>,
 ) -> Result<String, String> {
-    let root: serde_yaml::Value =
-        serde_yaml::from_str(text).map_err(|_| "Unsupported OTel Collector YAML")?;
+    let root = super::yaml::parse(text)?;
     let pipelines = root["service"]["pipelines"]
-        .as_mapping()
+        .as_object()
         .ok_or("No metrics pipeline")?;
     let mut names = Vec::new();
     for (name, pipeline) in pipelines {
-        if name
-            .as_str()
-            .is_some_and(|s| s == "metrics" || s.starts_with("metrics/"))
-        {
+        if name == "metrics" || name.starts_with("metrics/") {
             if let Some(expected) = receiver {
-                let receiver_matches = pipeline["receivers"].as_sequence().is_some_and(|names| {
+                let receiver_matches = pipeline["receivers"].as_array().is_some_and(|names| {
                     names
                         .iter()
-                        .filter_map(serde_yaml::Value::as_str)
+                        .filter_map(serde_json::Value::as_str)
                         .any(|name| {
                             if name != "otlp" && !name.starts_with("otlp/") {
                                 return false;
@@ -359,7 +355,7 @@ pub(super) fn otel_exporter_for_receiver(
                     continue;
                 }
             }
-            if let Some(exporters) = pipeline["exporters"].as_sequence() {
+            if let Some(exporters) = pipeline["exporters"].as_array() {
                 for exporter in exporters {
                     if let Some(name) = exporter
                         .as_str()

@@ -18,7 +18,7 @@ Open `example.html` in a browser. `example.json` is the accompanying public repo
 
 ## Build, tests and packaging
 
-The manifest declares Rust 1.88; recorded builds used Rust 1.99.0. Use `Cargo.lock`. Windows MSVC builds require the C++ build tools and Windows SDK; Windows GNU builds need compatible MinGW tools. Building a static Linux target also needs that Rust target and a compatible linker.
+The manifest declares Rust 1.89; recorded builds used Rust 1.99.0. Use `Cargo.lock`. Windows MSVC builds require the C++ build tools and Windows SDK; Windows GNU builds need compatible MinGW tools. Building a static Linux target also needs that Rust target and a compatible linker.
 
 ```sh
 cargo fmt --all -- --check
@@ -27,11 +27,11 @@ cargo clippy --locked --all-targets -- -D warnings
 cargo build --locked --release
 rustup target add x86_64-unknown-linux-musl
 cargo build --locked --release --target x86_64-unknown-linux-musl
-cp target/x86_64-unknown-linux-musl/release/doctor-fibre-kit ./doctor-fibre-kit-linux-x86_64-musl
-./doctor-fibre-kit-linux-x86_64-musl --version
+cp target/x86_64-unknown-linux-musl/release/fibre-doctor-kit ./fibre-doctor-kit-linux-x86_64-musl
+./fibre-doctor-kit-linux-x86_64-musl --version
 ```
 
-Cargo names the Linux executable `doctor-fibre-kit`; packaging gives it the filename `doctor-fibre-kit-linux-x86_64-musl` used in the installation examples. The `cp` command above creates that filename in your checkout. Run these Linux build commands on a development or lab machine, then copy the finished binary to the validator. Windows users can use the cross-compilation helper below and run the resulting Linux binary on Linux.
+Cargo names the Linux executable `fibre-doctor-kit`; packaging gives it the filename `fibre-doctor-kit-linux-x86_64-musl` used in the installation examples. The `cp` command above creates that filename in your checkout. Run these Linux build commands on a development or lab machine, then copy the finished binary to the validator. Windows users can use the cross-compilation helper below and run the resulting Linux binary on Linux.
 
 Windows helpers support native builds and musl cross-compilation without WSL:
 
@@ -43,6 +43,8 @@ powershell -NoProfile -ExecutionPolicy Bypass -File scripts/package-source.ps1
 ```
 
 The Linux helper compiles test executables; run them in a Linux lab to validate runtime behavior. Binary packaging requires both release targets and an unused output directory. Source packaging excludes local snapshots, SSH artifacts, build outputs and Git history. The build helpers do not install a missing Rust toolchain or compiler automatically.
+
+When running cross-compiled CLI tests, set `FIBRE_DOCTOR_KIT_BIN` to the executable under test. `DOCTOR_FIBRE_KIT_BIN` and `TTT_FIBRE_BIN` remain compatibility aliases, in that fallback order.
 
 Synthetic legacy fixtures are committed under `tests/fixtures/legacy/`. `--sysroot` fixtures use mirrored Linux files plus `run/ttt-fibre/<unit>.show`, `clock.json`, `staging.scan.json` and `shards.scan.json`. The `run/ttt-fibre/` fixture directory is retained for compatibility; no live Unix metadata is inferred on Windows. `tests/linux_lab.py` is for a **disposable Alpine VM only**, never an operational node. `scripts/verify-report.py` uses Playwright to verify offline report interactions; Python is a development dependency only.
 
@@ -69,7 +71,7 @@ The TUI uses [Ratatui](https://docs.rs/ratatui/0.29.0/ratatui/) with Crossterm. 
 On Linux, exercise an actual PTY after building:
 
 ```sh
-python3 tests/tui_pty.py target/release/doctor-fibre-kit
+python3 tests/tui_pty.py target/release/fibre-doctor-kit
 ```
 
 This opens only bundled synthetic snapshots. It checks screen navigation, resizing, Q/Ctrl+C/SIGTERM/SIGHUP exits and restoration of terminal modes, alternate screen and cursor. CI runs it for the Linux native and musl builds.
@@ -77,7 +79,7 @@ This opens only bundled synthetic snapshots. It checks screen navigation, resizi
 To reproduce the README screenshots on a Windows development machine, install Python with Playwright and use an installed Chromium browser. Download and extract the pinned [`@xterm/xterm` 5.5.0 package](https://registry.npmjs.org/@xterm/xterm/-/xterm-5.5.0.tgz); put its `lib/xterm.js` and `css/xterm.css` together in a local directory such as `.lab/xterm-5.5.0`. Then run from the repository root:
 
 ```powershell
-python scripts/verify-tui.py --binary target/release/doctor-fibre-kit.exe --browser 'C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe' --xterm-dir .lab/xterm-5.5.0 --out reports/tui-preview
+python scripts/verify-tui.py --binary target/release/fibre-doctor-kit.exe --browser 'C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe' --xterm-dir .lab/xterm-5.5.0 --out reports/tui-preview
 ```
 
 The script starts the real Windows binary in ConPTY, sends navigation keys and renders its emitted terminal bytes with local xterm.js in an offline browser. Screenshots capture that terminal output; the application layout is not recreated in HTML. The JSON verification record checks all four screens, 80-column resizing, Q/Ctrl+C exit, cursor/alternate-screen restoration and absence of browser network requests. The published `tui-overview.png` and `tui-compare.png` show a 140 × 42 terminal with the synthetic legacy fixtures and an explicitly assumed capacity profile. They contain no production node measurements. Python, Playwright and xterm.js are development tools, not TUI runtime dependencies.

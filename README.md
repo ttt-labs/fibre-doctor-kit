@@ -6,26 +6,28 @@ Read-only diagnostics for Celestia Fibre operators. Open an interactive terminal
 
 ## Installation
 
-Download from [v0.2.0 Releases](https://github.com/ttt-labs/fibre-doctor-kit/releases/tag/v0.2.0):
+Download from [v0.2.1 Releases](https://github.com/ttt-labs/fibre-doctor-kit/releases/tag/v0.2.1):
 
 | Download | SHA256 checksum | Use |
 | --- | --- | --- |
-| [Linux x86_64 binary](https://github.com/ttt-labs/fibre-doctor-kit/releases/download/v0.2.0/doctor-fibre-kit-linux-x86_64-musl) | [Checksum](https://github.com/ttt-labs/fibre-doctor-kit/releases/download/v0.2.0/doctor-fibre-kit-linux-x86_64-musl.sha256) | Collect, analyze and report |
-| [Windows x86_64 executable](https://github.com/ttt-labs/fibre-doctor-kit/releases/download/v0.2.0/doctor-fibre-kit-windows-x86_64.exe) | [Checksum](https://github.com/ttt-labs/fibre-doctor-kit/releases/download/v0.2.0/doctor-fibre-kit-windows-x86_64.exe.sha256) | Analyze and report offline |
-| [Complete release ZIP](https://github.com/ttt-labs/fibre-doctor-kit/releases/download/v0.2.0/doctor-fibre-kit-v0.2.0.zip) | [Checksum](https://github.com/ttt-labs/fibre-doctor-kit/releases/download/v0.2.0/doctor-fibre-kit-v0.2.0.zip.sha256) | Both binaries, docs and example report |
+| [Linux x86_64 binary](https://github.com/ttt-labs/fibre-doctor-kit/releases/download/v0.2.1/fibre-doctor-kit-linux-x86_64-musl) | [Checksum](https://github.com/ttt-labs/fibre-doctor-kit/releases/download/v0.2.1/fibre-doctor-kit-linux-x86_64-musl.sha256) | Collect, analyze and report |
+| [Windows x86_64 executable](https://github.com/ttt-labs/fibre-doctor-kit/releases/download/v0.2.1/fibre-doctor-kit-windows-x86_64.exe) | [Checksum](https://github.com/ttt-labs/fibre-doctor-kit/releases/download/v0.2.1/fibre-doctor-kit-windows-x86_64.exe.sha256) | Analyze and report offline |
+| [Complete release ZIP](https://github.com/ttt-labs/fibre-doctor-kit/releases/download/v0.2.1/fibre-doctor-kit-v0.2.1.zip) | [Checksum](https://github.com/ttt-labs/fibre-doctor-kit/releases/download/v0.2.1/fibre-doctor-kit-v0.2.1.zip.sha256) | Both binaries, docs and example report |
 
-**On the Linux server**, run `uname -m` first. Use this download only if it returns `x86_64`; v0.2.0 has no ARM build. Run these commands in the directory where you want to keep the tool and snapshots:
+**On the Linux server**, run `uname -m` first. Use this download only if it returns `x86_64`; v0.2.1 has no ARM build. Run these commands in the directory where you want to keep the tool and snapshots:
 
 ```sh
-release_url=https://github.com/ttt-labs/fibre-doctor-kit/releases/download/v0.2.0
-curl -fL "$release_url/doctor-fibre-kit-linux-x86_64-musl" -o doctor-fibre-kit-linux-x86_64-musl &&
-curl -fL "$release_url/doctor-fibre-kit-linux-x86_64-musl.sha256" -o doctor-fibre-kit-linux-x86_64-musl.sha256 &&
-sha256sum -c doctor-fibre-kit-linux-x86_64-musl.sha256 &&
-chmod +x ./doctor-fibre-kit-linux-x86_64-musl &&
-./doctor-fibre-kit-linux-x86_64-musl --version
+release_url=https://github.com/ttt-labs/fibre-doctor-kit/releases/download/v0.2.1
+curl -fL "$release_url/fibre-doctor-kit-linux-x86_64-musl" -o fibre-doctor-kit-linux-x86_64-musl &&
+curl -fL "$release_url/fibre-doctor-kit-linux-x86_64-musl.sha256" -o fibre-doctor-kit-linux-x86_64-musl.sha256 &&
+sha256sum -c fibre-doctor-kit-linux-x86_64-musl.sha256 &&
+chmod +x ./fibre-doctor-kit-linux-x86_64-musl &&
+./fibre-doctor-kit-linux-x86_64-musl --version
 ```
 
 Checksum verification should say `OK`. Cloning the repo or downloading GitHub's **Source code** archives gives you source without binaries; see [building from source](docs/development.md#build-tests-and-packaging).
+
+Upgrading from v0.2.0 or earlier? Starting with v0.2.1, binary filenames use `fibre-doctor-kit` instead of `doctor-fibre-kit`, matching the repository name. Download the new binary and use the commands below; existing snapshots still work. [Earlier releases](https://github.com/ttt-labs/fibre-doctor-kit/releases) remain available under their original filenames.
 
 <details>
 <summary>Windows installation (PowerShell, for offline analysis)</summary>
@@ -34,13 +36,13 @@ Run in a working directory on your PC:
 
 ```powershell
 $ErrorActionPreference = 'Stop'
-$releaseUrl = 'https://github.com/ttt-labs/fibre-doctor-kit/releases/download/v0.2.0'
-Invoke-WebRequest "$releaseUrl/doctor-fibre-kit-windows-x86_64.exe" -OutFile .\doctor-fibre-kit-windows-x86_64.exe
-Invoke-WebRequest "$releaseUrl/doctor-fibre-kit-windows-x86_64.exe.sha256" -OutFile .\doctor-fibre-kit-windows-x86_64.exe.sha256
-$expectedChecksum = ((Get-Content -Raw .\doctor-fibre-kit-windows-x86_64.exe.sha256).Trim() -split '\s+')[0]
-$actualChecksum = (Get-FileHash .\doctor-fibre-kit-windows-x86_64.exe -Algorithm SHA256).Hash
+$releaseUrl = 'https://github.com/ttt-labs/fibre-doctor-kit/releases/download/v0.2.1'
+Invoke-WebRequest "$releaseUrl/fibre-doctor-kit-windows-x86_64.exe" -OutFile .\fibre-doctor-kit-windows-x86_64.exe
+Invoke-WebRequest "$releaseUrl/fibre-doctor-kit-windows-x86_64.exe.sha256" -OutFile .\fibre-doctor-kit-windows-x86_64.exe.sha256
+$expectedChecksum = ((Get-Content -Raw .\fibre-doctor-kit-windows-x86_64.exe.sha256).Trim() -split '\s+')[0]
+$actualChecksum = (Get-FileHash .\fibre-doctor-kit-windows-x86_64.exe -Algorithm SHA256).Hash
 if ($actualChecksum -ne $expectedChecksum) { throw 'SHA256 mismatch; do not run this download.' }
-.\doctor-fibre-kit-windows-x86_64.exe --version
+.\fibre-doctor-kit-windows-x86_64.exe --version
 ```
 
 Windows analyzes snapshots collected on Linux; it cannot collect live Linux node data. For the complete ZIP, verify its `.sha256` using the same checksum comparison with the ZIP filenames, then extract it. The bundle also contains an internal `SHA256SUMS` file.
@@ -52,7 +54,7 @@ Windows analyzes snapshots collected on Linux; it cannot collect live Linux node
 **On the Linux server**, run this in an interactive terminal or SSH session:
 
 ```sh
-./doctor-fibre-kit-linux-x86_64-musl tui
+./fibre-doctor-kit-linux-x86_64-musl tui
 ```
 
 The tool collects once, then opens **Overview / Findings / Capacity / Compare**. Use **Tab** or **1–4** to switch views, **↑/↓** to navigate, **PgUp/PgDn** to scroll details, and **Q** or **Ctrl+C** to exit. Resize the terminal as needed; 100 columns or more is recommended.
@@ -62,18 +64,18 @@ The view shows a fixed capture, with no background polling. No snapshot or HTML 
 To open an existing snapshot without collecting again:
 
 ```sh
-./doctor-fibre-kit-linux-x86_64-musl tui --snapshot snapshot-before.json
+./fibre-doctor-kit-linux-x86_64-musl tui --snapshot snapshot-before.json
 ```
 
-On **Windows**, use `.\doctor-fibre-kit-windows-x86_64.exe tui --snapshot .\snapshot-before.json`. Live collection requires Linux. TUI needs an interactive terminal; plain text and JSON commands remain available for scripts and restricted collection keys.
+On **Windows**, use `.\fibre-doctor-kit-windows-x86_64.exe tui --snapshot .\snapshot-before.json`. Live collection requires Linux. TUI needs an interactive terminal; plain text and JSON commands remain available for scripts and restricted collection keys.
 
 ## Check your node
 
 **On the Linux server**, in the directory containing the binary:
 
 ```sh
-./doctor-fibre-kit-linux-x86_64-musl collect --out snapshot-before.json &&
-./doctor-fibre-kit-linux-x86_64-musl doctor --snapshot snapshot-before.json
+./fibre-doctor-kit-linux-x86_64-musl collect --out snapshot-before.json &&
+./fibre-doctor-kit-linux-x86_64-musl doctor --snapshot snapshot-before.json
 ```
 
 This saves the first snapshot and prints findings in the terminal. `doctor` does not create HTML. Default services are `celestia-appd.service` and `fibre.service`; see [custom services, homes and metrics](docs/reference.md#collection-and-metrics) if yours differ.
@@ -87,19 +89,19 @@ Use an account with the required read permissions. Collection does not restart s
 If you only have the first snapshot, collect another later on the **same Linux server**, for example after a minute of normal operation:
 
 ```sh
-./doctor-fibre-kit-linux-x86_64-musl collect --out snapshot-after.json
+./fibre-doctor-kit-linux-x86_64-musl collect --out snapshot-after.json
 ```
 
 Then compare them directly in the terminal:
 
 ```sh
-./doctor-fibre-kit-linux-x86_64-musl tui --snapshot snapshot-before.json --compare snapshot-after.json --mode temporal
+./fibre-doctor-kit-linux-x86_64-musl tui --snapshot snapshot-before.json --compare snapshot-after.json --mode temporal
 ```
 
 Press **4** for the comparison. The other views show the newer snapshot. To optionally save an HTML report instead:
 
 ```sh
-./doctor-fibre-kit-linux-x86_64-musl report compare snapshot-before.json snapshot-after.json --mode temporal --out report.html
+./fibre-doctor-kit-linux-x86_64-musl report compare snapshot-before.json snapshot-after.json --mode temporal --out report.html
 ```
 
 The terminal should print `Created offline HTML report and public JSON sidecar.` You now have:
@@ -117,7 +119,7 @@ Output files are never overwritten. On another run, use new snapshot names and `
 **Prefer to compare on your Windows PC?** Copy both private snapshots into the same folder as the Windows executable, then run in PowerShell:
 
 ```powershell
-.\doctor-fibre-kit-windows-x86_64.exe report compare .\snapshot-before.json .\snapshot-after.json --mode temporal --out .\report.html
+.\fibre-doctor-kit-windows-x86_64.exe report compare .\snapshot-before.json .\snapshot-after.json --mode temporal --out .\report.html
 ```
 
 ## Open the HTML report
@@ -151,6 +153,7 @@ This preview uses **synthetic data**, not a live validator. [Full screenshot](do
 | --- | --- |
 | Capacity model, metrics, flags, finding statuses and collection limits | [CLI reference](docs/reference.md) |
 | Restricted SSH collection and permissions | [Operations](docs/operations.md) |
+| Data access, network behavior, privileges and security limits | [Security and privacy](SECURITY.md) |
 | Snapshot fields and evidence sources | [Schema](docs/schema.md) |
 | Build, test or reproduce the synthetic report | [Development](docs/development.md) |
 | Completed checks and known validation limits | [Validation](docs/validation.md) |

@@ -3,6 +3,22 @@ use crate::model::*;
 use serde_json::{Map, Value};
 use std::io::Read;
 
+// The byte cap alone does not bound expansion into findings and rendered views.
+// These budgets allow headroom over live collection (two services, two scans,
+// 128 aged-file details per scan and 128 issues) while bounding offline inputs.
+const MAX_JSON_NODES: usize = 65_536;
+const MAX_STRING_BYTES: usize = 65_536;
+const MAX_SERVICES: usize = 16;
+const MAX_SCANS: usize = 16;
+const MAX_METRIC_SAMPLES: usize = 4_096;
+const MAX_AGED_FILE_DETAILS: usize = 512;
+const MAX_ISSUES: usize = 256;
+const MAX_CONFIG_ENTRIES: usize = 64;
+const MAX_WORKER_USAGE: usize = 32;
+const MAX_ANCESTOR_LIMITS: usize = 64;
+const MAX_MEMORY_EVENTS: usize = 32;
+const STRUCTURE_LIMIT_ERROR: &str = "snapshot structure exceeds supported limits";
+
 pub fn read_snapshot(reader: impl Read) -> Result<SnapshotV1, String> {
     let mut bytes = Vec::new();
     reader
@@ -20,8 +36,15 @@ pub fn parse_snapshot(bytes: &[u8]) -> Result<SnapshotV1, String> {
         return Err("snapshot exceeds 8 MiB".into());
     }
     let bytes = bytes.strip_prefix(&[0xef, 0xbb, 0xbf]).unwrap_or(bytes);
-    let raw: Value =
-        serde_json::from_slice(bytes).map_err(|e| format!("invalid snapshot JSON: {e}"))?;
+    let raw: Value = serde_json::from_slice(bytes).map_err(|e| {
+        // Deserializer messages can quote values from an untrusted snapshot.
+        format!(
+            "invalid snapshot JSON at line {}, column {}",
+            e.line(),
+            e.column()
+        )
+    })?;
+    validate_structure(&raw)?;
     let obj = raw.as_object().ok_or("snapshot must be a JSON object")?;
     if obj.contains_key("error") && !obj.contains_key("services") {
         return Err("input is a collector error, not a snapshot (probe may have expired)".into());
@@ -31,7 +54,7 @@ pub fn parse_snapshot(bytes: &[u8]) -> Result<SnapshotV1, String> {
             return Err("unsupported snapshot schema_version".into());
         }
         let snapshot: SnapshotV1 =
-            serde_json::from_value(raw).map_err(|e| format!("invalid v1 snapshot: {e}"))?;
+            serde_json::from_value(raw).map_err(|_| "invalid v1 snapshot fields or types")?;
         validate_v1(&snapshot)?;
         return Ok(snapshot);
     }
@@ -39,6 +62,84 @@ pub fn parse_snapshot(bytes: &[u8]) -> Result<SnapshotV1, String> {
         return Err("unrecognized snapshot: expected v1 or legacy_v0 probe output".into());
     }
     adapt_legacy(obj)
+}
+
+fn collection_limit(value: Option<&Value>, limit: usize) -> Result<(), String> {
+    let length = match value {
+        Some(Value::Array(values)) => values.len(),
+        Some(Value::Object(values)) => values.len(),
+        _ => 0,
+    };
+    if length > limit {
+        return Err(STRUCTURE_LIMIT_ERROR.into());
+    }
+    Ok(())
+}
+
+fn validate_structure(raw: &Value) -> Result<(), String> {
+    // serde_json already limits nesting. Iterate here so budget checking does
+    // not add recursion, and check pending work before growing the stack.
+    let mut pending = vec![raw];
+    let mut visited = 0usize;
+    while let Some(value) = pending.pop() {
+        visited += 1;
+        let child_count = match value {
+            Value::Array(values) => values.len(),
+            Value::Object(values) => values.len(),
+            _ => 0,
+        };
+        if visited + pending.len() + child_count > MAX_JSON_NODES {
+            return Err(STRUCTURE_LIMIT_ERROR.into());
+        }
+        match value {
+            Value::String(text) if text.len() > MAX_STRING_BYTES => {
+                return Err(STRUCTURE_LIMIT_ERROR.into());
+            }
+            Value::Array(values) => pending.extend(values),
+            Value::Object(values) => {
+                if values.keys().any(|key| key.len() > MAX_STRING_BYTES) {
+                    return Err(STRUCTURE_LIMIT_ERROR.into());
+                }
+                pending.extend(values.values());
+            }
+            _ => {}
+        }
+    }
+    collection_limit(raw.get("services"), MAX_SERVICES)?;
+    collection_limit(raw.get("scans"), MAX_SCANS)?;
+    collection_limit(raw.pointer("/metrics/samples"), MAX_METRIC_SAMPLES)?;
+    collection_limit(raw.get("issues"), MAX_ISSUES)?;
+    collection_limit(raw.get("fibre_config"), MAX_CONFIG_ENTRIES)?;
+    collection_limit(raw.get("worker_usage"), MAX_WORKER_USAGE)?;
+    if let Some(scans) = raw.get("scans").and_then(Value::as_array) {
+        for scan in scans {
+            collection_limit(scan.get("aged_files"), MAX_AGED_FILE_DETAILS)?;
+        }
+    }
+    if let Some(services) = raw.get("services").and_then(Value::as_object) {
+        for service in services.values() {
+            collection_limit(service.get("ancestor_limits"), MAX_ANCESTOR_LIMITS)?;
+            collection_limit(service.get("memory_events"), MAX_MEMORY_EVENTS)?;
+        }
+    }
+    if raw.get("schema_version").is_none() {
+        // The legacy adapter reads only known fields, but still scans top_rss
+        // and receives maps from an untrusted JSON source. Reject excess
+        // structure instead of silently treating truncated evidence as whole.
+        collection_limit(raw.get("top_rss"), 4_096)?;
+        collection_limit(raw.get("fibre_config_on_disk"), MAX_CONFIG_ENTRIES)?;
+        collection_limit(raw.get("meminfo_kib"), 256)?;
+        collection_limit(raw.get("root_fs_bytes"), 32)?;
+        if let Some(services) = raw.get("services").and_then(Value::as_object) {
+            for service in services.values() {
+                collection_limit(Some(service), 128)?;
+                collection_limit(service.get("cgroup"), 32)?;
+                collection_limit(service.pointer("/cgroup/memory.stat"), 256)?;
+                collection_limit(service.pointer("/cgroup/memory.events"), MAX_MEMORY_EVENTS)?;
+            }
+        }
+    }
+    Ok(())
 }
 
 fn validate_v1(s: &SnapshotV1) -> Result<(), String> {
@@ -63,7 +164,7 @@ fn validate_v1(s: &SnapshotV1) -> Result<(), String> {
     }
     for (key, cfg) in &s.fibre_config {
         if !valid_config(key, &cfg.value) {
-            return Err(format!("invalid typed configuration: {key}"));
+            return Err("invalid typed configuration".into());
         }
     }
     for m in &s.metrics.samples {
@@ -318,6 +419,123 @@ fn valid_config(key: &str, v: &Value) -> bool {
 mod tests {
     use super::*;
     use serde_json::json;
+    #[test]
+    fn service_count_is_bounded_before_v1_and_legacy_expansion() {
+        for legacy in [false, true] {
+            let mut input = if legacy {
+                json!({"timestamp_epoch":100.0,"services":{}})
+            } else {
+                serde_json::to_value(SnapshotV1::default()).unwrap()
+            };
+            for count in [MAX_SERVICES, 500] {
+                input["services"] = Value::Object(
+                    (0..count)
+                        .map(|index| (format!("service-{index}"), json!({})))
+                        .collect(),
+                );
+                let result = parse_snapshot(&serde_json::to_vec(&input).unwrap());
+                if count == MAX_SERVICES {
+                    assert_eq!(result.unwrap().services.len(), MAX_SERVICES);
+                } else {
+                    assert_eq!(result.unwrap_err(), STRUCTURE_LIMIT_ERROR);
+                }
+            }
+        }
+    }
+
+    #[test]
+    fn typed_collection_budgets_accept_boundary_and_reject_excess() {
+        for (pointer, limit, is_map) in [
+            ("/scans", MAX_SCANS, false),
+            ("/metrics/samples", MAX_METRIC_SAMPLES, false),
+            ("/issues", MAX_ISSUES, false),
+            ("/fibre_config", MAX_CONFIG_ENTRIES, true),
+            ("/worker_usage", MAX_WORKER_USAGE, false),
+            ("/scans/0/aged_files", MAX_AGED_FILE_DETAILS, false),
+            ("/services/test/ancestor_limits", MAX_ANCESTOR_LIMITS, true),
+            ("/services/test/memory_events", MAX_MEMORY_EVENTS, true),
+        ] {
+            for count in [limit, limit + 1] {
+                let mut input = json!({
+                    "schema_version":1,"scans":[{"aged_files":[]}],
+                    "metrics":{"samples":[]},"issues":[],"fibre_config":{},
+                    "worker_usage":[],"services":{"test":{"ancestor_limits":{},"memory_events":{}}}
+                });
+                *input.pointer_mut(pointer).unwrap() = if is_map {
+                    Value::Object((0..count).map(|i| (i.to_string(), Value::Null)).collect())
+                } else {
+                    Value::Array(vec![Value::Null; count])
+                };
+                assert_eq!(
+                    validate_structure(&input).is_ok(),
+                    count == limit,
+                    "{pointer}"
+                );
+                if count > limit {
+                    assert_eq!(
+                        parse_snapshot(&serde_json::to_vec(&input).unwrap()).unwrap_err(),
+                        STRUCTURE_LIMIT_ERROR
+                    );
+                }
+            }
+        }
+    }
+
+    #[test]
+    fn legacy_maps_and_rss_rows_have_structural_budgets() {
+        for (pointer, limit, is_map) in [
+            ("/top_rss", 4_096, false),
+            ("/fibre_config_on_disk", MAX_CONFIG_ENTRIES, true),
+            ("/meminfo_kib", 256, true),
+            ("/root_fs_bytes", 32, true),
+            ("/services/test/cgroup/memory.stat", 256, true),
+            (
+                "/services/test/cgroup/memory.events",
+                MAX_MEMORY_EVENTS,
+                true,
+            ),
+        ] {
+            let mut input = json!({
+                "timestamp_epoch":100.0,"top_rss":[],"fibre_config_on_disk":{},
+                "meminfo_kib":{},"root_fs_bytes":{},
+                "services":{"test":{"cgroup":{"memory.stat":{},"memory.events":{}}}}
+            });
+            *input.pointer_mut(pointer).unwrap() = if is_map {
+                Value::Object((0..=limit).map(|i| (i.to_string(), Value::Null)).collect())
+            } else {
+                Value::Array(vec![Value::Null; limit + 1])
+            };
+            assert_eq!(
+                parse_snapshot(&serde_json::to_vec(&input).unwrap()).unwrap_err(),
+                STRUCTURE_LIMIT_ERROR,
+                "{pointer}"
+            );
+        }
+    }
+
+    #[test]
+    fn unknown_fields_still_obey_tree_and_string_budgets() {
+        let mut input = serde_json::to_value(SnapshotV1::default()).unwrap();
+        input["unknown_field"] = Value::String("x".repeat(MAX_STRING_BYTES));
+        assert!(parse_snapshot(&serde_json::to_vec(&input).unwrap()).is_ok());
+        input["unknown_field"] = Value::String("x".repeat(MAX_STRING_BYTES + 1));
+        assert_eq!(
+            parse_snapshot(&serde_json::to_vec(&input).unwrap()).unwrap_err(),
+            STRUCTURE_LIMIT_ERROR
+        );
+        input["unknown_field"] = Value::Array(vec![Value::Null; MAX_JSON_NODES]);
+        assert_eq!(
+            parse_snapshot(&serde_json::to_vec(&input).unwrap()).unwrap_err(),
+            STRUCTURE_LIMIT_ERROR
+        );
+        let key = "x".repeat(MAX_STRING_BYTES + 1);
+        let input = Value::Object([(key, Value::Null)].into_iter().collect());
+        assert_eq!(
+            validate_structure(&input).unwrap_err(),
+            STRUCTURE_LIMIT_ERROR
+        );
+    }
+
     fn base() -> Value {
         json!({"timestamp_epoch":100.5,"services":{"fibre.service":{"MainPID":"42","NRestarts":"0","MemoryCurrent":"9007199254740993","MemoryMax":"infinity","cgroup":{"memory.stat":{"anon":0},"memory.events":{"oom":0}}}},"meminfo_kib":{"MemTotal":123},"fibre_config_on_disk":{"root.max_connections":{"value":16,"source":"file"}},"app_status":{"error":"LookupError"}})
     }

@@ -888,7 +888,7 @@ impl ViewState {
         let Some(comparison) = &self.comparison else {
             let lines = vec![section("COMPARE TWO SNAPSHOTS"), Line::raw(""),
                 Line::raw("This view contains one snapshot. Add an earlier snapshot to compare observations."),
-                Line::raw(""), Line::styled("doctor-fibre-kit tui --snapshot before.json --compare after.json --mode temporal", Style::default().fg(TEAL)),
+                Line::raw(""), Line::styled("fibre-doctor-kit tui --snapshot before.json --compare after.json --mode temporal", Style::default().fg(TEAL)),
                 Line::raw(""), Line::raw("Use --mode temporal for captures from the same host in time order."),
                 Line::raw("Use --mode ab for separate environments; temporal rates stay unavailable."),
                 Line::raw("The viewer reads files only and does not collect or refresh automatically.")];

@@ -25,8 +25,8 @@ with sync_playwright() as p:
     interval = report['comparison']['elapsed_seconds']
     assert page.locator('html').get_attribute('lang') == 'en'
     assert page.locator('[data-lang]').count() == 0
-    assert page.locator('.brand').inner_text() == 'DOCTOR FIBRE KIT'
-    assert page.title().startswith('Doctor Fibre Kit')
+    assert page.locator('.brand').inner_text() == 'FIBRE DOCTOR KIT'
+    assert page.title().startswith('Fibre Doctor Kit')
     assert all(len(values) == 1 for values in dictionary.values())
     title = page.locator('h1').inner_text()
     assert title == dictionary['title'][0]

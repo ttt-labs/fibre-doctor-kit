@@ -1,6 +1,6 @@
 """Exercise the real Linux TUI in a PTY using synthetic snapshots only.
 
-Run from any directory: python3 tests/tui_pty.py PATH/TO/doctor-fibre-kit
+Run from any directory: python3 tests/tui_pty.py PATH/TO/fibre-doctor-kit
 No live collection, network access, service changes, or third-party packages.
 """
 
@@ -246,7 +246,7 @@ class Session:
 
 def main():
     if len(sys.argv) != 2 or not sys.platform.startswith("linux"):
-        raise SystemExit("Usage on Linux: python3 tests/tui_pty.py PATH/TO/doctor-fibre-kit")
+        raise SystemExit("Usage on Linux: python3 tests/tui_pty.py PATH/TO/fibre-doctor-kit")
     binary = Path(sys.argv[1]).resolve(strict=True)
     session = Session(binary)
     try:

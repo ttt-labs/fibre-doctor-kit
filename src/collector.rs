@@ -14,6 +14,8 @@ mod scanner;
 mod supervisor;
 #[cfg(any(target_os = "linux", test))]
 mod version;
+#[cfg(any(target_os = "linux", test))]
+mod yaml;
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(default)]

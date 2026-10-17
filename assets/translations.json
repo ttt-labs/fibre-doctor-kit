@@ -558,7 +558,7 @@
     "Kill was requested; worker exit was not observed within the cleanup grace."
   ],
   "footer": [
-    "Doctor Fibre Kit v0.1 · Evidence before conclusions"
+    "Fibre Doctor Kit v0.1 · Evidence before conclusions"
   ],
   "finding.storage_budget.title": [
     "Logical occupancy and storage budget"

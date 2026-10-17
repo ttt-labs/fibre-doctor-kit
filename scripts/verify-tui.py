@@ -8,7 +8,7 @@ command is executed. Browser requests are disabled during capture.
 
 Example (PowerShell, after building the Windows release binary):
   .tools/ui-env/Scripts/python.exe scripts/verify-tui.py `
-    --binary target/release/doctor-fibre-kit.exe `
+    --binary target/release/fibre-doctor-kit.exe `
     --browser 'C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe' `
     --xterm-dir .lab/xterm-5.5.0 --out reports/tui-preview
 

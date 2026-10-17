@@ -1,15 +1,15 @@
-param([string]$Version = '0.2.0', [string]$ExampleReport)
+param([string]$Version = '0.2.1', [string]$ExampleReport)
 $ErrorActionPreference = 'Stop'
 $projectRoot = Split-Path -Parent $PSScriptRoot
-$releaseDir = Join-Path $projectRoot ('dist\doctor-fibre-kit-v' + $Version)
+$releaseDir = Join-Path $projectRoot ('dist\fibre-doctor-kit-v' + $Version)
 if (Test-Path -LiteralPath $releaseDir) { throw 'Release output already exists; choose a new version.' }
-$windowsExe = Join-Path $projectRoot 'target\release\doctor-fibre-kit.exe'
-$linuxExe = Join-Path $projectRoot 'target\x86_64-unknown-linux-musl\release\doctor-fibre-kit'
+$windowsExe = Join-Path $projectRoot 'target\release\fibre-doctor-kit.exe'
+$linuxExe = Join-Path $projectRoot 'target\x86_64-unknown-linux-musl\release\fibre-doctor-kit'
 if (!(Test-Path -LiteralPath $windowsExe) -or !(Test-Path -LiteralPath $linuxExe)) { throw 'Build both release targets first.' }
 New-Item -ItemType Directory -Path $releaseDir | Out-Null
-Copy-Item -LiteralPath $windowsExe -Destination (Join-Path $releaseDir 'doctor-fibre-kit-windows-x86_64.exe')
-Copy-Item -LiteralPath $linuxExe -Destination (Join-Path $releaseDir 'doctor-fibre-kit-linux-x86_64-musl')
-foreach ($name in @('README.md','LICENSE','collect.sh','Cargo.lock')) { Copy-Item -LiteralPath (Join-Path $projectRoot $name) -Destination $releaseDir }
+Copy-Item -LiteralPath $windowsExe -Destination (Join-Path $releaseDir 'fibre-doctor-kit-windows-x86_64.exe')
+Copy-Item -LiteralPath $linuxExe -Destination (Join-Path $releaseDir 'fibre-doctor-kit-linux-x86_64-musl')
+foreach ($name in @('README.md','SECURITY.md','LICENSE','collect.sh','Cargo.lock')) { Copy-Item -LiteralPath (Join-Path $projectRoot $name) -Destination $releaseDir }
 Copy-Item -LiteralPath (Join-Path $projectRoot 'docs') -Destination $releaseDir -Recurse
 if ($ExampleReport) {
     $reportPath = (Resolve-Path -LiteralPath $ExampleReport).Path

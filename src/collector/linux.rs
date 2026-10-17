@@ -124,18 +124,7 @@ fn listener_owned(pid: u32, address: std::net::SocketAddr, start: Instant) -> bo
     ) else {
         return false;
     };
-    String::from_utf8_lossy(&bytes).lines().any(|line| {
-        let fields: Vec<_> = line.split_whitespace().collect();
-        if fields.len() < 5 {
-            return false;
-        }
-        let local = fields[3];
-        let exact = local == address.to_string();
-        let wildcard = local == format!("*:{}", address.port())
-            || local == format!("0.0.0.0:{}", address.port())
-            || local == format!("[::]:{}", address.port());
-        (exact || wildcard) && line.contains(&format!("pid={pid},"))
-    })
+    verified_listener_pid(&String::from_utf8_lossy(&bytes), address) == Some(pid)
 }
 fn listener_pid(address: std::net::SocketAddr, start: Instant) -> Option<u32> {
     let bytes = supervisor::run(
@@ -145,29 +134,98 @@ fn listener_pid(address: std::net::SocketAddr, start: Instant) -> Option<u32> {
         131072,
     )
     .ok()?;
+    verified_listener_pid(&String::from_utf8_lossy(&bytes), address)
+}
+
+/// Parse the fixed `ss -H -ltnp` columns without treating text inside a quoted
+/// process name as ownership evidence. Unsupported or ambiguous output fails closed.
+fn verified_listener_pid(text: &str, address: std::net::SocketAddr) -> Option<u32> {
+    fn token<'a>(input: &mut &'a str) -> Option<&'a str> {
+        *input = input.trim_start();
+        let end = input.find(char::is_whitespace).unwrap_or(input.len());
+        if end == 0 {
+            return None;
+        }
+        let value = &input[..end];
+        *input = &input[end..];
+        Some(value)
+    }
     let mut owners = HashSet::new();
-    for line in String::from_utf8_lossy(&bytes).lines() {
-        let fields: Vec<_> = line.split_whitespace().collect();
-        let Some(local) = fields.get(3) else {
-            continue;
-        };
-        if *local != address.to_string()
-            && *local != format!("*:{}", address.port())
-            && *local != format!("0.0.0.0:{}", address.port())
-            && *local != format!("[::]:{}", address.port())
-        {
+    for line in text.lines() {
+        let mut rest = line;
+        if token(&mut rest)? != "LISTEN" {
+            return None;
+        }
+        let _: u64 = token(&mut rest)?.parse().ok()?;
+        let _: u64 = token(&mut rest)?.parse().ok()?;
+        let local = token(&mut rest)?;
+        token(&mut rest)?; // Peer address is not ownership evidence.
+
+        // `*` does not establish an address family. A matching port cannot be
+        // attributed safely; explicit IPv4/IPv6 wildcards must match the target family.
+        if let Some(port) = local.strip_prefix("*:") {
+            if port.parse::<u16>().ok()? == address.port() {
+                return None;
+            }
             continue;
         }
-        for piece in line.split("pid=").skip(1) {
-            if let Some(pid) = piece.split(',').next().and_then(|s| s.parse::<u32>().ok()) {
-                owners.insert(pid);
-            }
+        let local: std::net::SocketAddr = local.parse().ok()?;
+        let matches = local.port() == address.port()
+            && (local.ip() == address.ip()
+                || (local.ip().is_unspecified() && local.is_ipv4() == address.is_ipv4()));
+        if !matches {
+            continue;
+        }
+        owners.extend(ss_owners(rest.trim())?);
+        if owners.len() != 1 {
+            return None;
         }
     }
-    if owners.len() == 1 {
-        owners.into_iter().next()
-    } else {
-        None
+    owners.into_iter().next()
+}
+
+fn ss_owners(text: &str) -> Option<HashSet<u32>> {
+    let mut input = text.strip_prefix("users:(")?;
+    let mut owners = HashSet::new();
+    // The whole helper response is bounded too; keep individual owner lists small.
+    if text.len() > 8192 {
+        return None;
+    }
+    loop {
+        input = input.strip_prefix("(\"")?;
+        let mut escaped = false;
+        let mut end = None;
+        for (i, ch) in input.char_indices() {
+            if escaped {
+                escaped = false;
+            } else if ch == '\\' {
+                escaped = true;
+            } else if ch == '"' {
+                end = Some(i + 1);
+                break;
+            } else if ch.is_control() {
+                return None;
+            }
+        }
+        input = input.get(end?..)?.strip_prefix(",pid=")?;
+        let (pid, rest) = input.split_once(",fd=")?;
+        if pid.is_empty() || !pid.bytes().all(|b| b.is_ascii_digit()) {
+            return None;
+        }
+        let pid = pid.parse::<u32>().ok().filter(|pid| *pid > 0)?;
+        let (fd, rest) = rest.split_once(')')?;
+        if fd.is_empty() || !fd.bytes().all(|b| b.is_ascii_digit()) {
+            return None;
+        }
+        let _: u32 = fd.parse().ok()?;
+        owners.insert(pid);
+        if owners.len() > 1 {
+            return None;
+        }
+        if rest == ")" {
+            return Some(owners);
+        }
+        input = rest.strip_prefix(',')?;
     }
 }
 fn same_net_namespace(pid: u32) -> bool {
@@ -746,6 +804,58 @@ mod tests {
             .as_deref(),
             Some("http://127.0.0.1:26660/metrics")
         );
+    }
+    #[test]
+    fn ss_owner_parser_does_not_trust_pid_text_inside_process_names() {
+        let target = "127.0.0.1:26660".parse().unwrap();
+        for name in ["pid=1234,", "process name", r#"quoted\"pid=1234,"#] {
+            let record = format!(
+                "LISTEN 0 128 127.0.0.1:26660 0.0.0.0:* users:((\"{name}\",pid=9999,fd=3))"
+            );
+            assert_eq!(verified_listener_pid(&record, target), Some(9999));
+            assert_ne!(verified_listener_pid(&record, target), Some(1234));
+        }
+    }
+    #[test]
+    fn ss_owner_parser_rejects_mixed_or_incomplete_ownership() {
+        let target = "127.0.0.1:26660".parse().unwrap();
+        let prefix = "LISTEN 0 128 127.0.0.1:26660 0.0.0.0:* ";
+        for owners in [
+            r#"users:(("app",pid=1234,fd=3),("other",pid=9999,fd=4))"#,
+            r#"users:(("app",pid=1234,fd=3)) trailing"#,
+            r#"users:(("app",pid=1234,fd=3)"#,
+            r#"users:(("app",pid=0,fd=3))"#,
+            r#"users:(("app",pid=+1234,fd=3))"#,
+            "",
+        ] {
+            assert_eq!(
+                verified_listener_pid(&format!("{prefix}{owners}"), target),
+                None
+            );
+        }
+        let same_owner = format!("{prefix}users:((\"app\",pid=1234,fd=3),(\"app\",pid=1234,fd=4))");
+        assert_eq!(verified_listener_pid(&same_owner, target), Some(1234));
+        let mixed_records = format!(
+            "{same_owner}\nLISTEN 0 128 0.0.0.0:26660 0.0.0.0:* users:((\"other\",pid=9999,fd=4))"
+        );
+        assert_eq!(verified_listener_pid(&mixed_records, target), None);
+        assert!(ss_owners(&format!("users:((\"{}\",pid=1234,fd=3))", "a".repeat(8192))).is_none());
+    }
+    #[test]
+    fn ss_listener_wildcards_require_an_explicit_matching_address_family() {
+        let v4 = "127.0.0.1:26660".parse().unwrap();
+        let v6 = "[::1]:26660".parse().unwrap();
+        let record = |local| format!("LISTEN 0 128 {local} *:* users:((\"app\",pid=1234,fd=3))");
+        assert_eq!(
+            verified_listener_pid(&record("0.0.0.0:26660"), v4),
+            Some(1234)
+        );
+        assert_eq!(verified_listener_pid(&record("0.0.0.0:26660"), v6), None);
+        assert_eq!(verified_listener_pid(&record("[::]:26660"), v6), Some(1234));
+        assert_eq!(verified_listener_pid(&record("[::]:26660"), v4), None);
+        assert_eq!(verified_listener_pid(&record("*:26660"), v4), None);
+        assert_eq!(verified_listener_pid(&record("*:26660"), v6), None);
+        assert_eq!(verified_listener_pid(&record("127.0.0.1:26661"), v4), None);
     }
     #[test]
     fn truncated_http_metrics_are_not_complete_evidence() {

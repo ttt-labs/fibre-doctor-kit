@@ -2,7 +2,7 @@
 
 [Back to the quick start](../README.md)
 
-Examples on this page use `doctor-fibre-kit` for an executable on your PATH. Otherwise use `./doctor-fibre-kit-linux-x86_64-musl` on Linux or `.\doctor-fibre-kit-windows-x86_64.exe` in PowerShell.
+Examples on this page use `fibre-doctor-kit` for an executable on your PATH. Otherwise use `./fibre-doctor-kit-linux-x86_64-musl` on Linux or `.\fibre-doctor-kit-windows-x86_64.exe` in PowerShell.
 
 ## Supported collection environment
 
@@ -37,10 +37,10 @@ When using `tui` over SSH, allocate a terminal (for example `ssh -t` through you
 Override service names and homes when they differ from the defaults:
 
 ```sh
-doctor-fibre-kit collect --out snapshot-custom.json --app-unit celestia-appd.service --fibre-unit fibre.service --app-home /srv/celestia --fibre-home /srv/fibre
-doctor-fibre-kit collect --out snapshot-file.json --fibre-metrics-file metrics.prom
-doctor-fibre-kit collect --out snapshot-http.json --fibre-metrics-url http://127.0.0.1:8889/metrics
-doctor-fibre-kit collect --out snapshot-otel.json --otel-config /etc/otelcol/config.yaml
+fibre-doctor-kit collect --out snapshot-custom.json --app-unit celestia-appd.service --fibre-unit fibre.service --app-home /srv/celestia --fibre-home /srv/fibre
+fibre-doctor-kit collect --out snapshot-file.json --fibre-metrics-file metrics.prom
+fibre-doctor-kit collect --out snapshot-http.json --fibre-metrics-url http://127.0.0.1:8889/metrics
+fibre-doctor-kit collect --out snapshot-otel.json --otel-config /etc/otelcol/config.yaml
 ```
 
 Paths and port `8889` above are examples, not discovered defaults. Supply your existing configuration. Explicit metrics URLs must use HTTP with a numeric loopback address and port; credentials, redirects and remote addresses are rejected. `--fibre-prom-url` is an alias for `--fibre-metrics-url`.
@@ -72,8 +72,8 @@ The default `--mode ab` compares independent environments side by side and never
 Add `--allow-legacy-identity` only for older snapshots when you know both came from the same host. It records an assumption; it does not verify identity or bypass detected restarts/counter resets:
 
 ```sh
-doctor-fibre-kit report compare before.json after.json --mode temporal --out temporal.html
-doctor-fibre-kit report compare legacy-a.json legacy-b.json --mode temporal --allow-legacy-identity --out legacy.html
+fibre-doctor-kit report compare before.json after.json --mode temporal --out temporal.html
+fibre-doctor-kit report compare legacy-a.json legacy-b.json --mode temporal --allow-legacy-identity --out legacy.html
 ```
 
 `Verified` requires complete process/host/boot identity evidence. `HeuristicLegacy` is an explicit same-host assumption for older snapshots, not verified continuity. `Mismatch` and `Unknown` withhold affected temporal calculations. Rates also require valid timing and appropriate process/cgroup/host scope; counter resets make rates unavailable. A short memory delta does not establish a leak or historical uptime.
@@ -98,7 +98,7 @@ There is no overall readiness score. A collection error is not automatically a n
 | Config read / metrics response / snapshot | 64 KiB / 1 MiB / 8 MiB |
 | Aged staging threshold | More than 900 seconds |
 
-Scans do not follow symlinks and deduplicate hardlinks. A partial result is **bytes observed**, not an instantaneous total or reliable lower bound during concurrent writes/pruning. `has_open_fd` is true, false or unknown; false requires complete scoped inspection and stable identity. Neither age nor a closed FD proves that a file is an orphan or safe to delete. A kernel-blocked worker can outlive a kill request; `cleanup_pending` exposes this.
+Scans reject the final directory symlink and do not follow child symlinks; parent path components may resolve through symlinks. Hardlinks are deduplicated. A partial result is **bytes observed**, not an instantaneous total or reliable lower bound during concurrent writes/pruning. `has_open_fd` is true, false or unknown; false requires complete scoped inspection and stable identity. Neither age nor a closed FD proves that a file is an orphan or safe to delete. A kernel-blocked worker can outlive a kill request; `cleanup_pending` exposes this.
 
 Collector costs separate parent, collection worker and scanner CPU/RSS. Do not sum peak RSS values into a process-tree peak. Measurements end before final JSON serialization and SSH transfer. Reads still consume resources; review a first capture before repeated use.
 
@@ -109,13 +109,13 @@ Keep raw snapshots private. Public reports use an allowlisted projection that om
 Install through an administrative channel, then use a dedicated restricted collection key. An `authorized_keys` **template** is:
 
 ```text
-restrict,expiry-time="YYYYMMDDHHMMSSZ",command="/usr/local/bin/doctor-fibre-kit collect --stdout" ssh-ed25519 PUBLIC_KEY collector-only
+restrict,expiry-time="YYYYMMDDHHMMSSZ",command="/usr/local/bin/fibre-doctor-kit collect --stdout" ssh-ed25519 PUBLIC_KEY collector-only
 ```
 
 Replace the date and public key, verify the host fingerprint, and protect binary ownership. The client command below assumes that the forced command is already configured; the word `snapshot` is not a remote subcommand installed by the kit.
 
 ```sh
-ssh -n -T -o BatchMode=yes -o StrictHostKeyChecking=yes -o IdentitiesOnly=yes -o ForwardAgent=no -o ClearAllForwardings=yes -i /path/to/dedicated_key operator@host snapshot | doctor-fibre-kit doctor --snapshot -
+ssh -n -T -o BatchMode=yes -o StrictHostKeyChecking=yes -o IdentitiesOnly=yes -o ForwardAgent=no -o ClearAllForwardings=yes -i /path/to/dedicated_key operator@host snapshot | fibre-doctor-kit doctor --snapshot -
 ```
 
 No private key is required in the repository. See [operations](operations.md) for account permissions and fixed-command deployment.

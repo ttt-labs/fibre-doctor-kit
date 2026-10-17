@@ -1,10 +1,10 @@
 param([string]$Destination)
 $ErrorActionPreference = 'Stop'
 $projectRoot = Split-Path -Parent $PSScriptRoot
-if (!$Destination) { $Destination = Join-Path $projectRoot 'dist\doctor-fibre-kit-source.zip' }
+if (!$Destination) { $Destination = Join-Path $projectRoot 'dist\fibre-doctor-kit-source.zip' }
 if (Test-Path -LiteralPath $Destination) { throw 'Source archive already exists; choose an unused path.' }
 
-$sourceFiles = @('.gitattributes', '.gitignore', 'Cargo.toml', 'Cargo.lock', 'LICENSE', 'README.md', 'collect.sh')
+$sourceFiles = @('.gitattributes', '.gitignore', 'Cargo.toml', 'Cargo.lock', 'LICENSE', 'README.md', 'SECURITY.md', 'collect.sh')
 $sourceDirectories = @('.github', 'assets', 'docs', 'scripts', 'src', 'tests')
 $allowedExtensions = @('.yml', '.yaml', '.html', '.json', '.md', '.ps1', '.rs', '.py', '.toml', '.sh', '.png')
 $files = @($sourceFiles | ForEach-Object { Get-Item -LiteralPath (Join-Path $projectRoot $_) })
@@ -20,7 +20,7 @@ $zip = [IO.Compression.ZipFile]::Open($destinationPath, [IO.Compression.ZipArchi
 try {
     foreach ($file in ($files | Sort-Object FullName -Unique)) {
         $relative = $file.FullName.Substring($projectRoot.Length + 1).Replace('\', '/')
-        [IO.Compression.ZipFileExtensions]::CreateEntryFromFile($zip, $file.FullName, 'doctor-fibre-kit/' + $relative, [IO.Compression.CompressionLevel]::Optimal) | Out-Null
+        [IO.Compression.ZipFileExtensions]::CreateEntryFromFile($zip, $file.FullName, 'fibre-doctor-kit/' + $relative, [IO.Compression.CompressionLevel]::Optimal) | Out-Null
     }
 } finally { $zip.Dispose() }
 $hash = (Get-FileHash -LiteralPath $destinationPath -Algorithm SHA256).Hash.ToLowerInvariant()
