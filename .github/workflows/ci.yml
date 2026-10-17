@@ -17,6 +17,8 @@ jobs:
       - run: cargo test --locked
       - run: cargo clippy --locked --all-targets -- -D warnings
       - run: cargo build --locked --release
+      - if: runner.os == 'Linux'
+        run: python3 tests/tui_pty.py target/release/doctor-fibre-kit
   musl:
     runs-on: ubuntu-latest
     steps:
@@ -27,4 +29,5 @@ jobs:
       - run: sudo apt-get update && sudo apt-get install -y musl-tools
       - run: cargo test --locked --target x86_64-unknown-linux-musl
       - run: cargo build --locked --release --target x86_64-unknown-linux-musl
+      - run: python3 tests/tui_pty.py target/x86_64-unknown-linux-musl/release/doctor-fibre-kit
       - run: file target/x86_64-unknown-linux-musl/release/doctor-fibre-kit

@@ -1,4 +1,4 @@
-param([string]$Version = '0.1.0', [string]$ExampleReport)
+param([string]$Version = '0.2.0', [string]$ExampleReport)
 $ErrorActionPreference = 'Stop'
 $projectRoot = Split-Path -Parent $PSScriptRoot
 $releaseDir = Join-Path $projectRoot ('dist\doctor-fibre-kit-v' + $Version)

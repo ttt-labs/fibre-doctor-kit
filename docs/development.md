@@ -18,7 +18,7 @@ Open `example.html` in a browser. `example.json` is the accompanying public repo
 
 ## Build, tests and packaging
 
-The manifest declares Rust 1.85; recorded builds used Rust 1.99.0. Use `Cargo.lock`. Windows MSVC builds require the C++ build tools and Windows SDK; Windows GNU builds need compatible MinGW tools. Building a static Linux target also needs that Rust target and a compatible linker.
+The manifest declares Rust 1.88; recorded builds used Rust 1.99.0. Use `Cargo.lock`. Windows MSVC builds require the C++ build tools and Windows SDK; Windows GNU builds need compatible MinGW tools. Building a static Linux target also needs that Rust target and a compatible linker.
 
 ```sh
 cargo fmt --all -- --check
@@ -56,7 +56,28 @@ See the [validation record](validation.md) for actual test counts and limitation
 | `src/analyzer.rs` | Doctor, capacity and comparison logic |
 | `src/collector/` | Bounded Linux collection and fixture readers |
 | `src/report.rs`, `assets/` | Public projection and offline English report |
+| `src/tui/` | Terminal lifecycle, keyboard navigation and snapshot views |
 | `tests/`, `scripts/` | Regression fixtures, lab/UI verification and packaging |
 | `docs/` | Operations, schema and validation notes |
 
 Contributions should include a reproducible case with synthetic or sanitized data and relevant tests. Do not submit raw operational snapshots, credentials or private keys. Licensed under [Apache-2.0](../LICENSE).
+
+## Terminal UI verification
+
+The TUI uses [Ratatui](https://docs.rs/ratatui/0.29.0/ratatui/) with Crossterm. Views render only the existing public evidence projection. `cargo test --locked` includes small-terminal layouts, keyboard navigation, missing evidence, exact comparison values, control-character sanitization and private-field exclusion.
+
+On Linux, exercise an actual PTY after building:
+
+```sh
+python3 tests/tui_pty.py target/release/doctor-fibre-kit
+```
+
+This opens only bundled synthetic snapshots. It checks screen navigation, resizing, Q/Ctrl+C/SIGTERM/SIGHUP exits and restoration of terminal modes, alternate screen and cursor. CI runs it for the Linux native and musl builds.
+
+To reproduce the README screenshots on a Windows development machine, install Python with Playwright and use an installed Chromium browser. Download and extract the pinned [`@xterm/xterm` 5.5.0 package](https://registry.npmjs.org/@xterm/xterm/-/xterm-5.5.0.tgz); put its `lib/xterm.js` and `css/xterm.css` together in a local directory such as `.lab/xterm-5.5.0`. Then run from the repository root:
+
+```powershell
+python scripts/verify-tui.py --binary target/release/doctor-fibre-kit.exe --browser 'C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe' --xterm-dir .lab/xterm-5.5.0 --out reports/tui-preview
+```
+
+The script starts the real Windows binary in ConPTY, sends navigation keys and renders its emitted terminal bytes with local xterm.js in an offline browser. Screenshots capture that terminal output; the application layout is not recreated in HTML. The JSON verification record checks all four screens, 80-column resizing, Q/Ctrl+C exit, cursor/alternate-screen restoration and absence of browser network requests. The published `tui-overview.png` and `tui-compare.png` show a 140 × 42 terminal with the synthetic legacy fixtures and an explicitly assumed capacity profile. They contain no production node measurements. Python, Playwright and xterm.js are development tools, not TUI runtime dependencies.

@@ -193,3 +193,58 @@ fn collect_output_selection_allows_other_options_but_requires_one_destination() 
         .status
         .success());
 }
+
+#[test]
+fn tui_requires_a_terminal_before_reading_or_collecting() {
+    for args in [
+        vec!["tui"],
+        vec!["tui", "--snapshot", "not-a-real-file.json"],
+    ] {
+        let out = tool().args(args).stdin(Stdio::null()).output().unwrap();
+        assert!(!out.status.success());
+        assert!(out.stdout.is_empty());
+        let error = String::from_utf8_lossy(&out.stderr);
+        assert!(
+            error.contains("requires an interactive terminal"),
+            "{error}"
+        );
+        assert!(!error.contains("Collecting"));
+        assert!(!error.contains("cannot open snapshot"));
+        assert!(!out.stderr.contains(&0x1b));
+    }
+}
+
+#[test]
+fn tui_rejects_ambiguous_sources_and_comparison_options() {
+    for args in [
+        vec!["tui", "--compare", "after.json"],
+        vec![
+            "tui",
+            "--snapshot",
+            "before.json",
+            "--fibre-home",
+            "/srv/fibre",
+        ],
+        vec![
+            "tui",
+            "--snapshot",
+            "before.json",
+            "--app-unit",
+            "other.service",
+        ],
+        vec!["tui", "--snapshot", "before.json", "--mode", "temporal"],
+        vec![
+            "tui",
+            "--snapshot",
+            "before.json",
+            "--compare",
+            "after.json",
+            "--allow-legacy-identity",
+        ],
+    ] {
+        let out = tool().args(args).stdin(Stdio::null()).output().unwrap();
+        assert!(!out.status.success());
+        assert!(out.stdout.is_empty());
+        assert!(!String::from_utf8_lossy(&out.stderr).contains("requires an interactive terminal"));
+    }
+}

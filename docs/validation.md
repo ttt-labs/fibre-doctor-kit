@@ -1,4 +1,15 @@
-# v0.1 validation record
+# Validation record
+
+## v0.2.0 terminal UI
+
+Local checks on 2026-10-17:
+
+- Windows: 73 library tests and 7 CLI tests passed; formatting and Clippy passed, and the release binary built.
+- Real Windows terminal: ConPTY exercised all four views, arrow/Tab navigation, resizing to 80 × 24, Q/Ctrl+C exit and restoration of the normal screen and cursor. Screenshots show synthetic fixtures only; the capture browser made no network requests.
+- New view tests cover unknown-versus-zero evidence, legacy identity assumptions, independent A/B comparisons, control-character sanitization, private-field exclusion, small layouts and scrolling to exact comparison values.
+- Linux musl builds and Clippy are checked separately. The CI workflow runs Linux native and musl unit/CLI tests plus `tests/tui_pty.py`, which checks real terminal navigation, resize recovery, terminal mode restoration and Q/Ctrl+C/SIGTERM/SIGHUP exits. Consult the release commit's [CI run](https://github.com/ttt-labs/fibre-doctor-kit/actions/workflows/ci.yml) for the hosted result; cross-compilation alone does not establish Linux runtime behavior.
+
+The new TUI reads one capture and then renders without background collection. Existing collector bounds, snapshot schema and analyzer rules are retained. No production validator was accessed for the TUI implementation or screenshots. The historical collector lab results below apply to their recorded revisions.
 
 ## Doctor Fibre Kit English edition
 

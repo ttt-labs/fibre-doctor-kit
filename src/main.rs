@@ -3,7 +3,7 @@ use doctor_fibre_kit::{
     analyzer::{self, DoctorOptions},
     collector::{self, CollectOptions},
     model::*,
-    parser, report,
+    parser, report, tui,
 };
 use std::{
     fs::File,
@@ -30,6 +30,8 @@ struct Cli {
 #[derive(Subcommand)]
 enum Command {
     Collect(CollectArgs),
+    /// Open an interactive terminal viewer. Without --snapshot, collect once on Linux.
+    Tui(TuiArgs),
     Doctor {
         #[arg(long)]
         snapshot: String,
@@ -75,6 +77,44 @@ struct CollectArgs {
     #[arg(long)]
     otel_config: Option<PathBuf>,
     #[arg(long)]
+    no_fd_inspection: bool,
+}
+#[derive(Args)]
+struct TuiArgs {
+    /// Open an existing snapshot; no live reads are performed.
+    #[arg(long)]
+    snapshot: Option<PathBuf>,
+    /// Second (newer) snapshot. The viewer shows this capture and compares it to --snapshot.
+    #[arg(long, requires = "snapshot")]
+    compare: Option<PathBuf>,
+    #[arg(long, value_enum, default_value_t = CompareMode::Ab)]
+    mode: CompareMode,
+    /// Explicit same-host assumption for legacy snapshots, temporal comparison only.
+    #[arg(long, requires = "compare")]
+    allow_legacy_identity: bool,
+    #[arg(
+        long,
+        default_value = "celestia-appd.service",
+        conflicts_with = "snapshot"
+    )]
+    app_unit: String,
+    #[arg(long, default_value = "fibre.service", conflicts_with = "snapshot")]
+    fibre_unit: String,
+    #[arg(long, conflicts_with = "snapshot")]
+    app_home: Option<PathBuf>,
+    #[arg(long, conflicts_with = "snapshot")]
+    fibre_home: Option<PathBuf>,
+    #[arg(long = "fibre-metrics-file", conflicts_with = "snapshot")]
+    metrics_file: Option<PathBuf>,
+    #[arg(
+        long = "fibre-metrics-url",
+        alias = "fibre-prom-url",
+        conflicts_with = "snapshot"
+    )]
+    metrics_url: Option<String>,
+    #[arg(long, conflicts_with = "snapshot")]
+    otel_config: Option<PathBuf>,
+    #[arg(long, conflicts_with = "snapshot")]
     no_fd_inspection: bool,
 }
 #[derive(Subcommand)]
@@ -142,9 +182,60 @@ fn run() -> Result<(), String> {
     }
     let cli = Cli::parse();
     if cli.profile.as_deref().is_some_and(|p| p != "v10.4.0-mocha") {
-        return Err("unsupported profile; v0.1 supports v10.4.0-mocha".into());
+        return Err("unsupported profile; supported profile: v10.4.0-mocha".into());
     }
     match cli.command {
+        Command::Tui(a) => {
+            if a.allow_legacy_identity && a.mode != CompareMode::Temporal {
+                return Err("--allow-legacy-identity requires --mode temporal".into());
+            }
+            if a.mode == CompareMode::Temporal && a.compare.is_none() {
+                return Err("--mode temporal requires --snapshot and --compare".into());
+            }
+            tui::require_terminal()?;
+            let first = if let Some(path) = a.snapshot {
+                parser::read_snapshot(
+                    File::open(path).map_err(|e| format!("cannot open snapshot: {e}"))?,
+                )?
+            } else {
+                if !cfg!(target_os = "linux") {
+                    return Err("Live TUI collection requires Linux. On Windows use tui --snapshot FILE, optionally --compare FILE --mode temporal.".into());
+                }
+                eprintln!("Collecting one read-only snapshot (up to 20 seconds plus cleanup). The viewer will open when collection finishes.");
+                collector::collect(&CollectOptions {
+                    sysroot: None,
+                    app_unit: a.app_unit,
+                    fibre_unit: a.fibre_unit,
+                    app_home: a.app_home,
+                    fibre_home: a.fibre_home,
+                    metrics_file: a.metrics_file,
+                    metrics_url: a.metrics_url,
+                    otel_config: a.otel_config,
+                    profile: cli.profile.clone(),
+                    inspect_open_fds: !a.no_fd_inspection,
+                })?
+            };
+            let second = a
+                .compare
+                .map(|path| {
+                    parser::read_snapshot(
+                        File::open(path)
+                            .map_err(|e| format!("cannot open comparison snapshot: {e}"))?,
+                    )
+                })
+                .transpose()?;
+            let (current, before) = match second.as_ref() {
+                Some(current) => (current, Some(&first)),
+                None => (&first, None),
+            };
+            tui::run(
+                current,
+                before,
+                cli.profile.as_deref(),
+                a.mode == CompareMode::Temporal,
+                a.allow_legacy_identity,
+            )?;
+        }
         Command::Collect(a) => {
             if a.out.as_ref().is_some_and(|out| out.exists()) {
                 return Err("snapshot output already exists; choose an unused path".into());

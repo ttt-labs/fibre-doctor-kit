@@ -183,7 +183,7 @@ pub(super) fn scan<F: FnMut(&ScanResult) -> Result<(), String>>(
                 out.aged_details_truncated = true;
             }
         }
-        if last.elapsed() >= Duration::from_millis(100) || out.entries_visited % 512 == 0 {
+        if last.elapsed() >= Duration::from_millis(100) || out.entries_visited.is_multiple_of(512) {
             out.elapsed_ms = start.elapsed().as_secs_f64() * 1000.;
             out.usage = Some(supervisor::usage(
                 start,

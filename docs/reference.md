@@ -16,12 +16,19 @@ The Linux artifact is a static binary. Live reads use systemd and `ss` where ava
 | --- | --- |
 | `collect --out snapshot.json` | Write one private operational snapshot; Linux live mode by default |
 | `collect --stdout` | Emit the same snapshot to stdout; choose exactly one output destination |
+| `tui` | Collect once on Linux and open the interactive terminal viewer; saves no files |
+| `tui --snapshot snapshot.json` | View an existing snapshot offline on Linux or Windows |
+| `tui --snapshot A.json --compare B.json --mode temporal` | View the newer capture B and its changes from A on the same host |
 | `doctor --snapshot snapshot.json` | Show findings, evidence, impact and verification steps |
 | `doctor --snapshot - --json` | Read one snapshot from stdin and return public findings as JSON |
 | `capacity --snapshot snapshot.json --target-connections 24` | Calculate a configuration scenario without applying it |
 | `report compare A.json B.json --out report.html` | Write offline HTML and a public `report.json` sidecar |
 
 The CLI and HTML report use English. JSON keys, metric names, flags and check IDs are stable identifiers. `doctor` and `capacity` support `--json`.
+
+TUI is available starting in v0.2.0 and uses the same analyzer and public data projections as reports. It does not poll or refresh in the background. Use Tab/Shift+Tab or 1–4 for views, arrows/j/k for navigation, PgUp/PgDn for details, Home/End for the start/end of details or rows, and Q/Esc/Ctrl+C to exit. A small terminal asks you to enlarge it. Existing snapshots are read once; reopen the viewer to load updated data. With `--snapshot`, live collection flags are rejected rather than silently ignored. Snapshot input must be a file; stdin remains available through `doctor --snapshot -`.
+
+When using `tui` over SSH, allocate a terminal (for example `ssh -t` through your normal interactive access). A collection-only forced-command key cannot start TUI. For scripts or output redirection use `doctor`, `capacity` and `report compare`. TUI restores the terminal on normal exit and handled errors/signals; a forced kill such as SIGKILL cannot run cleanup.
 
 `--profile v10.4.0-mocha` is an explicit model assumption, not an observed binary version. Use it only when that assumption is justified. Results go to stdout and diagnostic messages to stderr. Exit code `0` means the command completed, **not** that every check passed; command/input errors return `2`. Automation should inspect finding statuses and collection issues.
 
